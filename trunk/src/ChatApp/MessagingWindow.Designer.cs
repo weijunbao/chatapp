@@ -106,7 +106,7 @@ namespace ChatApp
             this.Controls.Add(this.kryptonSplitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MessagingWindow";
-            this.Text = "MessagingWindow";
+            this.Text = "Messaging Window";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MessagingWindow_FormClosed);
             this.Load += new System.EventHandler(this.MessagingWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();

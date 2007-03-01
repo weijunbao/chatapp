@@ -30,91 +30,90 @@ namespace ChatApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DelContact));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.tbServerName = new System.Windows.Forms.TextBox();
-            this.lblServerName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.lblUserName = new System.Windows.Forms.Label();
             this.tbUserName = new System.Windows.Forms.TextBox();
-            this.lblUserName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblServerName = new System.Windows.Forms.Label();
+            this.tbServerName = new System.Windows.Forms.TextBox();
+            this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblServerName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblUserName)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.tbServerName);
-            this.kryptonPanel1.Controls.Add(this.lblServerName);
-            this.kryptonPanel1.Controls.Add(this.btnOk);
-            this.kryptonPanel1.Controls.Add(this.tbUserName);
             this.kryptonPanel1.Controls.Add(this.lblUserName);
-            this.kryptonPanel1.Location = new System.Drawing.Point(-4, -1);
+            this.kryptonPanel1.Controls.Add(this.tbUserName);
+            this.kryptonPanel1.Controls.Add(this.lblServerName);
+            this.kryptonPanel1.Controls.Add(this.tbServerName);
+            this.kryptonPanel1.Controls.Add(this.btnOk);
+            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(339, 151);
+            this.kryptonPanel1.Size = new System.Drawing.Size(292, 144);
             this.kryptonPanel1.TabIndex = 0;
             this.kryptonPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonPanel1_Paint);
             // 
-            // tbServerName
+            // lblUserName
             // 
-            this.tbServerName.Location = new System.Drawing.Point(99, 47);
-            this.tbServerName.Name = "tbServerName";
-            this.tbServerName.Size = new System.Drawing.Size(130, 20);
-            this.tbServerName.TabIndex = 3;
+            this.lblUserName.BackColor = System.Drawing.Color.Transparent;
+            this.lblUserName.Font = new System.Drawing.Font("Verdana", 9F);
+            this.lblUserName.Location = new System.Drawing.Point(12, 10);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(81, 14);
+            this.lblUserName.TabIndex = 0;
+            this.lblUserName.Text = "User Name:";
+            // 
+            // tbUserName
+            // 
+            this.tbUserName.Location = new System.Drawing.Point(15, 27);
+            this.tbUserName.Name = "tbUserName";
+            this.tbUserName.Size = new System.Drawing.Size(270, 20);
+            this.tbUserName.TabIndex = 1;
             // 
             // lblServerName
             // 
-            this.lblServerName.Location = new System.Drawing.Point(16, 47);
+            this.lblServerName.BackColor = System.Drawing.Color.Transparent;
+            this.lblServerName.Font = new System.Drawing.Font("Verdana", 9F);
+            this.lblServerName.Location = new System.Drawing.Point(12, 64);
             this.lblServerName.Name = "lblServerName";
-            this.lblServerName.Size = new System.Drawing.Size(77, 19);
+            this.lblServerName.Size = new System.Drawing.Size(103, 14);
             this.lblServerName.TabIndex = 2;
-            this.lblServerName.Values.Text = "Server Name:";
+            this.lblServerName.Text = "Server Name:";
+            // 
+            // tbServerName
+            // 
+            this.tbServerName.Location = new System.Drawing.Point(15, 81);
+            this.tbServerName.Name = "tbServerName";
+            this.tbServerName.Size = new System.Drawing.Size(270, 20);
+            this.tbServerName.TabIndex = 3;
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(173, 73);
+            this.btnOk.Location = new System.Drawing.Point(229, 107);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 25);
             this.btnOk.TabIndex = 4;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // tbUserName
-            // 
-            this.tbUserName.Location = new System.Drawing.Point(99, 12);
-            this.tbUserName.Name = "tbUserName";
-            this.tbUserName.Size = new System.Drawing.Size(130, 20);
-            this.tbUserName.TabIndex = 1;
-            // 
-            // lblUserName
-            // 
-            this.lblUserName.Location = new System.Drawing.Point(16, 13);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(68, 19);
-            this.lblUserName.TabIndex = 0;
-            this.lblUserName.Values.Text = "User Name:";
-            this.lblUserName.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonLabel1_Paint);
-            // 
             // DelContact
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(235, 106);
+            this.ClientSize = new System.Drawing.Size(292, 144);
             this.Controls.Add(this.kryptonPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DelContact";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete Contact";
             this.WindowActive = true;
-            this.Load += new System.EventHandler(this.DelContact_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblServerName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblUserName)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -122,10 +121,10 @@ namespace ChatApp
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblUserName;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOk;
         private System.Windows.Forms.TextBox tbUserName;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblServerName;
         private System.Windows.Forms.TextBox tbServerName;
+        internal System.Windows.Forms.Label lblUserName;
+        internal System.Windows.Forms.Label lblServerName;
     }
 }
