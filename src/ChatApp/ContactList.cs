@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Coversant.SoapBox.Base;
-
+//this is contact list
 namespace ChatApp
 {
     public class ContactList
