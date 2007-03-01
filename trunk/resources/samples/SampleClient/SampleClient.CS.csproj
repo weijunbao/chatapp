@@ -1,0 +1,156 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6470CA38-27D8-4207-974B-B5B08BAB0DE0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Coversant.SoapBox.SampleClient</RootNamespace>
+    <AssemblyName>Coversant.SoapBox.SampleClient</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="coversant.corlib, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\coversant\coversant.corlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Coversant.SoapBox, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\coversant\Coversant.SoapBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Coversant.Win32, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\coversant\Coversant.Win32.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChangeNickNameEventArgs.cs" />
+    <Compile Include="ChatRoomTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChatServerMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ContactEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactListUserAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListViewRosterItem.cs" />
+    <Compile Include="LoginRegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.cs" />
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MUCResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MUCResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MultiUserChatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChatServerMenuItem.resx">
+      <DependentUpon>ChatServerMenuItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContactEditForm.resx">
+      <DependentUpon>ContactEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContactListForm.resx">
+      <DependentUpon>ContactListForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContactListUserAddForm.resx">
+      <DependentUpon>ContactListUserAddForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugOutput.resx">
+      <DependentUpon>DebugOutput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginRegisterForm.resx">
+      <DependentUpon>LoginRegisterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MUCResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MUCResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiUserChatForm.resx">
+      <DependentUpon>MultiUserChatForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RoomCommands.cs" />
+    <Compile Include="RoomOccupant.cs" />
+    <Compile Include="SessionManager.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
