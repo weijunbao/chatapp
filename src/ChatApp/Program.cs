@@ -14,21 +14,18 @@ namespace ChatApp
         [STAThread]
         static void Main()
         {
-            // Show the Debug output windwo
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Show the Debug output windwo
             if (Settings.Default.Debug == true)
             {
                 DebugOutput dbgWindow = new DebugOutput();
                 dbgWindow.Show();
             }
 
-
             // ApplicationContext currentAppContext = new ApplicationContext();
             Application.Run(AppController.Instance);
          }
-
     }
 }
