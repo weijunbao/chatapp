@@ -63,6 +63,8 @@ namespace ChatApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
@@ -75,6 +77,7 @@ namespace ChatApp
             ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
+            this.statusContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // chatAppToolStripMenuItem
@@ -268,7 +271,7 @@ namespace ChatApp
             "DND",
             "Invisible",
             "Offline"});
-            this.CbStatus.Location = new System.Drawing.Point(53, 35);
+            this.CbStatus.Location = new System.Drawing.Point(101, 28);
             this.CbStatus.Name = "CbStatus";
             this.CbStatus.Size = new System.Drawing.Size(111, 82);
             this.CbStatus.TabIndex = 18;
@@ -359,6 +362,20 @@ namespace ChatApp
             // 
             this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
             // 
+            // statusContextMenuStrip
+            // 
+            this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3});
+            this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(185, 48);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 22);
+            this.toolStripMenuItem3.Text = "toolStripMenuItem3";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -387,6 +404,7 @@ namespace ChatApp
             ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
+            this.statusContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,6 +447,8 @@ namespace ChatApp
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public System.Windows.Forms.ImageList StatusImageList;
         public System.String currentUser;
+        private System.Windows.Forms.ContextMenuStrip statusContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 
