@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>ChatRoomTabPage.cs</FileName>
+      <HashCode>DYEACRAABEECFgAAADAgEgGIimEIAIAABDMACoAABAA=</HashCode>
+    </TypeIdentifier>
+    <NestedTypes>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.JoinedRoomDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.LeftRoomDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.ChangedNickNameDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.AddMessageDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.HandlePresenceDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.ChatRoomTabPage.LeaveRoomDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ChatRoomTabPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.ContactEditForm" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ContactEditForm.cs</FileName>
+      <HashCode>AAACCAAAECAAAAAAAACAAAACAAAIAAAAAAAAAAAQAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.ContactListForm" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ContactListForm.cs</FileName>
+      <HashCode>AgBAAAgMfjAIAQEkAFCAgAHDCyBBASCABGACoIgAQBg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.ContactListUserAddForm" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <FileName>ContactListUserAddForm.cs</FileName>
+      <HashCode>AAACAAAAECAAAAAAAAAAAAACAAAIAAAAAAAAAEAQAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.DebugOutput" Collapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DebugOutput.cs</FileName>
+      <HashCode>AAIEAAAAACAAAAAAAQCJAAACAgAAAAAIAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.LoginRegisterForm" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>LoginRegisterForm.cs</FileName>
+      <HashCode>eQARGAABGCSCAZSgAAAUBAiiAAABAQACAACUAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.AppMain">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Main.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.MessageForm" Collapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MessageForm.cs</FileName>
+      <HashCode>AAAAChAABDAACFnAAIgBAQBHgAQpAAAAAAAIABEJAEE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.MultiUserChatForm" Collapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>MultiUserChatForm.cs</FileName>
+      <HashCode>WARIAQBZBGQEABISgNDAwEwXgAUACsBlIwTAAgCQHBE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.RoomCommands" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RoomCommands.cs</FileName>
+      <HashCode>AAAAAAAQIAAICAgAAIAAAAEAABkAAIQAIAAQICBEAQg=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.RoomOccupant" Collapsed="true">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RoomOccupant.cs</FileName>
+      <HashCode>BAAAAAAEQAAAAAQEAAAAAACAAAECAAEAAIAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coversant.SoapBox.SampleClient.SessionManager" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <FileName>SessionManager.cs</FileName>
+      <HashCode>AgCACAAIVDAIAQgAAESAQQCOABAQEKCggAARAAkAJAg=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.DoGUIWork" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingMessageDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingPresenceDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingRosterChangeDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingIQErrorDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingIQResultDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Coversant.SoapBox.SampleClient.SessionManager.IncomingAsynchronousExceptionDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SessionManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+</ClassDiagram>
