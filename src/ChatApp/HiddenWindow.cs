@@ -15,6 +15,17 @@ namespace ChatApp
             InitializeComponent();
         }
 
+        protected override System.Windows.Forms.CreateParams CreateParams
+        {
+            get
+            {
+                System.Windows.Forms.CreateParams baseParams = new System.Windows.Forms.CreateParams();
+                baseParams.Style = 0x40000000; //WS_CHILD 
+                baseParams.Caption = "HiddenWindow";
+                return baseParams;
+            }
+        }
+
         private void MnuItemExit_Click(object sender, EventArgs e)
         {
             AppController.Instance.ExitApplication();
