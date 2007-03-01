@@ -102,9 +102,15 @@ namespace ChatApp
         
         void loginWnd_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainWindow m_mainWindow = new MainWindow();
-            //m_mainWindow.Show();
-            Start();
+            LoginWindow wnd = sender as LoginWindow;
+            if (wnd != null && wnd.LoginSuccessful == true)
+            {
+                Start();
+            }
+            else
+            {
+                ExitApplication();
+            }
         }
        
         internal void Activate()
