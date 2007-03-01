@@ -109,12 +109,6 @@
     <Compile Include="LoginWindow.Designer.cs">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow_old.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainWindow_old.Designer.cs">
-      <DependentUpon>MainWindow_old.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginState.cs" />
     <Compile Include="MessageStore.cs" />
     <Compile Include="MessagingWindow.cs">
@@ -160,10 +154,6 @@
     <EmbeddedResource Include="LoginWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>LoginWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow_old.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MainWindow_old.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessagingWindow.resx">
       <SubType>Designer</SubType>
