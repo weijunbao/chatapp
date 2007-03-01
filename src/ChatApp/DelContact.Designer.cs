@@ -57,14 +57,14 @@ namespace ChatApp
             // 
             // tbServerName
             // 
-            this.tbServerName.Location = new System.Drawing.Point(119, 74);
+            this.tbServerName.Location = new System.Drawing.Point(99, 47);
             this.tbServerName.Name = "tbServerName";
             this.tbServerName.Size = new System.Drawing.Size(130, 20);
-            this.tbServerName.TabIndex = 1;
+            this.tbServerName.TabIndex = 3;
             // 
             // lblServerName
             // 
-            this.lblServerName.Location = new System.Drawing.Point(16, 74);
+            this.lblServerName.Location = new System.Drawing.Point(16, 47);
             this.lblServerName.Name = "lblServerName";
             this.lblServerName.Size = new System.Drawing.Size(77, 19);
             this.lblServerName.TabIndex = 2;
@@ -72,23 +72,23 @@ namespace ChatApp
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(248, 111);
+            this.btnOk.Location = new System.Drawing.Point(173, 73);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 25);
-            this.btnOk.TabIndex = 1;
+            this.btnOk.TabIndex = 4;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // tbUserName
             // 
-            this.tbUserName.Location = new System.Drawing.Point(119, 30);
+            this.tbUserName.Location = new System.Drawing.Point(99, 12);
             this.tbUserName.Name = "tbUserName";
             this.tbUserName.Size = new System.Drawing.Size(130, 20);
-            this.tbUserName.TabIndex = 0;
+            this.tbUserName.TabIndex = 1;
             // 
             // lblUserName
             // 
-            this.lblUserName.Location = new System.Drawing.Point(16, 30);
+            this.lblUserName.Location = new System.Drawing.Point(16, 13);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(68, 19);
             this.lblUserName.TabIndex = 0;
@@ -99,7 +99,7 @@ namespace ChatApp
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(332, 147);
+            this.ClientSize = new System.Drawing.Size(235, 106);
             this.Controls.Add(this.kryptonPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
