@@ -27,16 +27,6 @@ namespace ChatApp
             InitializeComponent();
         }
 
-        private void DelContact_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void kryptonLabel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Hide();

@@ -34,7 +34,7 @@ namespace ChatApp
         {
             this.Hide();
 
-            if (tbGname.Text.Trim().Length == 0)
+            if (tbGroupName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You must enter a valid Group name!");
                 DeleteGroup delgWnd = new DeleteGroup();
@@ -54,7 +54,7 @@ namespace ChatApp
                 {
                     contact = m_contacts[i];
                     string groupName = contact.GroupName;
-                    if (groupName.Equals(tbGname.Text, StringComparison.OrdinalIgnoreCase))
+                    if (groupName.Equals(tbGroupName.Text, StringComparison.OrdinalIgnoreCase))
                     {
                         groupexist = true;
                         break;
@@ -63,14 +63,14 @@ namespace ChatApp
 
                 if (groupexist)
                 {
-                    string message = "Are you sure you want to delete group " + tbGname.Text + " and its contacts?";
+                    string message = "Are you sure you want to delete group " + tbGroupName.Text + " and its contacts?";
                     if (DialogResult.Yes == MessageBox.Show(message, "Delete Group", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) ;
                     {
                         for (int i = 0; i < m_contacts.Count; ++i)
                         {
                             contact = m_contacts[i];
                             string groupName = contact.GroupName;
-                            if (groupName.Equals(tbGname.Text, StringComparison.OrdinalIgnoreCase))
+                            if (groupName.Equals(tbGroupName.Text, StringComparison.OrdinalIgnoreCase))
                             {
                                 JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), "");
                                 UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
@@ -91,7 +91,7 @@ namespace ChatApp
                 foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
                 {
 
-                    if (node.Text == tbGname.Text.ToString())
+                    if (node.Text == tbGroupName.Text.ToString())
                     {
                         node.Remove();
                         foreach (TreeNode userNode in node.Nodes)
