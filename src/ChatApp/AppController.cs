@@ -14,6 +14,7 @@ using Coversant.SoapBox.Core.Presence;
 using Coversant.SoapBox.Core.Message;
 using Coversant.SoapBox.Core.IQ.Register;
 using Coversant.SoapBox.Core.IQ;
+using System.Media;
 
 namespace ChatApp
 {
@@ -36,6 +37,8 @@ namespace ChatApp
         private Hashtable m_ActiveChatUsers = null;
         private ComponentFactory.Krypton.Toolkit.KryptonForm CurrentActiveWindow = null;
         private bool HiddenMode = false;
+
+        private SoundPlayer player;
 
 
         //Events used by the MainWindow, ChatWindow to receive packets from the lower level components.
@@ -292,6 +295,11 @@ namespace ChatApp
         public void LoadContactList()
         {
             bool showallcontacts = true;
+
+            SoundPlayer player = new SoundPlayer();
+            player.LoadTimeout = 10000;
+            player.SoundLocation = "C:\\WINDOWS\\Media\\chimes.wav";
+            player.Play();
             
             // Get the Roster response synchronously
             RosterResponse roster = (RosterResponse)m_sessionMgr.Send(new RosterRequest());
