@@ -82,7 +82,8 @@ namespace ChatApp
 
         private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
+            MessagingWindow msgWindow = new MessagingWindow();
+            msgWindow.Show();
         }
 
         public void UpdateContactList(bool showallcontacts)
