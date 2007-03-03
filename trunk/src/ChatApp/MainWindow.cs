@@ -11,6 +11,7 @@ using Coversant.SoapBox.Core;
 using Coversant.SoapBox.Base;
 using Coversant.SoapBox.Core.Message;
 using ComponentFactory.Krypton;
+using System.Media;
 
 namespace ChatApp
 {
@@ -252,6 +253,11 @@ namespace ChatApp
 
                     LoginState state = LoginState.Offline;
                     string userName = availableReq.From.UserName;
+
+                    SoundPlayer player = new SoundPlayer();
+                    player.LoadTimeout = 10000;
+                    player.SoundLocation = "C:\\WINDOWS\\Media\\notify.wav";
+                    player.Play();
 
 
                     if (availableReq.Status.Equals("online", StringComparison.OrdinalIgnoreCase))
