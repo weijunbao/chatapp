@@ -154,54 +154,36 @@ namespace ChatApp
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
 
-        private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddContactMenuItem_Click(object sender, EventArgs e)
         {
-            AddContact addWnd = new AddContact();
-            addWnd.Show();
+            AddContact AddContactWnd = new AddContact();
+            AddContactWnd.ShowDialog();
+            AddContactWnd.Dispose();
+            AddContactWnd = null;
         }
 
-        private void deleteContactToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteContactMenuItem_Click(object sender, EventArgs e)
         {
             DelContact delWnd = new DelContact();
             delWnd.Show();
         }
 
-        private void editGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EditGroupMenuItem_Click(object sender, EventArgs e)
         {
             EditGroup editWnd = new EditGroup();
             editWnd.Show();
         }
 
-        private void editContactToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EditContactMenuItem_Click(object sender, EventArgs e)
         {
             EditContact editWnd = new EditContact();
             editWnd.Show();
         }
 
-        private void deleteGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteGroupMenuItem_Click(object sender, EventArgs e)
         {
             DeleteGroup delgWnd = new DeleteGroup();
             delgWnd.Show();
-        }
-
-
-        /// <summary>
-        /// Update the tree view acoording to the names
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void sortByNameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Contact contact = null;
-            TreeNode namelistnode = new TreeNode();
-            ContactList m_contacts = AppController.Instance.Contacts;
-            tvContacts.Nodes.Clear();
-            for (int i = 0; i < m_contacts.Count; ++i)
-            {
-                contact = m_contacts[i];
-                namelistnode = tvContacts.Nodes.Add(contact.UserName);
-            }
-            UpdateContactList();
         }
 
         /// <summary>

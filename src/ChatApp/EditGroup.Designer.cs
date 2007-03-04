@@ -50,7 +50,7 @@ namespace ChatApp
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(292, 146);
+            this.kryptonPanel1.Size = new System.Drawing.Size(292, 144);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // lblOldGroup
@@ -91,9 +91,9 @@ namespace ChatApp
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(212, 106);
+            this.btnOk.Location = new System.Drawing.Point(210, 106);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(73, 25);
+            this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -103,14 +103,15 @@ namespace ChatApp
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 146);
+            this.ClientSize = new System.Drawing.Size(292, 144);
             this.Controls.Add(this.kryptonPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditGroup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Group";
-            this.WindowActive = true;
-            this.Load += new System.EventHandler(this.EditGroup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();

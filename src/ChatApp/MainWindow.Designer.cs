@@ -48,8 +48,6 @@ namespace ChatApp
             this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.sortByNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,21 +136,21 @@ namespace ChatApp
             this.addContactToolStripMenuItem.Name = "addContactToolStripMenuItem";
             this.addContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.addContactToolStripMenuItem.Text = "Add Contact";
-            this.addContactToolStripMenuItem.Click += new System.EventHandler(this.addContactToolStripMenuItem_Click);
+            this.addContactToolStripMenuItem.Click += new System.EventHandler(this.AddContactMenuItem_Click);
             // 
             // editContactToolStripMenuItem
             // 
             this.editContactToolStripMenuItem.Name = "editContactToolStripMenuItem";
             this.editContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.editContactToolStripMenuItem.Text = "Edit Contact";
-            this.editContactToolStripMenuItem.Click += new System.EventHandler(this.editContactToolStripMenuItem_Click);
+            this.editContactToolStripMenuItem.Click += new System.EventHandler(this.EditContactMenuItem_Click);
             // 
             // deleteContactToolStripMenuItem
             // 
             this.deleteContactToolStripMenuItem.Name = "deleteContactToolStripMenuItem";
             this.deleteContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.deleteContactToolStripMenuItem.Text = "Delete Contact";
-            this.deleteContactToolStripMenuItem.Click += new System.EventHandler(this.deleteContactToolStripMenuItem_Click);
+            this.deleteContactToolStripMenuItem.Click += new System.EventHandler(this.DeleteContactMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -164,22 +162,20 @@ namespace ChatApp
             this.editGroupToolStripMenuItem.Name = "editGroupToolStripMenuItem";
             this.editGroupToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.editGroupToolStripMenuItem.Text = "Rename Group";
-            this.editGroupToolStripMenuItem.Click += new System.EventHandler(this.editGroupToolStripMenuItem_Click);
+            this.editGroupToolStripMenuItem.Click += new System.EventHandler(this.EditGroupMenuItem_Click);
             // 
             // deleteGroupToolStripMenuItem
             // 
             this.deleteGroupToolStripMenuItem.Name = "deleteGroupToolStripMenuItem";
             this.deleteGroupToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.deleteGroupToolStripMenuItem.Text = "Delete Group";
-            this.deleteGroupToolStripMenuItem.Click += new System.EventHandler(this.deleteGroupToolStripMenuItem_Click);
+            this.deleteGroupToolStripMenuItem.Click += new System.EventHandler(this.DeleteGroupMenuItem_Click);
             // 
             // actionsToolStripMenuItem
             // 
             this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setStatusMenuItem,
             this.startAToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.sortByNameToolStripMenuItem,
             this.sortByGroupToolStripMenuItem});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
@@ -201,6 +197,7 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.OwnerItem = this.setStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
@@ -208,7 +205,7 @@ namespace ChatApp
             this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
             this.awayMenuItem.Name = "awayMenuItem";
             this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.awayMenuItem.Tag = LoginState.Away;
+            this.awayMenuItem.Tag = ChatApp.LoginState.Away;
             this.awayMenuItem.Text = "Away";
             this.awayMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
@@ -217,7 +214,7 @@ namespace ChatApp
             this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
             this.onlineMenuItem.Name = "onlineMenuItem";
             this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.onlineMenuItem.Tag = LoginState.Online;
+            this.onlineMenuItem.Tag = ChatApp.LoginState.Online;
             this.onlineMenuItem.Text = "Online";
             this.onlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
@@ -226,7 +223,7 @@ namespace ChatApp
             this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
             this.busyMenuItem.Name = "busyMenuItem";
             this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.busyMenuItem.Tag = LoginState.Busy;
+            this.busyMenuItem.Tag = ChatApp.LoginState.Busy;
             this.busyMenuItem.Text = "Busy";
             this.busyMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
@@ -235,7 +232,7 @@ namespace ChatApp
             this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
             this.offlineMenuItem.Name = "offlineMenuItem";
             this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.offlineMenuItem.Tag = LoginState.Offline;
+            this.offlineMenuItem.Tag = ChatApp.LoginState.Offline;
             this.offlineMenuItem.Text = "Offline";
             this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
@@ -245,18 +242,6 @@ namespace ChatApp
             this.startAToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.startAToolStripMenuItem.Text = "Start a chat";
             this.startAToolStripMenuItem.Click += new System.EventHandler(this.StartChatMenuItem_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(167, 6);
-            // 
-            // sortByNameToolStripMenuItem
-            // 
-            this.sortByNameToolStripMenuItem.Name = "sortByNameToolStripMenuItem";
-            this.sortByNameToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.sortByNameToolStripMenuItem.Text = "Sort by name";
-            this.sortByNameToolStripMenuItem.Click += new System.EventHandler(this.sortByNameToolStripMenuItem_Click);
             // 
             // sortByGroupToolStripMenuItem
             // 
@@ -276,7 +261,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // rootPanel
@@ -450,10 +435,8 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem editGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sortByNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortByGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.BindingSource form1BindingSource;

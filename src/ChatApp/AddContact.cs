@@ -27,24 +27,12 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (tbUserName.Text.Trim().Length == 0)
+            if(ValidateInput() == false)
             {
-                MessageBox.Show("You must enter a User ID for your Contact");
-                return;
-            }
-            
-            if (tbServerName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a Server for your Contact");
+                DialogResult = DialogResult.None;
                 return;
             }
 
-            if (tbGroupName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a Group for your Contact");
-                return;
-            }
-            
             JabberID JID = null;
             string message = "The User ID you entered is not valid. Please enter a valid User ID";
             try
@@ -54,21 +42,23 @@ namespace ChatApp
                     JID.Server.Length == 0)
                 {
                     MessageBox.Show(message, "Invalid UserID");
+                    DialogResult = DialogResult.None;
                     return;
                 }
             }
             catch
             {
                 MessageBox.Show(message, "Invalid UserID");
+                DialogResult = DialogResult.None;
                 return;
             }
-
             Contact newContact = new Contact(JID, tbGroupName.Text.Trim(), LoginState.Offline);
             foreach (Contact contact in AppController.Instance.Contacts)
             {
                 if (contact.Equals(newContact))
                 {
                     MessageBox.Show("Contact already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult = DialogResult.None;
                     return;
                 }
             }
@@ -80,14 +70,31 @@ namespace ChatApp
             AppController.Instance.MainWindow.UpdateContactList();
         }
 
-        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
+        private bool ValidateInput()
         {
+            if (tbUserName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a User ID for your Contact");
+                return false;
+            }
 
-        }
+            if (tbServerName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a Server for your Contact");
+                return false;
+            }
 
-        private void AddContact_Load(object sender, EventArgs e)
-        {
+            if (tbGroupName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a Group for your Contact");
+                return false;
+            }
 
+            
+
+            
+
+            return true;
         }
     }
 }
