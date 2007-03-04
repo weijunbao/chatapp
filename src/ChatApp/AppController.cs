@@ -30,16 +30,12 @@ namespace ChatApp
         private static AppController m_Controller = null;
         private JabberID m_currentUser = null;
         private MainWindow m_mainWindow = null;
-        private LoginWindow m_loginWnd = null;
         AvailableRequest m_currentPresence;
         private ContactList m_contacts;
         //private SessionManager m_sessioMgr;
         private Hashtable m_ActiveChatUsers = null;
         private ComponentFactory.Krypton.Toolkit.KryptonForm CurrentActiveWindow = null;
         private bool HiddenMode = false;
-
-        private SoundPlayer player;
-
 
         //Events used by the MainWindow, ChatWindow to receive packets from the lower level components.
         public delegate void IncomingMessageDelegate(AbstractMessagePacket IncomingMessagePacket);
@@ -155,7 +151,7 @@ namespace ChatApp
             {
                 MessageBox.Show(string.Concat("Unable to Login :", ex.Message), "Login Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Login failed. Please check the username and password and try again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ResetSession();

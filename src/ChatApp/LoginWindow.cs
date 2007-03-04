@@ -95,7 +95,7 @@ namespace ChatApp
             {
                 this.Cursor = Cursors.WaitCursor;
                 this.Text = string.Format("{0}  -  Validating Server Name", baseCaption);
-                System.Net.IPHostEntry IP = System.Net.Dns.GetHostByName(hostName);
+                System.Net.IPHostEntry IP = System.Net.Dns.GetHostEntry(hostName);
             }
             catch
             {

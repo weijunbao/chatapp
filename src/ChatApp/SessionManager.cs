@@ -61,8 +61,8 @@ namespace ChatApp
         public delegate void IncomingAsynchronousExceptionDelegate(Exception ReceivedException);
         #endregion
 
-        public event AppController.IncomingMessageDelegate IncomingMessage;
-        public event IncomingAsynchronousExceptionDelegate IncomingAsynchronousException;
+        //public event AppController.IncomingMessageDelegate IncomingMessage;
+        //public event IncomingAsynchronousExceptionDelegate IncomingAsynchronousException;
 
         //Loads the trace GUI
         private void LoadTrace() 

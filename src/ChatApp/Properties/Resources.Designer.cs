@@ -66,5 +66,12 @@ namespace ChatApp.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap user48 {
+            get {
+                object obj = ResourceManager.GetObject("user48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

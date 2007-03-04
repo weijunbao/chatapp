@@ -20,16 +20,10 @@ namespace ChatApp
     public partial class AddContact : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
         
-        private ContactList m_contacts;
-        
         public AddContact()
         {
             InitializeComponent();
         }
-
-
-          
-
 
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -77,9 +71,6 @@ namespace ChatApp
                 MessageBox.Show(string.Format("The following exception has occurred:\n\n{0}.", ex));
             }
 
-        
-            
-
             MainWindow m_mainWindow = AppController.Instance.MainWindow;
             ContactList m_contacts = AppController.Instance.Contacts;
             bool showallcontacts = true;
@@ -119,7 +110,6 @@ namespace ChatApp
             }
             
             m_mainWindow.UpdateContactList(showallcontacts);
-
         }
 
         private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
@@ -131,8 +121,5 @@ namespace ChatApp
         {
 
         }
-
-      
     }
-
 }

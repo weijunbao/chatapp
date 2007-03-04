@@ -61,7 +61,6 @@ namespace ChatApp
     public class Contact
     {
         private string m_userName;
-        private JabberID m_jabberId;
         private string m_fullName;
         private string m_resource;
         private string m_serverName;

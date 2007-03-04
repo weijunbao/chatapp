@@ -32,7 +32,7 @@ namespace ChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.myProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,14 +59,14 @@ namespace ChatApp
             this.lblStatus = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnLogout = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblWelcome)).BeginInit();
@@ -75,9 +75,9 @@ namespace ChatApp
             ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).BeginInit();
+            this.statusContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
-            this.statusContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // chatAppToolStripMenuItem
@@ -104,19 +104,19 @@ namespace ChatApp
             this.preferenceToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.preferenceToolStripMenuItem.Text = "Preferences";
             // 
-            // menuStrip1
+            // mainMenuStrip
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contactsToolStripMenuItem,
             this.actionsToolStripMenuItem,
             chatAppToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(330, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(330, 24);
+            this.mainMenuStrip.TabIndex = 0;
+            this.mainMenuStrip.Text = "menuStrip1";
             // 
             // contactsToolStripMenuItem
             // 
@@ -255,7 +255,7 @@ namespace ChatApp
             // 
             // lblWelcome
             // 
-            this.lblWelcome.Location = new System.Drawing.Point(51, 3);
+            this.lblWelcome.Location = new System.Drawing.Point(67, 3);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(57, 19);
             this.lblWelcome.TabIndex = 20;
@@ -271,7 +271,7 @@ namespace ChatApp
             "DND",
             "Invisible",
             "Offline"});
-            this.CbStatus.Location = new System.Drawing.Point(101, 28);
+            this.CbStatus.Location = new System.Drawing.Point(216, 39);
             this.CbStatus.Name = "CbStatus";
             this.CbStatus.Size = new System.Drawing.Size(111, 82);
             this.CbStatus.TabIndex = 18;
@@ -281,10 +281,10 @@ namespace ChatApp
             // kryptonPanel2
             // 
             this.kryptonPanel2.Controls.Add(this.tvContacts);
-            this.kryptonPanel2.Location = new System.Drawing.Point(13, 43);
+            this.kryptonPanel2.Location = new System.Drawing.Point(13, 57);
             this.kryptonPanel2.Name = "kryptonPanel2";
             this.kryptonPanel2.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.HeaderPrimary;
-            this.kryptonPanel2.Size = new System.Drawing.Size(304, 513);
+            this.kryptonPanel2.Size = new System.Drawing.Size(304, 499);
             this.kryptonPanel2.TabIndex = 17;
             // 
             // tvContacts
@@ -295,7 +295,7 @@ namespace ChatApp
             this.tvContacts.Location = new System.Drawing.Point(0, 0);
             this.tvContacts.Name = "tvContacts";
             this.tvContacts.SelectedImageIndex = 3;
-            this.tvContacts.Size = new System.Drawing.Size(304, 513);
+            this.tvContacts.Size = new System.Drawing.Size(304, 499);
             this.tvContacts.TabIndex = 0;
             this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
             // 
@@ -311,7 +311,7 @@ namespace ChatApp
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(52, 18);
+            this.lblStatus.Location = new System.Drawing.Point(67, 32);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(43, 19);
             this.lblStatus.TabIndex = 16;
@@ -336,19 +336,6 @@ namespace ChatApp
             this.BtnLogout.Values.Text = "Logout";
             this.BtnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
-            this.pictureBox1.ImageLocation = "D:\\Utils\\ICONS\\icons\\user_red.png";
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(13, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(33, 34);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            // 
             // tbSearch
             // 
             this.tbSearch.Location = new System.Drawing.Point(13, 562);
@@ -358,23 +345,38 @@ namespace ChatApp
             this.tbSearch.TabIndex = 8;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
-            // form1BindingSource
-            // 
-            this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
-            // 
             // statusContextMenuStrip
             // 
             this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem3});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.Size = new System.Drawing.Size(185, 48);
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(185, 26);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 22);
             this.toolStripMenuItem3.Text = "toolStripMenuItem3";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = global::ChatApp.Properties.Resources.user48;
+            this.pictureBox1.ImageLocation = "";
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(13, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // form1BindingSource
+            // 
+            this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
             // 
             // MainWindow
             // 
@@ -383,16 +385,17 @@ namespace ChatApp
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(330, 628);
             this.Controls.Add(this.kryptonPanel1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.mainMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.mainMenuStrip;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
+            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
@@ -402,9 +405,9 @@ namespace ChatApp
             ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).EndInit();
+            this.statusContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
-            this.statusContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,7 +415,7 @@ namespace ChatApp
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem myProfileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
