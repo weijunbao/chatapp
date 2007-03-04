@@ -30,7 +30,6 @@ namespace ChatApp
         public void UpdateContactList()
         {
             tvContacts.BeginUpdate();
-
             tvContacts.Nodes.Clear();
 
             foreach (Contact contact in AppController.Instance.Contacts)
@@ -41,60 +40,15 @@ namespace ChatApp
                 GroupNode.Nodes.Add(newNode);
             }
             tvContacts.ExpandAll();
-
             tvContacts.EndUpdate();
-
-            /*
-            Contact contact = null;
-            ContactList m_contacts = AppController.Instance.Contacts;
-            for (int index = 0; index < m_contacts.Count; ++index)
-            {
-                contact = m_contacts[index];
-                string groupName = contact.GroupName;
-
-                TreeNode groupNode = new TreeNode(groupName);
-
-                bool bAddGroup = true;
-                foreach (TreeNode node in tvContacts.Nodes)
-                {
-                    // If the tree already contain this group, do not add it
-                    if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        groupNode = node;
-                        bAddGroup = false;
-                        break;
-                    }
-                }
-                bool bAddContact = true;
-                if (showallcontacts == false)
-                {
-                    if (contact.UserStatus == LoginState.Offline)
-                    {
-                        bAddContact = false;
-                    }
-                }
-                if (bAddContact)
-                {
-                    TreeNode node = groupNode.Nodes.Add(contact.UserName);
-                    node.Tag = contact.JabberId.JabberIDNoResource;
-                }
-
-                if (bAddGroup)
-                {
-                    groupNode.ImageIndex = 4;
-                    groupNode.SelectedImageIndex = 4;
-                    tvContacts.Nodes.Add(groupNode);
-                }
-            }
-            if (showallcontacts)
-            {
-                tvContacts.ExpandAll();
-            }
-            */
         }
 
         private TreeNode GetGroupNodeFor(string GroupName)
         {
+            if (GroupName.Length == 0)
+            {
+                GroupName = "No Group";
+            }
             if (tvContacts.Nodes.ContainsKey(GroupName))
             {
                 return tvContacts.Nodes[GroupName];
@@ -110,10 +64,13 @@ namespace ChatApp
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            AppController.Instance.SetAvailableRequest();
             if (AppController.Instance.CurrentUser.UserName.Length >= 0)
             {
                 lblWelcome.Text = AppController.Instance.CurrentUser.UserName;
             }
+
+            UpdateContactList();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -133,19 +90,6 @@ namespace ChatApp
             statusContextMenuStrip.Show(control, scrnPoint);
         }
 
-        private void CbStatus_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            //CbStatus.Visible = false;
-            //lblStatus.Text = CbStatus.SelectedItem.ToString();
-            //AvailableRequest presence = new AvailableRequest();
-            //presence.Status = lblStatus.Text;
-            //if (presence.Status.Equals("Invisible"))
-            //{
-            //    presence.Status = "Offline";
-            //}
-            //AppController.Instance.SendCurrentPresence(presence);
-        }
-
         private void BtnLogout_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -157,176 +101,24 @@ namespace ChatApp
 
         private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            MessagingWindow msgWindow = new MessagingWindow();
+            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow((string)e.Node.Tag);
             msgWindow.Show();
-        }
-
-        public void UpdateUserStatusIcon()
-        {
-            Contact contact = null;
-            ContactList m_contacts = AppController.Instance.Contacts;
-
-            foreach (TreeNode node in tvContacts.Nodes)
-            {
-                contact = m_contacts[node.Text.ToString()];
-                if (contact != null)
-                    SetStatusIcon(node, contact.UserStatus);
-                else
-                {
-                    foreach (TreeNode userNode in node.Nodes)
-                    {
-                        contact = m_contacts[userNode.Text.ToString()];
-                        if (contact != null)
-                        {
-                            SetStatusIcon(userNode, contact.UserStatus);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void SetStatusIcon(TreeNode node, LoginState state)
-        {
-            switch (state)
-            {
-                case LoginState.Online:
-                    node.ImageIndex = 0;
-                    node.SelectedImageIndex = 0;
-                    break;
-                case LoginState.Away:
-                    node.ImageIndex = 1;
-                    node.SelectedImageIndex = 1;
-                    break;
-                case LoginState.Busy:
-                    node.ImageIndex = 2;
-                    node.SelectedImageIndex = 2;
-                    break;
-                case LoginState.Offline:
-                    node.ImageIndex = 3;
-                    node.SelectedImageIndex = 3;
-                    break;
-                default:
-                    node.ImageIndex = 2;
-                    node.SelectedImageIndex = 2;
-                    break;
-            }
         }
 
         private void OnIncomingPresence(PresencePacket incomingPresencePacket)
         {
             this.Invoke(new Session.PacketReceivedDelegate(IncomingAsycPresenceThreadSafe), new object[] { incomingPresencePacket });
-
         }
 
         private void IncomingAsycPresenceThreadSafe(Packet incomingPresencePacket)
         {
             PresencePacket IncomingPresencePacket = incomingPresencePacket as PresencePacket;
 
-            if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.ProbeRequest)
+            if (IncomingPresencePacket is AvailableRequest || IncomingPresencePacket is UnavailableRequest) 
             {
-                //A Probe means we should send our presence to the probing entity
-                //Maybe we should get some user input here.  Not really sure if theyd want to know, though.
-                AppController.Instance.SendCurrentPresence(IncomingPresencePacket.From);
+                AppController.Instance.PlaySound();
+                UpdateContactList();
             }
-            /*else if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.SubscribeRequest)
-            {
-                string displayString = String.Format("Allow User '{0}; to subscribe to your presence?", IncomingPresencePacket.From.JabberIDNoResource);
-                if (MessageBox.Show(displayString, "Subscription Request", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    SubscribedResponse resp = new SubscribedResponse(IncomingPresencePacket.From);
-                    _SessionManager.Send(resp);
-
-                    SubscribeRequest subscribe = new SubscribeRequest(new JabberID(IncomingPresencePacket.From.JabberIDNoResource));
-                    _SessionManager.Send(subscribe);
-                }
-                else
-                {
-                    UnsubscribedResponse resp = new UnsubscribedResponse();
-                    resp.To = IncomingPresencePacket.From;
-                    _SessionManager.Send(resp);
-                }
-            }
-            else if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.SubscribedResponse)
-            {
-                //Let the user know when someone accepts our subscription request
-                string displayString = String.Format("User '{0}' has accepted your presence subscription request.", IncomingPresencePacket.From.JabberIDNoResource);
-                MessageBox.Show(displayString, "Subscription Accept", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.UnsubscribedResponse)
-            {
-                //Let the user know when someone revoked our presence subscription
-
-                string displayString = String.Format("User '{0}' rejected your reqeust.", IncomingPresencePacket.From.JabberIDNoResource);
-                MessageBox.Show(displayString, "Subscription Denied", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.ErrorResponse)
-            {
-                //Let the user know of any presence errors that are received
-                //Dim PresenceError As SoapBox.Core.Presence.ErrorResponse = CType(IncomingPresencePacket, SoapBox.Core.Presence.ErrorResponse)
-                //MsgBox("The following presence error was received:" & vbCrLf & vbCrLf & "Code: " & PresenceError.ErrorCode & vbCrLf & "Text: " & PresenceError.ErrorText, MsgBoxStyle.Exclamation, "Presence Error")
-            }*/
-            else
-                if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.AvailableRequest)
-                {
-                    AvailableRequest availableReq = WConvert.ToAvailableRequest(IncomingPresencePacket);
-
-                    LoginState state = LoginState.Offline;
-                    string userName = availableReq.From.UserName;
-
-                    SoundPlayer player = new SoundPlayer();
-                    player.LoadTimeout = 10000;
-                    player.SoundLocation = "C:\\WINDOWS\\Media\\notify.wav";
-                    player.Play();
-
-
-                    if (availableReq.Status.Equals("online", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Online;
-                    }
-                    else if (availableReq.Status.Equals("busy", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Busy;
-                    }
-
-                    else if (availableReq.Status.Equals("Away", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Away;
-                    }
-
-                    else if (availableReq.Status.Equals("Do not Disturb", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Busy;
-                    }
-                    else if (availableReq.Status.Equals("On Phone", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Busy;
-                    }
-                    else if (availableReq.Status.Equals("Free To Chat", StringComparison.OrdinalIgnoreCase))
-                    {
-                        state = LoginState.Online;
-                    }
-                    else
-                    {
-                        state = LoginState.Away;
-                    }
-
-
-                    Contact contact = AppController.Instance.Contacts[userName];
-                    if (contact != null)
-                        contact.UserStatus = state;
-                    UpdateUserStatusIcon();
-                }
-                else if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.UnavailableRequest)
-                {
-
-                    UnavailableRequest avail = WConvert.ToUnavailableRequest(IncomingPresencePacket);
-                    string userName = avail.From.UserName;
-                    Contact contact = AppController.Instance.Contacts[userName];
-                    contact.UserStatus = LoginState.Offline;
-
-                    UpdateUserStatusIcon();
-                }
-
         }
 
         private void OnIncomingMessage(AbstractMessagePacket IncomingMessagePacket)
@@ -353,12 +145,12 @@ namespace ChatApp
             }
         }
 
-        private void IncomingAsyncMessage(Packet p)
+        private void IncomingAsyncMessage(Packet packet)
         {
-            MessagePacket IncomingMessage = p as MessagePacket;
-            // Iterate through the list of jabber ids and check whether it is already added
+            MessagePacket IncomingMessage = packet as MessagePacket;
 
-            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(p.From.JabberIDNoResource);
+            // Iterate through the list of jabber ids and check whether it is already added
+            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(packet.From.JabberIDNoResource);
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
 
@@ -403,18 +195,13 @@ namespace ChatApp
             Contact contact = null;
             TreeNode namelistnode = new TreeNode();
             ContactList m_contacts = AppController.Instance.Contacts;
-            //MainWindow msgwnd = new MainWindow(); 
             tvContacts.Nodes.Clear();
             for (int i = 0; i < m_contacts.Count; ++i)
             {
-
                 contact = m_contacts[i];
                 namelistnode = tvContacts.Nodes.Add(contact.UserName);
-                //SetStatusIcon(namelistnode, contact.UserStatus);
             }
-            tvContacts.Show();
-            tvContacts.ExpandAll();
-            UpdateUserStatusIcon();
+            UpdateContactList();
         }
 
         /// <summary>
@@ -455,14 +242,7 @@ namespace ChatApp
                     tvContacts.Nodes.Add(groupNode);
                 }
             }
-            tvContacts.ExpandAll();
-            UpdateUserStatusIcon();
-        }
-
-        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            m_mainWindow.Show();
+            UpdateContactList();
         }
 
         private void MnuExit_Click(object sender, EventArgs e)
@@ -470,20 +250,6 @@ namespace ChatApp
             Application.Exit();
         }
 
-        private void TrayIcon_DoubleClick(object sender, EventArgs e)
-        {
-            this.Activate();
-        }
-
-        private void TrayIcon_Click(object sender, EventArgs e)
-        {
-            this.Activate();
-        }
-
-        private void chatAppToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Show the contacts types on the serach box
@@ -492,37 +258,18 @@ namespace ChatApp
         /// <param name="e"></param>
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            string searchtxt = null;
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            searchtxt = tbSearch.Text.ToString();
-            m_mainWindow.Searchcontact(searchtxt);
+            Searchcontact(tbSearch.Text);
         }
 
-        private void Searchcontact(string cntact)
+        private void Searchcontact(string contact)
         {
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            Contact contact = null;
-            ContactList m_contacts = AppController.Instance.Contacts;
-            tvContacts.Nodes.Clear();
-
-            if (cntact == "")
+            foreach (TreeNode node in tvContacts.Nodes)
             {
-                UpdateContactList();
-            }
-            else
-            {
-                for (int i = 0; i < m_contacts.Count; ++i)
+                if (node.Name.StartsWith(contact))
                 {
-                    contact = m_contacts[i];
-                    string contactgot = contact.UserName.ToString();
-                    if (contactgot.StartsWith(cntact))
-                    {
-                        tvContacts.Nodes.Add(contact.UserName);
-                    }
+                    tvContacts.SelectedNode = node;
                 }
             }
-            tvContacts.ExpandAll();
-            UpdateUserStatusIcon();
         }
 
         /// <summary>
@@ -532,19 +279,24 @@ namespace ChatApp
         /// <param name="e"></param>
         private void startAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (tvContacts.Enabled)
-                {
-                    currentUser = tvContacts.SelectedNode.Text.ToString();
-                    string jabberIdWithNoResource = (string)tvContacts.SelectedNode.Tag;
-                    AppController.Instance.GetMessagingWindow(jabberIdWithNoResource);
-                }
-            }
-            catch
+            if (null == tvContacts.SelectedNode)
             {
                 MessageBox.Show("Select a contact", "Contact not selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            string jabberIdWithNoResource = (string)tvContacts.SelectedNode.Tag;
+            AppController.Instance.GetMessagingWindow(jabberIdWithNoResource).Show(this);
         }
+
+        private void StatusMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            LoginState state = (LoginState)menuItem.Tag;
+            AppController.Instance.SendCurrentPresence(state);
+
+            lblStatus.Values.Image = StatusImageList.Images[(int)state];
+            lblStatus.Values.Text = state.ToString();
+        }
+
     }
 }

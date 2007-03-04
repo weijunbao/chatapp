@@ -27,89 +27,57 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            if (tbUserName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a User ID for your Contact");
+                return;
+            }
+            
+            if (tbServerName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a Server for your Contact");
+                return;
+            }
 
+            if (tbGroupName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a Group for your Contact");
+                return;
+            }
+            
+            JabberID JID = null;
+            string message = "The User ID you entered is not valid. Please enter a valid User ID";
             try
             {
-                if (tbUserName.Text.Trim().Length == 0)
+                JID = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), Properties.Settings.Default.Resource);
+                if (JID.UserName.Length == 0 ||
+                    JID.Server.Length == 0)
                 {
-                    MessageBox.Show("You must enter a User ID for your Contact");
+                    MessageBox.Show(message, "Invalid UserID");
                     return;
                 }
-                
-                if (tbServerName.Text.Trim().Length == 0)
-                {
-                    MessageBox.Show("You must enter a Server for your Contact");
-                    return;
-                }
-
-                if (tbGroupName.Text.Trim().Length == 0)
-                {
-                    MessageBox.Show("You must enter a Group for your Contact");
-                    return;
-                }
-
-                try
-                {
-                    JabberID J = new JabberID(tbUserName.Text.ToString(),tbServerName.Text.ToString(),"");
-                    if (J.UserName.Length == 0 ||
-                        J.Server.Length == 0)
-                    {
-                        MessageBox.Show("The User ID you entered is not valid. Please enter a valid User ID", "Invalid UserID");
-                        return;
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show("The User ID you entered is not valid. Please enter a valid User ID", "Invalid UserID");
-                    return;
-                }
-
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(string.Format("The following exception has occurred:\n\n{0}.", ex));
+                MessageBox.Show(message, "Invalid UserID");
+                return;
             }
 
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            ContactList m_contacts = AppController.Instance.Contacts;
-            bool showallcontacts = true;
-            bool contactadd = true;
-            Contact c;
-            
-            Contact contact = new Contact(tbUserName.Text.ToString(), 
-                                            tbUserName.Text.ToString(), 
-                                            Properties.Settings.Default.Resource, 
-                                            tbServerName.Text.ToString(), 
-                                            tbGroupName.Text.ToString(), 
-                                            LoginState.Offline);
-           
-
-            for (int i = 0; i < m_contacts.Count; i++)
+            Contact newContact = new Contact(JID, tbGroupName.Text.Trim(), LoginState.Offline);
+            foreach (Contact contact in AppController.Instance.Contacts)
             {
-                c = m_contacts[i];
-                if ((c.UserName.Equals(contact.UserName, StringComparison.OrdinalIgnoreCase))&&(c.ServerName.Equals(contact.ServerName, StringComparison.OrdinalIgnoreCase)))
+                if (contact.Equals(newContact))
                 {
-                    MessageBox.Show("Contact already exists!","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                    contactadd = false;
-                    break;
+                    MessageBox.Show("Contact already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
 
-            if (contactadd)
-            {
-                m_contacts.AddContact(contact);
-                
-                
-                JabberID Jid = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), "");
-                SubscribeRequest p = new SubscribeRequest(Jid);
-                SessionManager m_sessionMgr = AppController.Instance.SessionManager;
-                m_sessionMgr.Send(p);
-                m_sessionMgr.BeginSend(new RosterAdd(Jid, tbUserName.Text.ToString(), tbGroupName.Text.ToString()));
-           
-            }
-            
-            m_mainWindow.UpdateContactList(showallcontacts);
+            SubscribeRequest subscribeRequest = new SubscribeRequest(JID);
+            AppController.Instance.SessionManager.Send(subscribeRequest);
+            AppController.Instance.SessionManager.BeginSend(new RosterAdd(JID, tbUserName.Text.Trim(), tbGroupName.Text.Trim()));
+            AppController.Instance.Contacts.Add(newContact);
+            AppController.Instance.MainWindow.UpdateContactList();
         }
 
         private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
