@@ -386,6 +386,16 @@ namespace ChatApp
 
         private void ResetSession()
         {
+            this.m_currentUser = null;
+            this.CurrentActiveWindow = null;
+            this.Contacts.Clear();
+            this.m_ActiveChatUsers.Clear();
+
+            if (null != m_mainWindow)
+            {
+                m_mainWindow.Dispose();
+                m_mainWindow = null;
+            }
             if (m_sessionMgr != null)
             {
                 m_sessionMgr.Dispose();
