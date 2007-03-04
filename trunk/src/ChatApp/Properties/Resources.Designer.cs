@@ -67,6 +67,34 @@ namespace ChatApp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap status_away {
+            get {
+                object obj = ResourceManager.GetObject("status_away", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap status_busy {
+            get {
+                object obj = ResourceManager.GetObject("status_busy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap status_offline {
+            get {
+                object obj = ResourceManager.GetObject("status_offline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap status_online {
+            get {
+                object obj = ResourceManager.GetObject("status_online", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap user48 {
             get {
                 object obj = ResourceManager.GetObject("user48", resourceCulture);
