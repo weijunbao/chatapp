@@ -17,6 +17,12 @@ namespace ChatApp
         {
             get
             {
+                //string rawName = userName;
+                //if (rawName.Contains('@') == true)
+                //{
+                //    int index = rawName.IndexOf('@');
+                //    rawName = rawName.Substring(0, index);
+                //}
                 foreach (Contact contact in this)
                 {
                     if (contact.UserName == userName)
@@ -31,63 +37,37 @@ namespace ChatApp
 
     public class Contact
     {
-        private string m_userName;
-        private string m_fullName;
-        private string m_resource;
-        private string m_serverName;
         private string m_groupName;
         private LoginState m_userStatus;
+        private JabberID jabberId;
 
-        public Contact(string userName, 
-                        string fullName, 
-                        string resource, 
-                        string serverName, 
+        public Contact(JabberID JID,
                         string groupName, 
                         LoginState userStatus)
         {
-            m_userName = userName;
-            m_fullName = fullName;
-            m_resource = resource;
-            m_serverName = serverName;
+            jabberId = (JabberID)JID.Clone();
             m_groupName = groupName;
             m_userStatus = userStatus;
         }
         
-        public Contact(string userName)
-        {
-            m_userName = userName;
-        }
         public string UserName
 	    {
-		    get { return m_userName;}
-		    set { m_userName = value;}
+            get { return jabberId.UserName; }
 	    }
 
         public JabberID JabberId
         {
-            get
-            {
-                JabberID jabberId = new JabberID(m_userName, m_serverName, Properties.Settings.Default.Resource);
-                return jabberId; 
-            }
+            get { return jabberId; }
         }
-
-        public string FullName
-	    {
-		    get { return m_fullName;}
-		    set { m_fullName = value;}
-	    }
 
         public string Resource
 	    {
-		    get { return m_resource;}
-		    set { m_resource = value;}
+		    get { return jabberId.Resource;}
 	    }
 
         public string ServerName
 	    {
-		    get { return m_serverName;}
-		    set { m_serverName = value;}
+		    get { return jabberId.Server;}
 	    }
 
         public string GroupName
@@ -101,5 +81,32 @@ namespace ChatApp
             get { return m_userStatus; }
             set { m_userStatus = value; }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Contact contact = obj as Contact;
+            if(null == contact)
+            {
+                return false;
+            }
+            if (contact.UserName.Equals(this.UserName, StringComparison.OrdinalIgnoreCase) &&
+                contact.ServerName.Equals(this.ServerName, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.UserName.GetHashCode() + this.ServerName.GetHashCode();
+        }
+
 	}
 }
+
