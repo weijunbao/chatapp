@@ -17,12 +17,95 @@ namespace ChatApp
 {
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
+        private readonly int GroupImageIndex = 4;
+
         public MainWindow()
         {
             InitializeComponent();
 
             AppController.Instance.IncomingMessage += new AppController.IncomingMessageDelegate(OnIncomingMessage);
             AppController.Instance.IncomingPresence += new AppController.IncomingPresenceDelegate(OnIncomingPresence);
+        }
+
+        public void UpdateContactList()
+        {
+            tvContacts.BeginUpdate();
+
+            tvContacts.Nodes.Clear();
+
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                TreeNode GroupNode = GetGroupNodeFor(contact.GroupName);
+                TreeNode newNode = new TreeNode(contact.UserName, (int)contact.UserStatus, (int)contact.UserStatus);
+                newNode.Tag = contact.JabberId.JabberIDNoResource;
+                GroupNode.Nodes.Add(newNode);
+            }
+            tvContacts.ExpandAll();
+
+            tvContacts.EndUpdate();
+
+            /*
+            Contact contact = null;
+            ContactList m_contacts = AppController.Instance.Contacts;
+            for (int index = 0; index < m_contacts.Count; ++index)
+            {
+                contact = m_contacts[index];
+                string groupName = contact.GroupName;
+
+                TreeNode groupNode = new TreeNode(groupName);
+
+                bool bAddGroup = true;
+                foreach (TreeNode node in tvContacts.Nodes)
+                {
+                    // If the tree already contain this group, do not add it
+                    if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        groupNode = node;
+                        bAddGroup = false;
+                        break;
+                    }
+                }
+                bool bAddContact = true;
+                if (showallcontacts == false)
+                {
+                    if (contact.UserStatus == LoginState.Offline)
+                    {
+                        bAddContact = false;
+                    }
+                }
+                if (bAddContact)
+                {
+                    TreeNode node = groupNode.Nodes.Add(contact.UserName);
+                    node.Tag = contact.JabberId.JabberIDNoResource;
+                }
+
+                if (bAddGroup)
+                {
+                    groupNode.ImageIndex = 4;
+                    groupNode.SelectedImageIndex = 4;
+                    tvContacts.Nodes.Add(groupNode);
+                }
+            }
+            if (showallcontacts)
+            {
+                tvContacts.ExpandAll();
+            }
+            */
+        }
+
+        private TreeNode GetGroupNodeFor(string GroupName)
+        {
+            if (tvContacts.Nodes.ContainsKey(GroupName))
+            {
+                return tvContacts.Nodes[GroupName];
+            }
+            else
+            {
+                TreeNode GroupNode = new TreeNode(GroupName, GroupImageIndex, GroupImageIndex);
+                GroupNode.Name = GroupName;
+                tvContacts.Nodes.Add(GroupNode);
+                return GroupNode;
+            }
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -72,66 +155,10 @@ namespace ChatApp
             }
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             MessagingWindow msgWindow = new MessagingWindow();
             msgWindow.Show();
-        }
-
-        public void UpdateContactList(bool showallcontacts)
-        {
-            ContactList m_contacts = AppController.Instance.Contacts;
-            Contact contact;
-            tvContacts.Nodes.Clear();
-
-            for (int i = 0; i < m_contacts.Count; ++i)
-            {
-                contact = m_contacts[i];
-                string groupName = contact.GroupName;
-
-                TreeNode groupNode = new TreeNode(groupName);
-
-                bool bAddGroup = true;
-                foreach (TreeNode node in tvContacts.Nodes)
-                {
-                    // If the tree already contain this group, do not add it
-                    if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        groupNode = node;
-                        bAddGroup = false;
-                        break;
-                    }
-                }
-                bool bAddContact = true;
-                if (showallcontacts == false)
-                {
-                    if (contact.UserStatus == LoginState.Offline)
-                    {
-                        bAddContact = false;
-                    }
-                }
-                if (bAddContact)
-                {
-                    TreeNode node = groupNode.Nodes.Add(contact.UserName);
-                    node.Tag = contact.JabberId.JabberIDNoResource;
-                }
-
-                if (bAddGroup)
-                {
-                    groupNode.ImageIndex = 4;
-                    groupNode.SelectedImageIndex = 4;
-                    tvContacts.Nodes.Add(groupNode);
-                }
-            }
-            if (showallcontacts)
-            {
-                tvContacts.ExpandAll();
-            }
         }
 
         public void UpdateUserStatusIcon()
@@ -301,7 +328,7 @@ namespace ChatApp
                 }
 
         }
-        //--------------------------------------------------------------------------------------------------
+
         private void OnIncomingMessage(AbstractMessagePacket IncomingMessagePacket)
         {
             //Determine the type of packet.
@@ -326,7 +353,6 @@ namespace ChatApp
             }
         }
 
-
         private void IncomingAsyncMessage(Packet p)
         {
             MessagePacket IncomingMessage = p as MessagePacket;
@@ -335,11 +361,6 @@ namespace ChatApp
             MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(p.From.JabberIDNoResource);
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
-
-
-
-        //-----------------------------------------------------------------------------------------------------------------
-
 
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -372,10 +393,11 @@ namespace ChatApp
         }
 
 
-        //------------------------------------------------------
-        // Update the tree view acoording to the names
-        //------------------------------------------------------
-
+        /// <summary>
+        /// Update the tree view acoording to the names
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sortByNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Contact contact = null;
@@ -395,11 +417,11 @@ namespace ChatApp
             UpdateUserStatusIcon();
         }
 
-
-        //-------------------------------------------------------------
-        // update tree view by group
-        //-------------------------------------------------------------
-
+        /// <summary>
+        /// update tree view by group
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sortByGroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ContactList m_contacts = AppController.Instance.Contacts;
@@ -437,33 +459,6 @@ namespace ChatApp
             UpdateUserStatusIcon();
         }
 
-        //--------------------------------------------------------------------------
-        //------Update tree view when "Show online checked and unchecked"-----------
-        //--------------------------------------------------------------------------
-
-        private void menu_showOnlineContacts_Click(object sender, EventArgs e)
-        {
-            ContactList m_contacts = AppController.Instance.Contacts;
-            tvContacts.Nodes.Clear();
-            bool showallcontacts = true;
-
-            if (menu_showOnlineContacts.Checked == true)
-            {
-                showallcontacts = false;
-                UpdateContactList(showallcontacts);
-
-            }
-
-            else if (menu_showOnlineContacts.Checked == false)
-            {
-                UpdateContactList(showallcontacts);
-
-            }
-
-
-            UpdateUserStatusIcon();
-        }
-
         private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             MainWindow m_mainWindow = AppController.Instance.MainWindow;
@@ -490,10 +485,11 @@ namespace ChatApp
 
         }
 
-        //---------------------------------------------------------------
-        //-------Show the contacts types on the serach box---------------
-        //---------------------------------------------------------------
-
+        /// <summary>
+        /// Show the contacts types on the serach box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             string searchtxt = null;
@@ -501,6 +497,7 @@ namespace ChatApp
             searchtxt = tbSearch.Text.ToString();
             m_mainWindow.Searchcontact(searchtxt);
         }
+
         private void Searchcontact(string cntact)
         {
             MainWindow m_mainWindow = AppController.Instance.MainWindow;
@@ -510,7 +507,7 @@ namespace ChatApp
 
             if (cntact == "")
             {
-                UpdateContactList(true);
+                UpdateContactList();
             }
             else
             {
@@ -528,10 +525,11 @@ namespace ChatApp
             UpdateUserStatusIcon();
         }
 
-        //-----------------------------------------------------------------------
-        //---------------- Start A Chat------------------------------------------
-        //----------------------------------------------------------------------
-
+        /// <summary>
+        /// Start A Chat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startAToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
