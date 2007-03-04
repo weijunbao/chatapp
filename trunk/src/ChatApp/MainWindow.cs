@@ -277,7 +277,7 @@ namespace ChatApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void startAToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartChatMenuItem_Click(object sender, EventArgs e)
         {
             if (null == tvContacts.SelectedNode)
             {
@@ -285,7 +285,7 @@ namespace ChatApp
                 return;
             }
             string jabberIdWithNoResource = (string)tvContacts.SelectedNode.Tag;
-            AppController.Instance.GetMessagingWindow(jabberIdWithNoResource).Show(this);
+            AppController.Instance.GetMessagingWindow(jabberIdWithNoResource);
         }
 
         private void StatusMenu_Click(object sender, EventArgs e)
