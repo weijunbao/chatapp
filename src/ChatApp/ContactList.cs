@@ -3,57 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Coversant.SoapBox.Base;
-//this is contact list
+
 namespace ChatApp
 {
-    public class ContactList
+    public class ContactList : List<Contact>
     {
-        private ArrayList m_Contacts;
-
         public ContactList()
         {
-            m_Contacts = new ArrayList();
-        }
-
-        public void AddContact(Contact contact)
-        {
-            m_Contacts.Add(contact);
-        }
-
-        public void DeleteContact(Contact contact)
-        {
-            m_Contacts.Remove(contact);
-        }
-
-        public int Count
-        {
-            get { return m_Contacts.Count; }
         }
 
         // Indexer
-        public Contact this[int index]
-        { 
-            get { return (Contact)m_Contacts[index];  } 
-        }
-
         public Contact this[string userName]
         {
             get
             {
-                Contact contact = null;
-                bool bFound = false;
-                for (int i = 0; i < m_Contacts.Count; ++i)
+                foreach (Contact contact in this)
                 {
-                    contact = (Contact)m_Contacts[i];
                     if (contact.UserName == userName)
                     {
-                        bFound = true;
-                        break;
+                        return contact;
                     }
                 }
-                if (!bFound)
-                    contact = null;
-                return contact;
+                return null;
             }
         }
     }
