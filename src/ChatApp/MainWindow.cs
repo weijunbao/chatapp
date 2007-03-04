@@ -86,6 +86,8 @@ namespace ChatApp
         private void lblStatus_LinkClicked(object sender, EventArgs e)
         {
             Control control = sender as Control;
+            if (null == control)
+                return;
             Point scrnPoint = new Point(0, control.Size.Height);
             statusContextMenuStrip.Show(control, scrnPoint);
         }
@@ -157,33 +159,41 @@ namespace ChatApp
         private void AddContactMenuItem_Click(object sender, EventArgs e)
         {
             AddContact AddContactWnd = new AddContact();
-            AddContactWnd.ShowDialog();
+            AddContactWnd.ShowDialog(this);
             AddContactWnd.Dispose();
             AddContactWnd = null;
         }
 
         private void DeleteContactMenuItem_Click(object sender, EventArgs e)
         {
-            DelContact delWnd = new DelContact();
-            delWnd.Show();
+            DelContact DelContactWnd = new DelContact();
+            DelContactWnd.ShowDialog(this);
+            DelContactWnd.Dispose();
+            DelContactWnd = null;
         }
 
         private void EditGroupMenuItem_Click(object sender, EventArgs e)
         {
-            EditGroup editWnd = new EditGroup();
-            editWnd.Show();
+            EditGroup EditGroupWnd = new EditGroup();
+            EditGroupWnd.ShowDialog(this);
+            EditGroupWnd.Dispose();
+            EditGroupWnd = null;
         }
 
         private void EditContactMenuItem_Click(object sender, EventArgs e)
         {
-            EditContact editWnd = new EditContact();
-            editWnd.Show();
+            EditContact EditContactWnd = new EditContact();
+            EditContactWnd.ShowDialog(this);
+            EditContactWnd.Dispose();
+            EditContactWnd = null;
         }
 
         private void DeleteGroupMenuItem_Click(object sender, EventArgs e)
         {
-            DeleteGroup delgWnd = new DeleteGroup();
-            delgWnd.Show();
+            DeleteGroup DeleteGroupWnd = new DeleteGroup();
+            DeleteGroupWnd.ShowDialog(this);
+            DeleteGroupWnd.Dispose();
+            DeleteGroupWnd = null;
         }
 
         /// <summary>
