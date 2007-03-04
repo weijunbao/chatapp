@@ -93,7 +93,7 @@ namespace ChatApp
             this.lbl_Password.Location = new System.Drawing.Point(12, 62);
             this.lbl_Password.Name = "lbl_Password";
             this.lbl_Password.Size = new System.Drawing.Size(76, 14);
-            this.lbl_Password.TabIndex = 3;
+            this.lbl_Password.TabIndex = 2;
             this.lbl_Password.Text = "Password:";
             // 
             // PasswordTextBox
@@ -106,7 +106,7 @@ namespace ChatApp
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(270, 22);
-            this.PasswordTextBox.TabIndex = 11;
+            this.PasswordTextBox.TabIndex = 3;
             this.PasswordTextBox.Text = global::ChatApp.Properties.Settings.Default.Password;
             // 
             // checkBoxRemember
