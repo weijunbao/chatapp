@@ -309,7 +309,10 @@ namespace ChatApp
             }
             else
             {
-                ExitApplication();
+                if (e.CloseReason != CloseReason.ApplicationExitCall)
+                {
+                    ExitApplication();
+                }
             }
         }
 
