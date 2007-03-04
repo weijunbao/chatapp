@@ -41,6 +41,12 @@ namespace ChatApp
             this.editGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.sortByNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,36 +56,32 @@ namespace ChatApp
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.rootPanel = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblWelcome = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.tvContacts = new System.Windows.Forms.TreeView();
             this.StatusImageList = new System.Windows.Forms.ImageList(this.components);
-            this.lblStatus = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnLogout = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tbSearch = new System.Windows.Forms.TextBox();
+            this.lblStatus = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.BtnLogout = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.setStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblWelcome)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
-            this.kryptonPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).BeginInit();
             this.statusContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootPanel)).BeginInit();
+            this.rootPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblWelcome)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel1)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).BeginInit();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +119,7 @@ namespace ChatApp
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(330, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(292, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -188,6 +190,53 @@ namespace ChatApp
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.actionsToolStripMenuItem.Text = "&Actions";
             // 
+            // setStatusMenuItem
+            // 
+            this.setStatusMenuItem.DropDown = this.statusContextMenuStrip;
+            this.setStatusMenuItem.Name = "setStatusMenuItem";
+            this.setStatusMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.setStatusMenuItem.Text = "Set Online Status";
+            // 
+            // statusContextMenuStrip
+            // 
+            this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.awayMenuItem,
+            this.onlineMenuItem,
+            this.busyMenuItem,
+            this.offlineMenuItem});
+            this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.OwnerItem = this.setStatusMenuItem;
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
+            // 
+            // awayMenuItem
+            // 
+            this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
+            this.awayMenuItem.Name = "awayMenuItem";
+            this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.awayMenuItem.Text = "Away";
+            // 
+            // onlineMenuItem
+            // 
+            this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
+            this.onlineMenuItem.Name = "onlineMenuItem";
+            this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.onlineMenuItem.Text = "Online";
+            // 
+            // busyMenuItem
+            // 
+            this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
+            this.busyMenuItem.Name = "busyMenuItem";
+            this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.busyMenuItem.Text = "Busy";
+            // 
+            // offlineMenuItem
+            // 
+            this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
+            this.offlineMenuItem.Name = "offlineMenuItem";
+            this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.offlineMenuItem.Text = "Offline";
+            // 
             // startAToolStripMenuItem
             // 
             this.startAToolStripMenuItem.Name = "startAToolStripMenuItem";
@@ -241,38 +290,52 @@ namespace ChatApp
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // kryptonPanel1
+            // rootPanel
             // 
-            this.kryptonPanel1.Controls.Add(this.lblWelcome);
-            this.kryptonPanel1.Controls.Add(this.kryptonPanel2);
-            this.kryptonPanel1.Controls.Add(this.lblStatus);
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
-            this.kryptonPanel1.Controls.Add(this.BtnLogout);
-            this.kryptonPanel1.Controls.Add(this.pictureBox1);
-            this.kryptonPanel1.Controls.Add(this.tbSearch);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 24);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(330, 604);
-            this.kryptonPanel1.TabIndex = 2;
+            this.rootPanel.Controls.Add(this.lblWelcome);
+            this.rootPanel.Controls.Add(this.lblStatus);
+            this.rootPanel.Controls.Add(this.BtnLogout);
+            this.rootPanel.Controls.Add(this.userPictureBox);
+            this.rootPanel.Controls.Add(this.splitContainer);
+            this.rootPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rootPanel.Location = new System.Drawing.Point(0, 24);
+            this.rootPanel.Name = "rootPanel";
+            this.rootPanel.Size = new System.Drawing.Size(292, 249);
+            this.rootPanel.TabIndex = 2;
             // 
             // lblWelcome
             // 
             this.lblWelcome.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.TitleControl;
-            this.lblWelcome.Location = new System.Drawing.Point(67, 6);
+            this.lblWelcome.Location = new System.Drawing.Point(62, 6);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(89, 27);
             this.lblWelcome.TabIndex = 20;
             this.lblWelcome.Values.Text = "Welcome";
             // 
-            // kryptonPanel2
+            // splitContainer
             // 
-            this.kryptonPanel2.Controls.Add(this.tvContacts);
-            this.kryptonPanel2.Location = new System.Drawing.Point(13, 57);
-            this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.HeaderPrimary;
-            this.kryptonPanel2.Size = new System.Drawing.Size(304, 499);
-            this.kryptonPanel2.TabIndex = 17;
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer.IsSplitterFixed = true;
+            this.splitContainer.Location = new System.Drawing.Point(9, 51);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer.Name = "splitContainer";
+            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.tvContacts);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.tbSearch);
+            this.splitContainer.Size = new System.Drawing.Size(274, 189);
+            this.splitContainer.SplitterDistance = 162;
+            this.splitContainer.SplitterWidth = 2;
+            this.splitContainer.TabIndex = 17;
             // 
             // tvContacts
             // 
@@ -282,7 +345,7 @@ namespace ChatApp
             this.tvContacts.Location = new System.Drawing.Point(0, 0);
             this.tvContacts.Name = "tvContacts";
             this.tvContacts.SelectedImageIndex = 3;
-            this.tvContacts.Size = new System.Drawing.Size(304, 499);
+            this.tvContacts.Size = new System.Drawing.Size(274, 162);
             this.tvContacts.TabIndex = 0;
             this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
             // 
@@ -296,103 +359,49 @@ namespace ChatApp
             this.StatusImageList.Images.SetKeyName(3, "status_offline.png");
             this.StatusImageList.Images.SetKeyName(4, "group.png");
             // 
+            // tbSearch
+            // 
+            this.tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSearch.Location = new System.Drawing.Point(-1, 5);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(274, 20);
+            this.tbSearch.TabIndex = 9;
+            // 
             // lblStatus
             // 
-            this.lblStatus.ContextMenuStrip = this.statusContextMenuStrip;
-            this.lblStatus.Location = new System.Drawing.Point(67, 32);
+            this.lblStatus.Location = new System.Drawing.Point(62, 29);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(43, 19);
             this.lblStatus.TabIndex = 16;
             this.lblStatus.Values.Text = "Online";
             this.lblStatus.LinkClicked += new System.EventHandler(this.lblStatus_LinkClicked);
             // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(8, 68);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(87, 19);
-            this.kryptonLabel1.TabIndex = 15;
-            this.kryptonLabel1.Values.Text = "My Contact List";
-            // 
             // BtnLogout
             // 
-            this.BtnLogout.Location = new System.Drawing.Point(235, 4);
+            this.BtnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnLogout.Location = new System.Drawing.Point(214, 6);
             this.BtnLogout.Name = "BtnLogout";
             this.BtnLogout.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.BtnLogout.Size = new System.Drawing.Size(84, 29);
+            this.BtnLogout.Size = new System.Drawing.Size(69, 27);
             this.BtnLogout.TabIndex = 14;
             this.BtnLogout.Values.Text = "Logout";
             this.BtnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
-            // tbSearch
+            // userPictureBox
             // 
-            this.tbSearch.Location = new System.Drawing.Point(13, 562);
-            this.tbSearch.Multiline = true;
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(304, 33);
-            this.tbSearch.TabIndex = 8;
-            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
-            // 
-            // statusContextMenuStrip
-            // 
-            this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.awayMenuItem,
-            this.onlineMenuItem,
-            this.busyMenuItem,
-            this.offlineMenuItem});
-            this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
-            // 
-            // awayMenuItem
-            // 
-            this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
-            this.awayMenuItem.Name = "awayMenuItem";
-            this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.awayMenuItem.Text = "Away";
-            // 
-            // onlineMenuItem
-            // 
-            this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
-            this.onlineMenuItem.Name = "onlineMenuItem";
-            this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.onlineMenuItem.Text = "Online";
-            // 
-            // busyMenuItem
-            // 
-            this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
-            this.busyMenuItem.Name = "busyMenuItem";
-            this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.busyMenuItem.Text = "Busy";
-            // 
-            // offlineMenuItem
-            // 
-            this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
-            this.offlineMenuItem.Name = "offlineMenuItem";
-            this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.offlineMenuItem.Text = "Offline";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.Image = global::ChatApp.Properties.Resources.user48;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            // 
-            // setStatusMenuItem
-            // 
-            this.setStatusMenuItem.DropDown = this.statusContextMenuStrip;
-            this.setStatusMenuItem.Name = "setStatusMenuItem";
-            this.setStatusMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.setStatusMenuItem.Text = "Set Online Status";
+            this.userPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.userPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.userPictureBox.ErrorImage = null;
+            this.userPictureBox.Image = global::ChatApp.Properties.Resources.user48;
+            this.userPictureBox.ImageLocation = "";
+            this.userPictureBox.InitialImage = null;
+            this.userPictureBox.Location = new System.Drawing.Point(8, 0);
+            this.userPictureBox.Name = "userPictureBox";
+            this.userPictureBox.Size = new System.Drawing.Size(48, 48);
+            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.userPictureBox.TabIndex = 12;
+            this.userPictureBox.TabStop = false;
             // 
             // form1BindingSource
             // 
@@ -403,29 +412,34 @@ namespace ChatApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(330, 628);
-            this.Controls.Add(this.kryptonPanel1);
+            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.Controls.Add(this.rootPanel);
             this.Controls.Add(this.mainMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
+            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblWelcome)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
-            this.kryptonPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).EndInit();
             this.statusContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootPanel)).EndInit();
+            this.rootPanel.ResumeLayout(false);
+            this.rootPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblWelcome)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel1)).EndInit();
+            this.splitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer.Panel2)).EndInit();
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lblStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -455,13 +469,10 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.BindingSource form1BindingSource;
         private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox tbSearch;
+        private ComponentFactory.Krypton.Toolkit.KryptonPanel rootPanel;
+        private System.Windows.Forms.PictureBox userPictureBox;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel lblStatus;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnLogout;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
         // The tree view is made public so that AppController can access
         public System.Windows.Forms.TreeView tvContacts;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblWelcome;
@@ -474,6 +485,8 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem busyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem offlineMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setStatusMenuItem;
+        private System.Windows.Forms.TextBox tbSearch;
+        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
     }
 }
 
