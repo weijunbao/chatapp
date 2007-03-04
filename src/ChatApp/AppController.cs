@@ -399,6 +399,7 @@ namespace ChatApp
             if (m_ActiveChatUsers.ContainsKey(strJabberId))
             {
                 msgWindow = (MessagingWindow)m_ActiveChatUsers[strJabberId];
+                msgWindow.Activate();
             }
             else
             {

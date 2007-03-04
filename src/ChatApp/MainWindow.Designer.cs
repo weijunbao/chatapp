@@ -244,7 +244,7 @@ namespace ChatApp
             this.startAToolStripMenuItem.Name = "startAToolStripMenuItem";
             this.startAToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.startAToolStripMenuItem.Text = "Start a chat";
-            this.startAToolStripMenuItem.Click += new System.EventHandler(this.startAToolStripMenuItem_Click);
+            this.startAToolStripMenuItem.Click += new System.EventHandler(this.StartChatMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
