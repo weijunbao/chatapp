@@ -188,6 +188,10 @@
   <ItemGroup>
     <None Include="icons\bullet_arrow_bottom.png" />
     <None Include="icons\user48.png" />
+    <None Include="icons\status_away.png" />
+    <None Include="icons\status_online.png" />
+    <None Include="icons\status_busy.png" />
+    <None Include="icons\status_offline.png" />
     <Content Include="User32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

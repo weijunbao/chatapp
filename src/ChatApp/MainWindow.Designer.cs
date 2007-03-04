@@ -52,7 +52,6 @@ namespace ChatApp
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblWelcome = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.CbStatus = new System.Windows.Forms.ListBox();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.tvContacts = new System.Windows.Forms.TreeView();
             this.StatusImageList = new System.Windows.Forms.ImageList(this.components);
@@ -62,8 +61,12 @@ namespace ChatApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.setStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
@@ -174,6 +177,7 @@ namespace ChatApp
             // actionsToolStripMenuItem
             // 
             this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setStatusMenuItem,
             this.startAToolStripMenuItem,
             this.toolStripMenuItem4,
             this.sortByNameToolStripMenuItem,
@@ -240,7 +244,6 @@ namespace ChatApp
             // kryptonPanel1
             // 
             this.kryptonPanel1.Controls.Add(this.lblWelcome);
-            this.kryptonPanel1.Controls.Add(this.CbStatus);
             this.kryptonPanel1.Controls.Add(this.kryptonPanel2);
             this.kryptonPanel1.Controls.Add(this.lblStatus);
             this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
@@ -255,28 +258,12 @@ namespace ChatApp
             // 
             // lblWelcome
             // 
-            this.lblWelcome.Location = new System.Drawing.Point(67, 3);
+            this.lblWelcome.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.TitleControl;
+            this.lblWelcome.Location = new System.Drawing.Point(67, 6);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(57, 19);
+            this.lblWelcome.Size = new System.Drawing.Size(89, 27);
             this.lblWelcome.TabIndex = 20;
             this.lblWelcome.Values.Text = "Welcome";
-            // 
-            // CbStatus
-            // 
-            this.CbStatus.FormattingEnabled = true;
-            this.CbStatus.Items.AddRange(new object[] {
-            "Away",
-            "Online",
-            "Busy",
-            "DND",
-            "Invisible",
-            "Offline"});
-            this.CbStatus.Location = new System.Drawing.Point(216, 39);
-            this.CbStatus.Name = "CbStatus";
-            this.CbStatus.Size = new System.Drawing.Size(111, 82);
-            this.CbStatus.TabIndex = 18;
-            this.CbStatus.Visible = false;
-            this.CbStatus.SelectedIndexChanged += new System.EventHandler(this.CbStatus_SelectionChangeCommitted);
             // 
             // kryptonPanel2
             // 
@@ -311,6 +298,7 @@ namespace ChatApp
             // 
             // lblStatus
             // 
+            this.lblStatus.ContextMenuStrip = this.statusContextMenuStrip;
             this.lblStatus.Location = new System.Drawing.Point(67, 32);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(43, 19);
@@ -349,15 +337,40 @@ namespace ChatApp
             // 
             this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3});
+            this.awayMenuItem,
+            this.onlineMenuItem,
+            this.busyMenuItem,
+            this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.Size = new System.Drawing.Size(185, 26);
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
-            // toolStripMenuItem3
+            // awayMenuItem
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 22);
-            this.toolStripMenuItem3.Text = "toolStripMenuItem3";
+            this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
+            this.awayMenuItem.Name = "awayMenuItem";
+            this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.awayMenuItem.Text = "Away";
+            // 
+            // onlineMenuItem
+            // 
+            this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
+            this.onlineMenuItem.Name = "onlineMenuItem";
+            this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.onlineMenuItem.Text = "Online";
+            // 
+            // busyMenuItem
+            // 
+            this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
+            this.busyMenuItem.Name = "busyMenuItem";
+            this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.busyMenuItem.Text = "Busy";
+            // 
+            // offlineMenuItem
+            // 
+            this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
+            this.offlineMenuItem.Name = "offlineMenuItem";
+            this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.offlineMenuItem.Text = "Offline";
             // 
             // pictureBox1
             // 
@@ -373,6 +386,13 @@ namespace ChatApp
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
+            // 
+            // setStatusMenuItem
+            // 
+            this.setStatusMenuItem.DropDown = this.statusContextMenuStrip;
+            this.setStatusMenuItem.Name = "setStatusMenuItem";
+            this.setStatusMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.setStatusMenuItem.Text = "Set Online Status";
             // 
             // form1BindingSource
             // 
@@ -391,7 +411,6 @@ namespace ChatApp
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
-            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);
@@ -445,13 +464,16 @@ namespace ChatApp
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
         // The tree view is made public so that AppController can access
         public System.Windows.Forms.TreeView tvContacts;
-        private System.Windows.Forms.ListBox CbStatus;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblWelcome;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public System.Windows.Forms.ImageList StatusImageList;
         public System.String currentUser;
         private System.Windows.Forms.ContextMenuStrip statusContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem awayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlineMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem busyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offlineMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setStatusMenuItem;
     }
 }
 

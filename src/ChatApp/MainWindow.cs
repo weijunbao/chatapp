@@ -17,28 +17,24 @@ namespace ChatApp
 {
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-
-
         public MainWindow()
         {
             InitializeComponent();
-            //this.FormClosed += new FormClosedEventHandler(OnFormClosed);
 
             AppController.Instance.IncomingMessage += new AppController.IncomingMessageDelegate(OnIncomingMessage);
-            //AppController.Instance.IncomingRosterChange += new SessionManager.IncomingRosterChangeDelegate(OnIncomingRosterChange);
             AppController.Instance.IncomingPresence += new AppController.IncomingPresenceDelegate(OnIncomingPresence);
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            Font myFont = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
-            lblWelcome.Font = myFont;
-            lblWelcome.Text = "Welcome " + AppController.Instance.CurrentUser.UserName;
+            if (AppController.Instance.CurrentUser.UserName.Length >= 0)
+            {
+                lblWelcome.Text = AppController.Instance.CurrentUser.UserName;
+            }
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             if (e.CloseReason != CloseReason.ApplicationExitCall)
             {
                 this.Visible = false;
@@ -49,23 +45,23 @@ namespace ChatApp
 
         private void lblStatus_LinkClicked(object sender, EventArgs e)
         {
-            CbStatus.Visible = true;
+            Control control = sender as Control;
+            Point scrnPoint = new Point(0, control.Size.Height);
+            statusContextMenuStrip.Show(control, scrnPoint);
         }
 
         private void CbStatus_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            CbStatus.Visible = false;
-            lblStatus.Text = CbStatus.SelectedItem.ToString();
-            AvailableRequest presence = new AvailableRequest();
-            presence.Status = lblStatus.Text;
-            if (presence.Status.Equals("Invisible"))
-            {
-                presence.Status = "Offline";
-            }
-            AppController.Instance.SendCurrentPresence(presence);
+            //CbStatus.Visible = false;
+            //lblStatus.Text = CbStatus.SelectedItem.ToString();
+            //AvailableRequest presence = new AvailableRequest();
+            //presence.Status = lblStatus.Text;
+            //if (presence.Status.Equals("Invisible"))
+            //{
+            //    presence.Status = "Offline";
+            //}
+            //AppController.Instance.SendCurrentPresence(presence);
         }
-
-
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {
@@ -160,7 +156,6 @@ namespace ChatApp
                     }
                 }
             }
-            //tvContacts.ExpandAll();
         }
 
         private void SetStatusIcon(TreeNode node, LoginState state)
@@ -541,7 +536,6 @@ namespace ChatApp
         {
             try
             {
-
                 if (tvContacts.Enabled)
                 {
                     currentUser = tvContacts.SelectedNode.Text.ToString();
