@@ -290,5 +290,9 @@ namespace ChatApp
             lblStatus.Values.Text = state.ToString();
         }
 
+        private void ExitStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppController.Instance.ExitApplication();
+        }
     }
 }

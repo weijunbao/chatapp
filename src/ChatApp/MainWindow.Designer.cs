@@ -41,14 +41,14 @@ namespace ChatApp
             this.editGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StartChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
@@ -63,6 +63,8 @@ namespace ChatApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ExitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.statusContextMenuStrip.SuspendLayout();
@@ -174,19 +176,21 @@ namespace ChatApp
             // actionsToolStripMenuItem
             // 
             this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setStatusMenuItem,
-            this.startAToolStripMenuItem,
-            this.sortByGroupToolStripMenuItem});
+            this.SetStatusMenuItem,
+            this.StartChatToolStripMenuItem,
+            this.SortByGroupToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.ExitStripMenuItem});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.actionsToolStripMenuItem.Text = "&Actions";
             // 
-            // setStatusMenuItem
+            // SetStatusMenuItem
             // 
-            this.setStatusMenuItem.DropDown = this.statusContextMenuStrip;
-            this.setStatusMenuItem.Name = "setStatusMenuItem";
-            this.setStatusMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.setStatusMenuItem.Text = "Set Online Status";
+            this.SetStatusMenuItem.DropDown = this.statusContextMenuStrip;
+            this.SetStatusMenuItem.Name = "SetStatusMenuItem";
+            this.SetStatusMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.SetStatusMenuItem.Text = "Set Online Status";
             // 
             // statusContextMenuStrip
             // 
@@ -197,7 +201,6 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.OwnerItem = this.setStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
@@ -236,19 +239,19 @@ namespace ChatApp
             this.offlineMenuItem.Text = "Offline";
             this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
-            // startAToolStripMenuItem
+            // StartChatToolStripMenuItem
             // 
-            this.startAToolStripMenuItem.Name = "startAToolStripMenuItem";
-            this.startAToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.startAToolStripMenuItem.Text = "Start a chat";
-            this.startAToolStripMenuItem.Click += new System.EventHandler(this.StartChatMenuItem_Click);
+            this.StartChatToolStripMenuItem.Name = "StartChatToolStripMenuItem";
+            this.StartChatToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.StartChatToolStripMenuItem.Text = "Start Chat";
+            this.StartChatToolStripMenuItem.Click += new System.EventHandler(this.StartChatMenuItem_Click);
             // 
-            // sortByGroupToolStripMenuItem
+            // SortByGroupToolStripMenuItem
             // 
-            this.sortByGroupToolStripMenuItem.Name = "sortByGroupToolStripMenuItem";
-            this.sortByGroupToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.sortByGroupToolStripMenuItem.Text = "Sort by group";
-            this.sortByGroupToolStripMenuItem.Click += new System.EventHandler(this.sortByGroupToolStripMenuItem_Click);
+            this.SortByGroupToolStripMenuItem.Name = "SortByGroupToolStripMenuItem";
+            this.SortByGroupToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.SortByGroupToolStripMenuItem.Text = "Sort by group";
+            this.SortByGroupToolStripMenuItem.Click += new System.EventHandler(this.sortByGroupToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -261,7 +264,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // rootPanel
@@ -384,6 +387,18 @@ namespace ChatApp
             // 
             this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
+            // 
+            // ExitStripMenuItem
+            // 
+            this.ExitStripMenuItem.Name = "ExitStripMenuItem";
+            this.ExitStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.ExitStripMenuItem.Text = "Exit Application";
+            this.ExitStripMenuItem.Click += new System.EventHandler(this.ExitStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,8 +450,8 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem editGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sortByGroupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SortByGroupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem StartChatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.BindingSource form1BindingSource;
@@ -456,9 +471,11 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem onlineMenuItem;
         private System.Windows.Forms.ToolStripMenuItem busyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem offlineMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setStatusMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SetStatusMenuItem;
         private System.Windows.Forms.TextBox tbSearch;
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem ExitStripMenuItem;
     }
 }
 
