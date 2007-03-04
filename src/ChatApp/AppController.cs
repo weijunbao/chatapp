@@ -545,6 +545,7 @@ namespace ChatApp
 
         internal void LogOff()
         {
+            SendCurrentPresence(LoginState.Offline);
             ResetSession();
             ShowLoginWindow();
         }
