@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\bullet_arrow_bottom.png" />
+    <None Include="icons\user48.png" />
     <Content Include="User32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

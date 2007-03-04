@@ -140,7 +140,6 @@ namespace ChatApp
 
         public void UpdateUserStatusIcon()
         {
-            TreeNode currentNode = null;
             Contact contact = null;
             ContactList m_contacts = AppController.Instance.Contacts;
 
@@ -200,8 +199,6 @@ namespace ChatApp
         private void IncomingAsycPresenceThreadSafe(Packet incomingPresencePacket)
         {
             PresencePacket IncomingPresencePacket = incomingPresencePacket as PresencePacket;
-            bool showallcontacts = true;
-
 
             if (IncomingPresencePacket is Coversant.SoapBox.Core.Presence.ProbeRequest)
             {
@@ -386,11 +383,9 @@ namespace ChatApp
 
         private void sortByNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode currentNode = null;
             Contact contact = null;
             TreeNode namelistnode = new TreeNode();
             ContactList m_contacts = AppController.Instance.Contacts;
-            bool showallcontacts = true;
             //MainWindow msgwnd = new MainWindow(); 
             tvContacts.Nodes.Clear();
             for (int i = 0; i < m_contacts.Count; ++i)
@@ -415,7 +410,6 @@ namespace ChatApp
             ContactList m_contacts = AppController.Instance.Contacts;
             Contact contact;
             tvContacts.Nodes.Clear();
-            bool showallcontacts = true;
 
             for (int i = 0; i < m_contacts.Count; ++i)
             {
@@ -455,7 +449,6 @@ namespace ChatApp
         private void menu_showOnlineContacts_Click(object sender, EventArgs e)
         {
             ContactList m_contacts = AppController.Instance.Contacts;
-            Contact contact;
             tvContacts.Nodes.Clear();
             bool showallcontacts = true;
 
