@@ -50,7 +50,7 @@ namespace ChatApp
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(292, 141);
+            this.kryptonPanel1.Size = new System.Drawing.Size(292, 144);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // lblContacttName
@@ -66,9 +66,9 @@ namespace ChatApp
             // 
             // tbContactName
             // 
-            this.tbContactName.Location = new System.Drawing.Point(15, 81);
+            this.tbContactName.Location = new System.Drawing.Point(15, 80);
             this.tbContactName.Name = "tbContactName";
-            this.tbContactName.Size = new System.Drawing.Size(267, 20);
+            this.tbContactName.Size = new System.Drawing.Size(270, 20);
             this.tbContactName.TabIndex = 3;
             // 
             // lblNewGroupName
@@ -84,16 +84,16 @@ namespace ChatApp
             // 
             // tbNewGname
             // 
-            this.tbNewGname.Location = new System.Drawing.Point(12, 27);
+            this.tbNewGname.Location = new System.Drawing.Point(15, 27);
             this.tbNewGname.Name = "tbNewGname";
             this.tbNewGname.Size = new System.Drawing.Size(270, 20);
             this.tbNewGname.TabIndex = 1;
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(217, 107);
+            this.btnOk.Location = new System.Drawing.Point(210, 106);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(65, 25);
+            this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -103,16 +103,15 @@ namespace ChatApp
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 141);
+            this.ClientSize = new System.Drawing.Size(292, 144);
             this.Controls.Add(this.kryptonPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditContact";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Contact";
-            this.WindowActive = true;
-            this.Load += new System.EventHandler(this.EditContact_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();

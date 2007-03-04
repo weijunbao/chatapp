@@ -56,7 +56,6 @@ namespace ChatApp
             this.kryptonPanel1.Name = "kryptonPanel1";
             this.kryptonPanel1.Size = new System.Drawing.Size(292, 192);
             this.kryptonPanel1.TabIndex = 0;
-            this.kryptonPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonPanel1_Paint);
             // 
             // lblUserName
             // 
@@ -112,9 +111,9 @@ namespace ChatApp
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(227, 157);
+            this.btnOk.Location = new System.Drawing.Point(210, 157);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(58, 26);
+            this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 6;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -126,13 +125,14 @@ namespace ChatApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 192);
             this.Controls.Add(this.kryptonPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddContact";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Contact";
-            this.Load += new System.EventHandler(this.AddContact_Load);
+            this.WindowActive = true;
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();

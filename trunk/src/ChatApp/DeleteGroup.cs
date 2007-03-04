@@ -25,15 +25,8 @@ namespace ChatApp
             InitializeComponent();
         }
 
-        private void DeleteGroup_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
             if (tbGroupName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You must enter a valid Group name!");
@@ -63,7 +56,7 @@ namespace ChatApp
                 if (groupexist)
                 {
                     string message = "Are you sure you want to delete group " + tbGroupName.Text + " and its contacts?";
-                    if(DialogResult.Yes == MessageBox.Show(message, "Delete Group", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    if (DialogResult.Yes == MessageBox.Show(message, "Delete Group", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         for (int i = 0; i < m_contacts.Count; ++i)
                         {
@@ -103,8 +96,6 @@ namespace ChatApp
                 }
                 m_mainWindow.UpdateContactList();
             }//else
-
         }//button click  
     }//class
-
 }

@@ -158,8 +158,9 @@ namespace ChatApp
 
                 Contact contact = AppController.Instance.Contacts[userName];
                 if (contact != null)
+                {
                     contact.UserStatus = state;
-
+                }
             }
             else if (IncomingPresencePacket is UnavailableRequest)
             {

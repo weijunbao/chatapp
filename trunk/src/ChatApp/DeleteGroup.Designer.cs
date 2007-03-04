@@ -68,9 +68,9 @@ namespace ChatApp
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(232, 53);
+            this.btnOk.Location = new System.Drawing.Point(210, 53);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(53, 25);
+            this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 2;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -82,14 +82,13 @@ namespace ChatApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 91);
             this.Controls.Add(this.kryptonPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DeleteGroup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete Group";
-            this.WindowActive = true;
-            this.Load += new System.EventHandler(this.DeleteGroup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
