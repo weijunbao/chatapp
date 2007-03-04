@@ -89,7 +89,7 @@ namespace ChatApp
                             if (contact.UserName == tbUserName.Text.ToString())
                             {
                                 userNode.Remove();
-                                m_contacts.DeleteContact(contact);
+                                m_contacts.Remove(contact);
                                 foundcontact = true;
                             }
                         }

@@ -38,7 +38,6 @@ namespace ChatApp
                 MainWindow m_mainWindow = AppController.Instance.MainWindow;
                 SessionManager m_sessionMgr = AppController.Instance.SessionManager;
                 m_mainWindow.tvContacts.Nodes.Clear();
-                bool showallcontacts = true;
                 bool grouppresent = false;
 
                 for (int i = 0; i < m_contacts.Count; ++i)
@@ -78,7 +77,7 @@ namespace ChatApp
                     }
                 }
 
-                m_mainWindow.UpdateContactList(showallcontacts);
+                m_mainWindow.UpdateContactList();
         
         }
     }

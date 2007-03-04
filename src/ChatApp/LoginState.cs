@@ -6,11 +6,9 @@ namespace ChatApp
 {
     public enum LoginState
     {
-        Offline,
+        Away = 0,
         Online,
-        LoggedIn,
-        Away,
         Busy,
-        Invisible,
+        Offline,
     }
 }

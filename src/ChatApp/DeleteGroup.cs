@@ -47,7 +47,6 @@ namespace ChatApp
                 Contact contact;
                 MainWindow m_mainWindow = AppController.Instance.MainWindow;
                 SessionManager m_sessionMgr = AppController.Instance.SessionManager;
-                bool showallcontacts = true;
                 bool groupexist = false;
 
                 for (int i = 0; i < m_contacts.Count; ++i)
@@ -98,11 +97,11 @@ namespace ChatApp
                         {
                             contact = m_contacts[userNode.Text.ToString()];
                             userNode.Remove();
-                            m_contacts.DeleteContact(contact);
+                            m_contacts.Remove(contact);
                         }
                     }
                 }
-                m_mainWindow.UpdateContactList(showallcontacts);
+                m_mainWindow.UpdateContactList();
             }//else
 
         }//button click  

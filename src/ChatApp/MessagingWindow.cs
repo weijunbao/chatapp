@@ -54,15 +54,6 @@ namespace ChatApp
             tbMessages.Focus();
         }
 
-        private void lbMsgHistory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MessagingWindow_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -78,7 +69,6 @@ namespace ChatApp
 
         private void DoSendMessage()
         {
-
             ////Create the message packet
             MessagePacket outgoingPacket = null;
             JabberID jid = new JabberID(m_currentUserJabberId);

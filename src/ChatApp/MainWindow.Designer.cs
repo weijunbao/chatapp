@@ -51,7 +51,6 @@ namespace ChatApp
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.sortByNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
@@ -92,7 +91,6 @@ namespace ChatApp
             chatAppToolStripMenuItem.Name = "chatAppToolStripMenuItem";
             chatAppToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             chatAppToolStripMenuItem.Text = "&Tools";
-            chatAppToolStripMenuItem.Click += new System.EventHandler(this.chatAppToolStripMenuItem_Click);
             // 
             // myProfileToolStripMenuItem
             // 
@@ -182,8 +180,7 @@ namespace ChatApp
             this.startAToolStripMenuItem,
             this.toolStripMenuItem4,
             this.sortByNameToolStripMenuItem,
-            this.sortByGroupToolStripMenuItem,
-            this.toolStripMenuItem2});
+            this.sortByGroupToolStripMenuItem});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.actionsToolStripMenuItem.Text = "&Actions";
@@ -204,36 +201,43 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.OwnerItem = this.setStatusMenuItem;
-            this.statusContextMenuStrip.Size = new System.Drawing.Size(153, 114);
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
             // 
             this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
             this.awayMenuItem.Name = "awayMenuItem";
-            this.awayMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.awayMenuItem.Tag = LoginState.Away;
             this.awayMenuItem.Text = "Away";
+            this.awayMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
             // onlineMenuItem
             // 
             this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
             this.onlineMenuItem.Name = "onlineMenuItem";
-            this.onlineMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.onlineMenuItem.Tag = LoginState.Online;
             this.onlineMenuItem.Text = "Online";
+            this.onlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
             // busyMenuItem
             // 
             this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
             this.busyMenuItem.Name = "busyMenuItem";
-            this.busyMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.busyMenuItem.Tag = LoginState.Busy;
             this.busyMenuItem.Text = "Busy";
+            this.busyMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
             // offlineMenuItem
             // 
             this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
             this.offlineMenuItem.Name = "offlineMenuItem";
-            this.offlineMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.offlineMenuItem.Tag = LoginState.Offline;
             this.offlineMenuItem.Text = "Offline";
+            this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
             // 
             // startAToolStripMenuItem
             // 
@@ -261,11 +265,6 @@ namespace ChatApp
             this.sortByGroupToolStripMenuItem.Text = "Sort by group";
             this.sortByGroupToolStripMenuItem.Click += new System.EventHandler(this.sortByGroupToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(167, 6);
-            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -277,7 +276,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // rootPanel
@@ -366,11 +365,12 @@ namespace ChatApp
             // tvContacts
             // 
             this.tvContacts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvContacts.ImageIndex = 3;
+            this.tvContacts.HideSelection = false;
+            this.tvContacts.ImageIndex = 0;
             this.tvContacts.ImageList = this.StatusImageList;
             this.tvContacts.Location = new System.Drawing.Point(0, 0);
             this.tvContacts.Name = "tvContacts";
-            this.tvContacts.SelectedImageIndex = 3;
+            this.tvContacts.SelectedImageIndex = 0;
             this.tvContacts.Size = new System.Drawing.Size(274, 157);
             this.tvContacts.TabIndex = 0;
             this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
@@ -379,10 +379,10 @@ namespace ChatApp
             // 
             this.StatusImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("StatusImageList.ImageStream")));
             this.StatusImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.StatusImageList.Images.SetKeyName(0, "status_away.png");
-            this.StatusImageList.Images.SetKeyName(1, "status_online.png");
-            this.StatusImageList.Images.SetKeyName(2, "status_busy.png");
-            this.StatusImageList.Images.SetKeyName(3, "status_offline.png");
+            this.StatusImageList.Images.SetKeyName(0, "Away");
+            this.StatusImageList.Images.SetKeyName(1, "Online");
+            this.StatusImageList.Images.SetKeyName(2, "Busy");
+            this.StatusImageList.Images.SetKeyName(3, "Offline");
             this.StatusImageList.Images.SetKeyName(4, "group.png");
             // 
             // tbSearch
@@ -393,6 +393,7 @@ namespace ChatApp
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(274, 20);
             this.tbSearch.TabIndex = 9;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // form1BindingSource
             // 
@@ -451,7 +452,6 @@ namespace ChatApp
         private System.Windows.Forms.ToolStripMenuItem actionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortByNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortByGroupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem startAToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
