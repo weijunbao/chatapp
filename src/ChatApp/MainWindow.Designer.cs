@@ -49,6 +49,8 @@ namespace ChatApp
             this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StartChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ExitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
@@ -63,8 +65,6 @@ namespace ChatApp
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ExitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.statusContextMenuStrip.SuspendLayout();
@@ -201,6 +201,7 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
@@ -243,7 +244,7 @@ namespace ChatApp
             // 
             this.StartChatToolStripMenuItem.Name = "StartChatToolStripMenuItem";
             this.StartChatToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.StartChatToolStripMenuItem.Text = "Start Chat";
+            this.StartChatToolStripMenuItem.Text = "Start a Chat";
             this.StartChatToolStripMenuItem.Click += new System.EventHandler(this.StartChatMenuItem_Click);
             // 
             // SortByGroupToolStripMenuItem
@@ -252,6 +253,18 @@ namespace ChatApp
             this.SortByGroupToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.SortByGroupToolStripMenuItem.Text = "Sort by group";
             this.SortByGroupToolStripMenuItem.Click += new System.EventHandler(this.sortByGroupToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
+            // 
+            // ExitStripMenuItem
+            // 
+            this.ExitStripMenuItem.Name = "ExitStripMenuItem";
+            this.ExitStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.ExitStripMenuItem.Text = "Exit Application";
+            this.ExitStripMenuItem.Click += new System.EventHandler(this.ExitStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -264,7 +277,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // rootPanel
@@ -386,18 +399,6 @@ namespace ChatApp
             // form1BindingSource
             // 
             this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
-            // 
-            // ExitStripMenuItem
-            // 
-            this.ExitStripMenuItem.Name = "ExitStripMenuItem";
-            this.ExitStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.ExitStripMenuItem.Text = "Exit Application";
-            this.ExitStripMenuItem.Click += new System.EventHandler(this.ExitStripMenuItem_Click);
             // 
             // MainWindow
             // 
