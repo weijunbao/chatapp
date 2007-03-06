@@ -151,6 +151,10 @@ namespace ChatApp
                 {
                     state = LoginState.Online;
                 }
+                else if (availableReq.Status.Equals("Available", StringComparison.OrdinalIgnoreCase))
+                {
+                    state = LoginState.Online;
+                }
                 else
                 {
                     state = LoginState.Away;
