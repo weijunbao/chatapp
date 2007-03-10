@@ -37,6 +37,7 @@ namespace ChatApp
                 TreeNode GroupNode = GetGroupNodeFor(contact.GroupName);
                 TreeNode newNode = new TreeNode(contact.UserName, (int)contact.UserStatus, (int)contact.UserStatus);
                 newNode.Tag = contact.JabberId.JabberIDNoResource;
+                newNode.ContextMenuStrip = this.contactsContextMenuStrip;
                 GroupNode.Nodes.Add(newNode);
             }
             tvContacts.ExpandAll();
@@ -45,21 +46,24 @@ namespace ChatApp
 
         private TreeNode GetGroupNodeFor(string GroupName)
         {
+            TreeNode treeNode = null;
             if (GroupName.Length == 0)
             {
                 GroupName = "No Group";
             }
             if (tvContacts.Nodes.ContainsKey(GroupName))
             {
-                return tvContacts.Nodes[GroupName];
+                treeNode = tvContacts.Nodes[GroupName];
             }
             else
             {
                 TreeNode GroupNode = new TreeNode(GroupName, GroupImageIndex, GroupImageIndex);
                 GroupNode.Name = GroupName;
                 tvContacts.Nodes.Add(GroupNode);
-                return GroupNode;
+                treeNode = GroupNode;
             }
+            treeNode.ContextMenuStrip = this.contactsContextMenuStrip;
+            return treeNode;
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
