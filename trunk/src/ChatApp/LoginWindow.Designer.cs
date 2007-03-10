@@ -148,12 +148,11 @@ namespace ChatApp
             // 
             // WaitLabel
             // 
-            this.WaitLabel.AutoSize = true;
             this.WaitLabel.BackColor = System.Drawing.Color.Transparent;
             this.WaitLabel.Font = new System.Drawing.Font("Verdana", 9F);
             this.WaitLabel.Location = new System.Drawing.Point(12, 163);
             this.WaitLabel.Name = "WaitLabel";
-            this.WaitLabel.Size = new System.Drawing.Size(94, 14);
+            this.WaitLabel.Size = new System.Drawing.Size(174, 29);
             this.WaitLabel.TabIndex = 17;
             this.WaitLabel.Text = "Connecting....";
             this.WaitLabel.Visible = false;
@@ -184,7 +183,6 @@ namespace ChatApp
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enter User Credentials";
-            this.WindowActive = true;
             this.Load += new System.EventHandler(this.LoginWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);

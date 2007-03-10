@@ -33,6 +33,7 @@ namespace ChatApp
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
+            WaitLabel.Text = String.Empty;      // Reset the previous error message
             WaitLabel.Visible = true;
             EnableControls(false);
             if (IsInputValid())
