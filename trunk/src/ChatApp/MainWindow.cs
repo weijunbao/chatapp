@@ -103,6 +103,7 @@ namespace ChatApp
         private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow((string)e.Node.Tag);
+            msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
             msgWindow.Show();
         }
 
@@ -152,6 +153,10 @@ namespace ChatApp
 
             // Iterate through the list of jabber ids and check whether it is already added
             MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(packet.From.JabberIDNoResource);
+            if (string.Empty == msgWindow.MessageThreadID)
+            {
+                msgWindow.MessageThreadID = IncomingMessage.Thread;
+            }
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
 
