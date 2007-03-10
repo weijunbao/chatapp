@@ -64,12 +64,11 @@ namespace ChatApp
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            AppController.Instance.SetAvailableRequest();
+            AppController.Instance.SendAvailableRequest();
             if (AppController.Instance.CurrentUser.UserName.Length >= 0)
             {
                 lblWelcome.Text = AppController.Instance.CurrentUser.UserName;
             }
-
             UpdateContactList();
         }
 

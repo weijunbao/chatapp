@@ -294,7 +294,7 @@ namespace ChatApp
             InitializeSessionManager(UserName, Password, ServerName);
             if (m_sessionMgr != null)
             {
-                this.m_currentUser = new JabberID(UserName, ServerName, Resource);                
+                this.m_currentUser = m_sessionMgr.LocalUser;
                 return true;
             }
             else
@@ -323,11 +323,10 @@ namespace ChatApp
         private void Start()
         {
             LoadContactList();
-            Application.DoEvents();
             MainWindow.Show();
         }
 
-        public void SetAvailableRequest()
+        public void SendAvailableRequest()
         {
             m_sessionMgr.Send(new AvailableRequest());
         }
