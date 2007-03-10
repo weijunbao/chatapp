@@ -31,7 +31,6 @@ namespace ChatApp
         /// <summary>
         /// Holds the currently logged in user after they are authenticated on the LoginRegisterForm
         /// </summary>
-        JabberID _localUser;
 
         public SessionManager(Session s)
         {
@@ -95,8 +94,7 @@ namespace ChatApp
         /// </summary>
         public JabberID LocalUser
         {
-            get { return _localUser; }
-            set { _localUser = value; }
+            get { return _session.ClientJID; }
         }
 
         public Session Session
