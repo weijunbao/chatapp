@@ -22,14 +22,14 @@ namespace ChatApp
     {
         string message = null;
 
-        private string m_currentUserJabberId = null;
-        private string _messageThreadID = "";
+        private string m_remoteUserJabberId = null;
+        private string _messageThreadID = String.Empty;
 
 
-        public string CurrentUserJabberId
+        public string RemoteUserJabberId
         {
-            get { return m_currentUserJabberId; }
-            set { m_currentUserJabberId = value; }
+            get { return m_remoteUserJabberId; }
+            set { m_remoteUserJabberId = value; }
         }
 
         public string MessageThreadID
@@ -57,8 +57,8 @@ namespace ChatApp
 
         private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(m_currentUserJabberId != null)
-                AppController.Instance.RemoveWindowForUser(m_currentUserJabberId);
+            if(m_remoteUserJabberId != null)
+                AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -71,10 +71,11 @@ namespace ChatApp
         {
             ////Create the message packet
             MessagePacket outgoingPacket = null;
-            JabberID jid = new JabberID(m_currentUserJabberId);
 
-            outgoingPacket = new MessagePacket(jid, AppController.Instance.CurrentUser, tbMessages.Text);
-            outgoingPacket.Type = "Chat";   // DON'T REMOVE THIS!!!!
+
+            outgoingPacket = new MessagePacket(new JabberID(m_remoteUserJabberId), AppController.Instance.CurrentUser, tbMessages.Text);
+            outgoingPacket.Thread = this.MessageThreadID;
+            outgoingPacket.Type = "chat";   // DON'T REMOVE THIS!!!!
 
             //Display outgoing messages in history
             AddMessageToHistory(outgoingPacket);

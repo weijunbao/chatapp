@@ -328,7 +328,9 @@ namespace ChatApp
 
         public void SendAvailableRequest()
         {
-            m_sessionMgr.Send(new AvailableRequest());
+            m_currentPresence = new AvailableRequest();
+            m_currentPresence.Status = LoginState.Online.ToString();
+            m_sessionMgr.Send(m_currentPresence);
         }
 
         public void LoadContactList()
@@ -421,7 +423,7 @@ namespace ChatApp
             else
             {
                 msgWindow = new MessagingWindow();
-                msgWindow.CurrentUserJabberId = strJabberId;
+                msgWindow.RemoteUserJabberId = strJabberId;
                 msgWindow.Show();
                 m_ActiveChatUsers.Add(strJabberId, msgWindow);
             }
@@ -514,9 +516,12 @@ namespace ChatApp
         /// </summary>
         public void SendCurrentPresence(LoginState loginState)
         {
-            AvailableRequest presence = new AvailableRequest();
-            presence.Status = loginState.ToString();
-            SendCurrentPresence(presence);
+            if (m_currentPresence == null)
+            {
+                m_currentPresence = new AvailableRequest();
+            }
+            m_currentPresence.Status = loginState.ToString();
+            SendCurrentPresence(m_currentPresence);
         }
 
         /// <summary>
