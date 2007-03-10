@@ -9,6 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Coversant.SoapBox.SampleClient</RootNamespace>
     <AssemblyName>Coversant.SoapBox.SampleClient</AssemblyName>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -144,6 +145,9 @@
     <Compile Include="RoomCommands.cs" />
     <Compile Include="RoomOccupant.cs" />
     <Compile Include="SessionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
