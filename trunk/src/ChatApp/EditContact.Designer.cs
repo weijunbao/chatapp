@@ -31,9 +31,9 @@ namespace ChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditContact));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblContacttName = new System.Windows.Forms.Label();
-            this.tbContactName = new System.Windows.Forms.TextBox();
+            this.tbnewGpName = new System.Windows.Forms.TextBox();
             this.lblNewGroupName = new System.Windows.Forms.Label();
-            this.tbNewGname = new System.Windows.Forms.TextBox();
+            this.tbContactname = new System.Windows.Forms.TextBox();
             this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -43,9 +43,9 @@ namespace ChatApp
             // kryptonPanel1
             // 
             this.kryptonPanel1.Controls.Add(this.lblContacttName);
-            this.kryptonPanel1.Controls.Add(this.tbContactName);
+            this.kryptonPanel1.Controls.Add(this.tbnewGpName);
             this.kryptonPanel1.Controls.Add(this.lblNewGroupName);
-            this.kryptonPanel1.Controls.Add(this.tbNewGname);
+            this.kryptonPanel1.Controls.Add(this.tbContactname);
             this.kryptonPanel1.Controls.Add(this.btnOk);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
@@ -64,12 +64,12 @@ namespace ChatApp
             this.lblContacttName.TabIndex = 0;
             this.lblContacttName.Text = "Contact Name:";
             // 
-            // tbContactName
+            // tbnewGpName
             // 
-            this.tbContactName.Location = new System.Drawing.Point(15, 80);
-            this.tbContactName.Name = "tbContactName";
-            this.tbContactName.Size = new System.Drawing.Size(270, 20);
-            this.tbContactName.TabIndex = 3;
+            this.tbnewGpName.Location = new System.Drawing.Point(15, 80);
+            this.tbnewGpName.Name = "tbnewGpName";
+            this.tbnewGpName.Size = new System.Drawing.Size(270, 20);
+            this.tbnewGpName.TabIndex = 3;
             // 
             // lblNewGroupName
             // 
@@ -82,12 +82,12 @@ namespace ChatApp
             this.lblNewGroupName.TabIndex = 2;
             this.lblNewGroupName.Text = "New Group Name:";
             // 
-            // tbNewGname
+            // tbContactname
             // 
-            this.tbNewGname.Location = new System.Drawing.Point(15, 27);
-            this.tbNewGname.Name = "tbNewGname";
-            this.tbNewGname.Size = new System.Drawing.Size(270, 20);
-            this.tbNewGname.TabIndex = 1;
+            this.tbContactname.Location = new System.Drawing.Point(15, 27);
+            this.tbContactname.Name = "tbContactname";
+            this.tbContactname.Size = new System.Drawing.Size(270, 20);
+            this.tbContactname.TabIndex = 1;
             // 
             // btnOk
             // 
@@ -123,8 +123,8 @@ namespace ChatApp
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private System.Windows.Forms.TextBox tbNewGname;
-        private System.Windows.Forms.TextBox tbContactName;
+        private System.Windows.Forms.TextBox tbContactname;
+        private System.Windows.Forms.TextBox tbnewGpName;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOk;
         private System.Windows.Forms.Label lblContacttName;
         private System.Windows.Forms.Label lblNewGroupName;
