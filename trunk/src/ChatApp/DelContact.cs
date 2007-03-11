@@ -25,72 +25,27 @@ namespace ChatApp
         public DelContact()
         {
             InitializeComponent();
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                cbUsername.Items.Add(contact.UserName.ToString());
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
-         {
-            this.Hide();
-            bool foundcontact = false;
-
-            if (ValidateInput() == false)
-            {
-                DialogResult = DialogResult.None;
-                return;
-            }
-
-            JabberID JID = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), Properties.Settings.Default.Resource);
-            Contact delContact = new Contact(JID, tbGroupName.Text.Trim(), LoginState.Offline);
-
-            foreach (Contact contact in AppController.Instance.Contacts)
-            {
-                if (contact.Equals(delContact))
-                {
-                    foundcontact = true;
-                }
-            }
-
-            if (foundcontact)
-            {
-                JabberID Jid = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), "");
-
-                UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                AppController.Instance.SessionManager.Send(resp);
-                AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, tbUserName.Text.ToString()));
-                AppController.Instance.Contacts.Remove(delContact);
-                AppController.Instance.MainWindow.UpdateContactList();
-            }
-
-            else if (!foundcontact)
-            {
-                MessageBox.Show("Contact to be deleted doesnot exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Show();
-            }
-           
-
-        }
-        private bool ValidateInput()
         {
-            if (tbUserName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a User ID for your Contact");
-                return false;
-            }
 
-            if (tbServerName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a Server for your Contact");
-                return false;
-            }
 
-            if (tbGroupName.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a Group for your Contact");
-                return false;
-            }
+            Contact delContact = AppController.Instance.Contacts[cbUsername.SelectedItem.ToString()];
+            JabberID Jid = new JabberID(delContact.UserName.ToString(), delContact.ServerName.ToString(), Properties.Settings.Default.Resource);
 
-            return true;
+            UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+            AppController.Instance.SessionManager.Send(resp);
+            AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, cbUsername.SelectedItem.ToString()));
+            AppController.Instance.Contacts.Remove(delContact);
+            AppController.Instance.MainWindow.UpdateContactList();
+            this.Hide();
+
         }
 
-       
     }
 }
