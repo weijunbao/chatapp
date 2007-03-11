@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 using Coversant.SoapBox.Base;
 using Coversant.SoapBox.Core;
@@ -27,75 +28,56 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            ArrayList deleteusers = new ArrayList();
+            this.Hide();
+
             if (tbGroupName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You must enter a valid Group name!");
-                DeleteGroup delgWnd = new DeleteGroup();
-                delgWnd.Show();
+                this.Show();
             }
 
             else
             {
-                ContactList m_contacts = AppController.Instance.Contacts;
-                Contact contact;
-                MainWindow m_mainWindow = AppController.Instance.MainWindow;
-                SessionManager m_sessionMgr = AppController.Instance.SessionManager;
+
                 bool groupexist = false;
 
-                for (int i = 0; i < m_contacts.Count; ++i)
+                foreach (Contact contact in AppController.Instance.Contacts)
                 {
-                    contact = m_contacts[i];
-                    string groupName = contact.GroupName;
-                    if (groupName.Equals(tbGroupName.Text, StringComparison.OrdinalIgnoreCase))
+                    if (contact.GroupName.Equals(tbGroupName.Text))
                     {
-                        groupexist = true;
-                        break;
+                          groupexist = true;
+                          deleteusers.Add(contact.UserName);
+                        
                     }
                 }
+
 
                 if (groupexist)
                 {
-                    string message = "Are you sure you want to delete group " + tbGroupName.Text + " and its contacts?";
-                    if (DialogResult.Yes == MessageBox.Show(message, "Delete Group", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    for (int i = 0; i < deleteusers.Count; i++)
                     {
-                        for (int i = 0; i < m_contacts.Count; ++i)
-                        {
-                            contact = m_contacts[i];
-                            string groupName = contact.GroupName;
-                            if (groupName.Equals(tbGroupName.Text, StringComparison.OrdinalIgnoreCase))
-                            {
-                                JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), "");
-                                UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                                m_sessionMgr.Send(resp);
-                                m_sessionMgr.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
-                            }
-                        }
+                        
+                        Contact delcontact = AppController.Instance.Contacts[deleteusers[i].ToString()];
+                        
+                        JabberID Jid = new JabberID(delcontact.UserName.ToString(), delcontact.ServerName.ToString(), Properties.Settings.Default.Resource);
+                        //Contact delContact = new Contact(Jid, tbGroupName.Text.Trim(), LoginState.Offline);
+                        UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+                        AppController.Instance.SessionManager.Send(resp);
+                        AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, delcontact.UserName.ToString()));
+                        AppController.Instance.Contacts.Remove(delcontact);
+                        AppController.Instance.MainWindow.UpdateContactList();
                     }
                 }
-
-                else  //---if group does not exist
+                if (!groupexist)
                 {
-                    MessageBox.Show("Group to be deleted doesnot exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    DeleteGroup delgWnd = new DeleteGroup();
-                    delgWnd.Show();
+                    MessageBox.Show("Group name does not exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Show();
                 }
 
-                foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
-                {
+            }
+        }
 
-                    if (node.Text == tbGroupName.Text.ToString())
-                    {
-                        node.Remove();
-                        foreach (TreeNode userNode in node.Nodes)
-                        {
-                            contact = m_contacts[userNode.Text.ToString()];
-                            userNode.Remove();
-                            m_contacts.Remove(contact);
-                        }
-                    }
-                }
-                m_mainWindow.UpdateContactList();
-            }//else
-        }//button click  
+      
     }//class
 }
