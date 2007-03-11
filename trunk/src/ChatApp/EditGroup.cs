@@ -14,6 +14,7 @@ using Coversant.SoapBox.Core.IQ.Register;
 using Coversant.SoapBox.Core.IQ.Roster;
 using Coversant.SoapBox.Core.Message;
 using Coversant.SoapBox.Core.Presence;
+using System.Collections;
 
 namespace ChatApp
 {
@@ -26,51 +27,70 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            ContactList m_contacts = AppController.Instance.Contacts;
-            Contact contact;
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            SessionManager m_sessionMgr = AppController.Instance.SessionManager;
-            m_mainWindow.tvContacts.Nodes.Clear();
+            this.Hide();
             bool grouppresent = false;
+            ArrayList editgroup = new ArrayList();
 
-            for (int i = 0; i < m_contacts.Count; ++i)
+            if (ValidateInput() == false)
             {
-                contact = m_contacts[i];
-                string groupName = contact.GroupName;
-                if (groupName.Equals(tbOldGroup.Text, StringComparison.OrdinalIgnoreCase))
+                DialogResult = DialogResult.None;
+                return;
+            }
+            
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+           
+                if (contact.GroupName.Equals(tbOldGroup.Text, StringComparison.OrdinalIgnoreCase))
                 {
-                    contact.GroupName = tbNewGroup.Text.ToString();
 
-                    JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), "");
-                    UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                    m_sessionMgr.Send(resp);
-                    m_sessionMgr.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
-
-
-                    SubscribeRequest p = new SubscribeRequest(Jid);
-                    m_sessionMgr.Send(p);
-                    m_sessionMgr.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), contact.GroupName.ToString()));
-
+                    editgroup.Add(contact.UserName);
                     grouppresent = true;
                 }
             }
 
+            if (grouppresent)
+            {
+                for (int i = 0; i < editgroup.Count; i++)
+                {
+                    Contact editGp = AppController.Instance.Contacts[editgroup[i].ToString()];
+                    JabberID Jid = new JabberID(editGp.UserName.ToString(), editGp.ServerName.ToString(), Properties.Settings.Default.Resource);
+
+                    Contact delContact = new Contact(Jid, editGp.GroupName.ToString(), LoginState.Offline);
+                    Contact editContact = new Contact(Jid, tbNewGroup.Text.Trim(), LoginState.Offline);
+                    
+                    UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+                    AppController.Instance.SessionManager.Send(resp);
+                    AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, editGp.UserName.ToString()));
+                    AppController.Instance.Contacts.Remove(delContact);
+
+                    SubscribeRequest p = new SubscribeRequest(Jid);
+                    AppController.Instance.SessionManager.Send(p);
+                    AppController.Instance.SessionManager.BeginSend(new RosterAdd(Jid, editGp.UserName.ToString(), tbNewGroup.Text.ToString()));
+                    AppController.Instance.Contacts.Add(editContact);
+
+
+                    AppController.Instance.MainWindow.UpdateContactList();
+
+
+                }
+
+            }
             if (!grouppresent)
             {
                 MessageBox.Show("Group to be renamed doesnot exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
+        }
+
+        private bool ValidateInput()
+        {
+            if (tbOldGroup.Text.Trim().Length == 0 || tbNewGroup.Text.Trim().Length == 0)
             {
-                // If the tree already contain this group, do not add it
-                if (node.Text.Equals(tbOldGroup.Text, StringComparison.OrdinalIgnoreCase))
-                {
-                    node.Text.Replace(tbOldGroup.Text.ToString(), tbNewGroup.Text.ToString());
-                    break;
-                }
+                MessageBox.Show("You must enter a group name");
+                return false;
             }
 
-            m_mainWindow.UpdateContactList();
+            return true;
         }
     }
 }
