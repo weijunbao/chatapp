@@ -27,54 +27,70 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            ContactList m_contacts = AppController.Instance.Contacts;
-            Contact contact;
-            MainWindow m_mainWindow = AppController.Instance.MainWindow;
-            SessionManager m_sessionMgr = AppController.Instance.SessionManager;
-            //m_mainWindow.tvContacts.Nodes.Clear();
+            this.Hide();
             bool contactexist = false;
 
-            for (int i = 0; i < m_contacts.Count; ++i)
+            if (ValidateInput() == false)
             {
-                contact = m_contacts[i];
-                string contactname = contact.UserName;
-                if (contactname.Equals(tbContactName.Text, StringComparison.OrdinalIgnoreCase))
+                DialogResult = DialogResult.None;
+                return;
+            }
+
+
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                if (contact.UserName.Equals(tbContactname.Text,StringComparison.OrdinalIgnoreCase))
                 {
                     contactexist = true;
-                    break;
+                    
+                    JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Properties.Settings.Default.Resource);
+                    Contact delContact = new Contact(Jid, contact.GroupName.ToString(), LoginState.Offline);
+                    Contact editContact = new Contact(Jid,tbnewGpName.Text.Trim(),LoginState.Offline);
+
+                    UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+                    AppController.Instance.SessionManager.Send(resp);
+                    AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
+                    AppController.Instance.Contacts.Remove(delContact);
+
+                    SubscribeRequest p = new SubscribeRequest(Jid);
+                    AppController.Instance.SessionManager.Send(p);
+                    AppController.Instance.SessionManager.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), tbnewGpName.Text.ToString()));
+                    AppController.Instance.Contacts.Add(editContact);
+                    
+                    
+                    AppController.Instance.MainWindow.UpdateContactList();
+
+
+                    return;
                 }
             }
 
-            if (contactexist)
-            {
-                for (int i = 0; i < m_contacts.Count; ++i)
-                {
-                    contact = m_contacts[i];
-                    string contactname = contact.UserName;
-                    if (contactname.Equals(tbContactName.Text, StringComparison.OrdinalIgnoreCase))
-                    {
-                        contact.GroupName = tbNewGname.Text.ToString();
+           
 
-                        JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), "");
-                        UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                        m_sessionMgr.Send(resp);
-                        m_sessionMgr.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
-
-
-                        SubscribeRequest p = new SubscribeRequest(Jid);
-                        m_sessionMgr.Send(p);
-                        m_sessionMgr.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), contact.GroupName.ToString()));
-                    }
-                }
-
-            }
-            else //if contact does not exist
+            
+            if(!contactexist) //if contact does not exist
             {
                 MessageBox.Show("Contact does not exist", "Change Group", MessageBoxButtons.OK);
-                EditContact edtWnd = new EditContact();
-                edtWnd.Show();
+                this.Show();
             }
-            m_mainWindow.UpdateContactList();
+        }
+
+
+        private bool ValidateInput()
+        {
+            if (tbContactname.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a User ID for your Contact");
+                return false;
+            }
+
+            if (tbnewGpName.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("You must enter a Group for your Contact");
+                return false;
+            }
+
+            return true;
         }
     }
 }
