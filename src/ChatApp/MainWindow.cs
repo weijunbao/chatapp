@@ -261,13 +261,21 @@ namespace ChatApp
             Searchcontact(tbSearch.Text);
         }
 
-        private void Searchcontact(string contact)
+        private void Searchcontact(string s_contact)
         {
-            foreach (TreeNode node in tvContacts.Nodes)
+            tvContacts.Nodes.Clear();
+            if (s_contact == "")
             {
-                if (node.Name.StartsWith(contact))
+                UpdateContactList();
+            }
+            else
+            {
+                foreach (Contact contact in AppController.Instance.Contacts)
                 {
-                    tvContacts.SelectedNode = node;
+                    if (contact.UserName.StartsWith(s_contact))
+                    {
+                        tvContacts.Nodes.Add(contact.UserName.ToString());
+                    }
                 }
             }
         }
