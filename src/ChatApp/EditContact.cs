@@ -23,26 +23,22 @@ namespace ChatApp
         public EditContact()
         {
             InitializeComponent();
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                cbContactname.Items.Add(contact.UserName.ToString());
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Hide();
-            bool contactexist = false;
-
             if (ValidateInput() == false)
             {
                 DialogResult = DialogResult.None;
                 return;
             }
 
-
-            foreach (Contact contact in AppController.Instance.Contacts)
-            {
-                if (contact.UserName.Equals(tbContactname.Text,StringComparison.OrdinalIgnoreCase))
-                {
-                    contactexist = true;
-                    
+                    Contact contact = AppController.Instance.Contacts[cbContactname.SelectedItem.ToString()];
                     JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Properties.Settings.Default.Resource);
                     Contact delContact = new Contact(Jid, contact.GroupName.ToString(), LoginState.Offline);
                     Contact editContact = new Contact(Jid,tbnewGpName.Text.Trim(),LoginState.Offline);
@@ -61,29 +57,11 @@ namespace ChatApp
                     AppController.Instance.MainWindow.UpdateContactList();
 
 
-                    return;
-                }
-            }
-
-           
-
-            
-            if(!contactexist) //if contact does not exist
-            {
-                MessageBox.Show("Contact does not exist", "Change Group", MessageBoxButtons.OK);
-                this.Show();
-            }
         }
 
 
         private bool ValidateInput()
         {
-            if (tbContactname.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("You must enter a User ID for your Contact");
-                return false;
-            }
-
             if (tbnewGpName.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You must enter a Group for your Contact");
