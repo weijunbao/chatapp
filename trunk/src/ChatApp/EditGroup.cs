@@ -23,12 +23,15 @@ namespace ChatApp
         public EditGroup()
         {
             InitializeComponent();
+            foreach (TreeNode node in AppController.Instance.MainWindow.tvContacts.Nodes)
+            {
+                cbOldgroup.Items.Add(node.Text.ToString());
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Hide();
-            bool grouppresent = false;
             ArrayList editgroup = new ArrayList();
 
             if (ValidateInput() == false)
@@ -40,17 +43,13 @@ namespace ChatApp
             foreach (Contact contact in AppController.Instance.Contacts)
             {
            
-                if (contact.GroupName.Equals(tbOldGroup.Text, StringComparison.OrdinalIgnoreCase))
+                if (contact.GroupName.Equals(cbOldgroup.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase))
                 {
-
                     editgroup.Add(contact.UserName);
-                    grouppresent = true;
                 }
             }
 
-            if (grouppresent)
-            {
-                for (int i = 0; i < editgroup.Count; i++)
+            for (int i = 0; i < editgroup.Count; i++)
                 {
                     Contact editGp = AppController.Instance.Contacts[editgroup[i].ToString()];
                     JabberID Jid = new JabberID(editGp.UserName.ToString(), editGp.ServerName.ToString(), Properties.Settings.Default.Resource);
@@ -74,17 +73,11 @@ namespace ChatApp
 
                 }
 
-            }
-            if (!grouppresent)
-            {
-                MessageBox.Show("Group to be renamed doesnot exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
 
         private bool ValidateInput()
         {
-            if (tbOldGroup.Text.Trim().Length == 0 || tbNewGroup.Text.Trim().Length == 0)
+            if (tbNewGroup.Text.Trim().Length == 0)
             {
                 MessageBox.Show("You must enter a group name");
                 return false;

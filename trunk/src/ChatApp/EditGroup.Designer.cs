@@ -31,10 +31,10 @@ namespace ChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditGroup));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblOldGroup = new System.Windows.Forms.Label();
-            this.tbOldGroup = new System.Windows.Forms.TextBox();
             this.lblNewGroup = new System.Windows.Forms.Label();
             this.tbNewGroup = new System.Windows.Forms.TextBox();
             this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.cbOldgroup = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
@@ -42,8 +42,8 @@ namespace ChatApp
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.cbOldgroup);
             this.kryptonPanel1.Controls.Add(this.lblOldGroup);
-            this.kryptonPanel1.Controls.Add(this.tbOldGroup);
             this.kryptonPanel1.Controls.Add(this.lblNewGroup);
             this.kryptonPanel1.Controls.Add(this.tbNewGroup);
             this.kryptonPanel1.Controls.Add(this.btnOk);
@@ -63,13 +63,6 @@ namespace ChatApp
             this.lblOldGroup.Size = new System.Drawing.Size(75, 14);
             this.lblOldGroup.TabIndex = 0;
             this.lblOldGroup.Text = "Old Group:";
-            // 
-            // tbOldGroup
-            // 
-            this.tbOldGroup.Location = new System.Drawing.Point(15, 27);
-            this.tbOldGroup.Name = "tbOldGroup";
-            this.tbOldGroup.Size = new System.Drawing.Size(270, 20);
-            this.tbOldGroup.TabIndex = 1;
             // 
             // lblNewGroup
             // 
@@ -98,6 +91,14 @@ namespace ChatApp
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // cbOldgroup
+            // 
+            this.cbOldgroup.FormattingEnabled = true;
+            this.cbOldgroup.Location = new System.Drawing.Point(15, 27);
+            this.cbOldgroup.Name = "cbOldgroup";
+            this.cbOldgroup.Size = new System.Drawing.Size(270, 21);
+            this.cbOldgroup.TabIndex = 5;
+            // 
             // EditGroup
             // 
             this.AcceptButton = this.btnOk;
@@ -112,6 +113,7 @@ namespace ChatApp
             this.Name = "EditGroup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Group";
+            this.WindowActive = true;
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
@@ -124,9 +126,9 @@ namespace ChatApp
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.TextBox tbNewGroup;
-        private System.Windows.Forms.TextBox tbOldGroup;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOk;
         private System.Windows.Forms.Label lblOldGroup;
         private System.Windows.Forms.Label lblNewGroup;
+        private System.Windows.Forms.ComboBox cbOldgroup;
     }
 }
