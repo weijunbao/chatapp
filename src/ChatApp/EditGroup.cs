@@ -23,9 +23,16 @@ namespace ChatApp
         public EditGroup()
         {
             InitializeComponent();
-            foreach (TreeNode node in AppController.Instance.MainWindow.tvContacts.Nodes)
+            if (!AppController.Instance.MainWindow.fromcontextmenu)
             {
-                cbOldgroup.Items.Add(node.Text.ToString());
+                foreach (TreeNode node in AppController.Instance.MainWindow.tvContacts.Nodes)
+                {
+                    cbOldgroup.Items.Add(node.Text.ToString());
+                }
+            }
+            else
+            {
+                cbOldgroup.Items.Add(AppController.Instance.MainWindow.tvContacts.SelectedNode.Name);
             }
         }
 
