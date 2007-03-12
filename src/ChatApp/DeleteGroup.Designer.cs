@@ -31,8 +31,8 @@ namespace ChatApp
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteGroup));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblGroupName = new System.Windows.Forms.Label();
-            this.tbGroupName = new System.Windows.Forms.TextBox();
             this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.cbDeletegroup = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
@@ -40,8 +40,8 @@ namespace ChatApp
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.cbDeletegroup);
             this.kryptonPanel1.Controls.Add(this.lblGroupName);
-            this.kryptonPanel1.Controls.Add(this.tbGroupName);
             this.kryptonPanel1.Controls.Add(this.btnOk);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
@@ -59,13 +59,6 @@ namespace ChatApp
             this.lblGroupName.TabIndex = 0;
             this.lblGroupName.Text = "Group Name:";
             // 
-            // tbGroupName
-            // 
-            this.tbGroupName.Location = new System.Drawing.Point(15, 27);
-            this.tbGroupName.Name = "tbGroupName";
-            this.tbGroupName.Size = new System.Drawing.Size(270, 20);
-            this.tbGroupName.TabIndex = 1;
-            // 
             // btnOk
             // 
             this.btnOk.Location = new System.Drawing.Point(210, 53);
@@ -74,6 +67,14 @@ namespace ChatApp
             this.btnOk.TabIndex = 2;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // cbDeletegroup
+            // 
+            this.cbDeletegroup.FormattingEnabled = true;
+            this.cbDeletegroup.Location = new System.Drawing.Point(12, 27);
+            this.cbDeletegroup.Name = "cbDeletegroup";
+            this.cbDeletegroup.Size = new System.Drawing.Size(270, 21);
+            this.cbDeletegroup.TabIndex = 3;
             // 
             // DeleteGroup
             // 
@@ -91,7 +92,6 @@ namespace ChatApp
             this.Text = "Delete Group";
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).EndInit();
             this.ResumeLayout(false);
 
@@ -100,8 +100,8 @@ namespace ChatApp
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private System.Windows.Forms.TextBox tbGroupName;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOk;
         internal System.Windows.Forms.Label lblGroupName;
+        private System.Windows.Forms.ComboBox cbDeletegroup;
     }
 }

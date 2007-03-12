@@ -18,6 +18,7 @@ namespace ChatApp
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
         private readonly int GroupImageIndex = 4;
+        public bool fromcontextmenu = false;
 
         public MainWindow()
         {
@@ -62,7 +63,7 @@ namespace ChatApp
                 tvContacts.Nodes.Add(GroupNode);
                 treeNode = GroupNode;
             }
-            treeNode.ContextMenuStrip = this.contactsContextMenuStrip;
+            treeNode.ContextMenuStrip = this.GroupContextMenuStrip;
             return treeNode;
         }
 
@@ -310,5 +311,26 @@ namespace ChatApp
         {
             AppController.Instance.ExitApplication();
         }
+
+        private void RenametoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            fromcontextmenu = true;
+            EditGroup EditGroupWnd = new EditGroup();
+            EditGroupWnd.ShowDialog(this);
+            EditGroupWnd.Dispose();
+            EditGroupWnd = null;
+            fromcontextmenu = false;
+        }
+
+        private void DeletetoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            fromcontextmenu = true;
+            DeleteGroup DeleteGroupWnd = new DeleteGroup();
+            DeleteGroupWnd.ShowDialog(this);
+            DeleteGroupWnd.Dispose();
+            DeleteGroupWnd = null;
+        }
+
+       
     }
 }
