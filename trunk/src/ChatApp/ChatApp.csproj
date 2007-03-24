@@ -192,6 +192,11 @@
     <None Include="icons\status_online.png" />
     <None Include="icons\status_busy.png" />
     <None Include="icons\status_offline.png" />
+    <None Include="Resources\sound.bmp" />
+    <None Include="Resources\notify.wav" />
+    <None Include="Resources\ding.wav" />
+    <None Include="Resources\chimes.wav" />
+    <None Include="Resources\tada.wav" />
     <Content Include="User32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
