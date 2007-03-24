@@ -562,7 +562,9 @@ namespace ChatApp
         {
             SoundPlayer player = new SoundPlayer();
             player.LoadTimeout = 10000;
-            player.SoundLocation = "C:\\WINDOWS\\Media\\notify.wav";
+           // player.SoundLocation = ChatApp.Properties.Resources.notify;//"C:\\WINDOWS\\Media\\notify.wav";
+           // player.Play();
+            player.Stream = ChatApp.Properties.Resources.ding;
             player.Play();
         }
     }

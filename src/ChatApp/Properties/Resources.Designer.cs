@@ -67,6 +67,18 @@ namespace ChatApp.Properties {
             }
         }
         
+        internal static System.IO.UnmanagedMemoryStream ding {
+            get {
+                return ResourceManager.GetStream("ding", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream notify {
+            get {
+                return ResourceManager.GetStream("notify", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap status_away {
             get {
                 object obj = ResourceManager.GetObject("status_away", resourceCulture);
