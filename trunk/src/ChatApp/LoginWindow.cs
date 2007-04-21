@@ -83,7 +83,7 @@ namespace ChatApp
 
             try 
             { 
-                JabberID jd = new JabberID(UserNameTextBox.Text,ServerNameTextBox.Text, AppController.Resource); 
+                JabberID jd = new JabberID(UserNameTextBox.Text,AppController.Resource);
             }
             catch
             {

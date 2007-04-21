@@ -374,8 +374,12 @@ namespace ChatApp
         {
             try
             {
+                JabberID jd = new JabberID(userName);
+
                 // Create a session using user credentials
-                Session session = Session.Login(userName, password, Resource, serverName, Thread.CurrentThread.CurrentCulture);
+                ConnectionOptions opts = new ConnectionOptions(serverName, jd.Server);
+                //Session session = Session.Login(userName, password, Resource, serverName, Thread.CurrentThread.CurrentCulture);
+                Session session = Session.Login(jd.UserName, password, Resource, true, opts);
                 m_sessionMgr = new SessionManager(session);
             }
             catch (PacketException ex)
@@ -564,8 +568,8 @@ namespace ChatApp
             player.LoadTimeout = 10000;
            // player.SoundLocation = ChatApp.Properties.Resources.notify;//"C:\\WINDOWS\\Media\\notify.wav";
            // player.Play();
-            player.Stream = ChatApp.Properties.Resources.ding;
-            player.Play();
+            //player.Stream = ChatApp.Properties.Resources.ding;
+            //player.Play();
         }
     }
 }
