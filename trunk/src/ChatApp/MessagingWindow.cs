@@ -14,6 +14,7 @@ using Coversant.SoapBox.Core;
 using Coversant.SoapBox.Core.IQ.Register;
 using Coversant.SoapBox.Base;
 using Coversant.SoapBox.Core.IQ;
+using System.Text.RegularExpressions;
 
 
 namespace ChatApp
@@ -21,7 +22,7 @@ namespace ChatApp
     public partial class MessagingWindow : KryptonForm
     {
         string message = null;
-
+        Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private string m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
 
@@ -48,11 +49,29 @@ namespace ChatApp
         public void AddMessageToHistory(MessagePacket msg)
         {
             System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
-            messageBuilder.Append(msg.From.UserName.ToString()).Append(": ").Append(msg.Body).Append("\n");
+            messageBuilder.Append(GetUserFormatting(msg.From.UserName.ToString()))
+                .Append(GetMessageFormatting(msg.Body))
+                .Append(@"<span id='placeholder'/>");
             message = messageBuilder.ToString();
-            rtbmsgHistory.AppendText(message);
-            rtbmsgHistory.ScrollToCaret();
+            HtmlElementCollection HtmlColection = msgHistoryWindow.Document.Body.GetElementsByTagName("span");
+            if (HtmlColection.Count == 0 || HtmlColection == null)
+                return;
+            HtmlElement SpanElement = HtmlColection[0];
+            SpanElement.OuterHtml = message;
+            msgHistoryWindow.Document.Body.GetElementsByTagName("span")[0].ScrollIntoView(false);
             tbMessages.Focus();
+        }
+
+        private string GetMessageFormatting(string Message)
+        {
+            
+            Message = regx.Replace(Message, "<br />");
+            return string.Format(@"<font size='-1' style='font-family:arial,Sans-Serif'>{0}</font><br />", Message);
+        }
+
+        private string GetUserFormatting(string UserName)
+        {
+            return string.Format(@"<font size='-2' color='maroon' style='font-family:arial,Sans-Serif'><b>{0}</b>&nbsp;:&nbsp;</font>", UserName);
         }
 
 
@@ -94,6 +113,17 @@ namespace ChatApp
                     string.Format("The following exception occurred while sending a message:\n\n{0}", ex));
             }
 
+        }
+
+        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
+            msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
+        }
+
+        private void MessagingWindow_Load(object sender, EventArgs e)
+        {
+            msgHistoryWindow.Navigate("about:blank");
         }
     }
 }
