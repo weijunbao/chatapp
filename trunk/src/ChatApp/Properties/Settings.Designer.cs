@@ -61,7 +61,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("galdesk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Server {
             get {
                 return ((string)(this["Server"]));
@@ -97,7 +97,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Debug {
             get {
                 return ((bool)(this["Debug"]));
@@ -109,7 +109,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Chat App")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ChatApp")]
         public string AppName {
             get {
                 return ((string)(this["AppName"]));
