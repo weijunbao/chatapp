@@ -122,43 +122,8 @@ namespace ChatApp
             {
                 AvailableRequest availableReq = WConvert.ToAvailableRequest(IncomingPresencePacket);
 
-                LoginState state = LoginState.Offline;
+                LoginState state = (LoginState)availableReq.Show;
                 string userName = availableReq.From.UserName;
-
-                if (availableReq.Status.Equals("online", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Online;
-                }
-                else if (availableReq.Status.Equals("busy", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Busy;
-                }
-
-                else if (availableReq.Status.Equals("Away", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Away;
-                }
-
-                else if (availableReq.Status.Equals("Do not Disturb", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Busy;
-                }
-                else if (availableReq.Status.Equals("On Phone", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Busy;
-                }
-                else if (availableReq.Status.Equals("Free To Chat", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Online;
-                }
-                else if (availableReq.Status.Equals("Available", StringComparison.OrdinalIgnoreCase))
-                {
-                    state = LoginState.Online;
-                }
-                else
-                {
-                    state = LoginState.Away;
-                }
 
                 Contact contact = AppController.Instance.Contacts[userName];
                 if (contact != null)
