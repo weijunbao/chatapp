@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="ChatApp.MainWindow">
+    <Position X="0.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>MainWindow.cs</FileName>
+      <HashCode>iwAEIsARULGgAYCqMACCEKgbACQjAYRIhtAQCAYBEEA=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Method Name="addContactToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="BtnLogout_Click" Hidden="true" />
+      <Method Name="CbStatus_SelectionChangeCommitted" Hidden="true" />
+      <Method Name="chatAppToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="closeToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="deleteContactToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="deleteGroupToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="editContactToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="editGroupToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="IncomingAsycPresenceThreadSafe" Hidden="true" />
+      <Method Name="IncomingAsyncMessage" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Method Name="lblStatus_LinkClicked" Hidden="true" />
+      <Method Name="MainWindow" Hidden="true" />
+      <Method Name="MainWindow_FormClosing" Hidden="true" />
+      <Method Name="MainWindow_Load" Hidden="true" />
+      <Method Name="menu_showOnlineContacts_Click" Hidden="true" />
+      <Method Name="MnuExit_Click" Hidden="true" />
+      <Method Name="OnIncomingMessage" Hidden="true" />
+      <Method Name="OnIncomingPresence" Hidden="true" />
+      <Method Name="Searchcontact" Hidden="true" />
+      <Method Name="SetStatusIcon" Hidden="true" />
+      <Method Name="sortByGroupToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="sortByNameToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="startAToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="tbSearch_TextChanged" Hidden="true" />
+      <Method Name="TrayIcon_Click" Hidden="true" />
+      <Method Name="TrayIcon_DoubleClick" Hidden="true" />
+      <Method Name="TrayIcon_MouseDoubleClick" Hidden="true" />
+      <Method Name="tvContacts_NodeMouseDoubleClick" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="ChatApp.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatApp.BuddyListView">
+    <Position X="9" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>BuddyListView.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatApp.BuddyListController">
+    <Position X="6" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>BuddyListController.cs</FileName>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BuddyListView" />
+    </ShowAsAssociation>
+    <AssociationLine Name="BuddyListView" Type="ChatApp.BuddyListView">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.08" Y="0.078" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="ChatApp.MessageStoreController">
+    <Position X="6" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <FileName>MessageStore.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MessageStore" />
+    </ShowAsAssociation>
+    <AssociationLine Name="MessageStore" Type="ChatApp.MessageStore">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.195" Y="0.079" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="ChatApp.ConfigStoreController">
+    <Position X="6.25" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <FileName>MessageStore.cs</FileName>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAg=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ConfigStore" />
+    </ShowAsAssociation>
+    <AssociationLine Name="ConfigStore" Type="ChatApp.ConfigStore">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.175" Y="0.079" Height="0.16" Width="0.962" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="ChatApp.MessageStore">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MessageStore.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatApp.ConfigStore">
+    <Position X="8.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MessageStore.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatApp.AppController">
+    <Position X="3" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>AppController.cs</FileName>
+      <HashCode>FAEEACSAdLAAYQNUAEAERACIDPAyAACAwgAQABwApAg=</HashCode>
+    </TypeIdentifier>
+    <Members>
+      <Method Name="Activate" Hidden="true" />
+      <Method Name="ExitApplication" Hidden="true" />
+      <Method Name="IncomingRosterCallback" Hidden="true" />
+      <Method Name="IncomingRosterThreadSafe" Hidden="true" />
+      <Method Name="InitializeSessionManager" Hidden="true" />
+      <Method Name="Login" Hidden="true" />
+      <Method Name="loginWnd_FormClosed" Hidden="true" />
+      <Method Name="LogOff" Hidden="true" />
+      <Method Name="MainWnd_load" Hidden="true" />
+      <Method Name="OnIncomingRoster" Hidden="true" />
+      <Method Name="ResetSession" Hidden="true" />
+      <Method Name="SetHiddenMode" Hidden="true" />
+      <Method Name="ShowLoginWindow" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="ChatApp.AppController.IncomingMessageDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AppController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="ChatApp.AppController.IncomingPresenceDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AppController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="ChatApp.AppController.IncomingRosterChangeDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AppController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="ChatApp.AppController.IncomingIQErrorDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AppController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="ChatApp.AppController.IncomingIQResultDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AppController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+  </Class>
+  <Enum Name="ChatApp.LoginState" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>LoginState.cs</FileName>
+      <HashCode>AAAAAAAABAAAAAAAABgAEAAAAAAAACAAAAAAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+</ClassDiagram>

@@ -1,0 +1,210 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13F99EFA-1002-402F-B91F-17E6B21FBC18}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChatApp</RootNamespace>
+    <AssemblyName>ChatApp</AssemblyName>
+    <ApplicationIcon>User32.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\krypton\ComponentFactory.Krypton.Toolkit.DLL</HintPath>
+    </Reference>
+    <Reference Include="coversant.corlib, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\coversant\coversant.corlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Coversant.SoapBox, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\coversant\Coversant.SoapBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Coversant.Win32, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\coversant\Coversant.Win32.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddContact.Designer.cs">
+      <DependentUpon>AddContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuddyListController.cs" />
+    <Compile Include="BuddyListView.cs" />
+    <Compile Include="AppController.cs" />
+    <Compile Include="ContactList.cs" />
+    <Compile Include="DebugOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DelContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DelContact.Designer.cs">
+      <DependentUpon>DelContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteGroup.Designer.cs">
+      <DependentUpon>DeleteGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditContact.Designer.cs">
+      <DependentUpon>EditContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditGroup.Designer.cs">
+      <DependentUpon>EditGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HiddenWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HiddenWindow.Designer.cs">
+      <DependentUpon>HiddenWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginWindow.Designer.cs">
+      <DependentUpon>LoginWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginState.cs" />
+    <Compile Include="MessageStore.cs" />
+    <Compile Include="MessagingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessagingWindow.Designer.cs">
+      <DependentUpon>MessagingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddContact.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AddContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugOutput.resx">
+      <DependentUpon>DebugOutput.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DelContact.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DelContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteGroup.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DeleteGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditContact.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditGroup.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HiddenWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>HiddenWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoginWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessagingWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MessagingWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="ClassDiagram.cd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SessionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\bullet_arrow_bottom.png" />
+    <None Include="icons\user48.png" />
+    <None Include="icons\status_away.png" />
+    <None Include="icons\status_online.png" />
+    <None Include="icons\status_busy.png" />
+    <None Include="icons\status_offline.png" />
+    <None Include="Resources\sound.bmp" />
+    <None Include="Resources\notify.wav" />
+    <None Include="Resources\ding.wav" />
+    <None Include="Resources\chimes.wav" />
+    <None Include="Resources\tada.wav" />
+    <Content Include="User32.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
