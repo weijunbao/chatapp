@@ -51,6 +51,7 @@ namespace ChatApp
             messageBuilder.Append(msg.From.UserName.ToString()).Append(": ").Append(msg.Body).Append("\n");
             message = messageBuilder.ToString();
             rtbmsgHistory.AppendText(message);
+            rtbmsgHistory.ScrollToCaret();
             tbMessages.Focus();
         }
 

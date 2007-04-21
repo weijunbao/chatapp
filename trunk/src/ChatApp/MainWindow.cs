@@ -17,7 +17,7 @@ namespace ChatApp
 {
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        private readonly int GroupImageIndex = 4;
+        private readonly int GroupImageIndex = 6;
         public bool fromcontextmenu = false;
 
         public MainWindow()

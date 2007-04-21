@@ -66,6 +66,7 @@ namespace ChatApp
             // 
             // rtbmsgHistory
             // 
+            this.rtbmsgHistory.AutoWordSelection = true;
             this.rtbmsgHistory.BackColor = System.Drawing.Color.White;
             this.rtbmsgHistory.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.rtbmsgHistory.Dock = System.Windows.Forms.DockStyle.Fill;
