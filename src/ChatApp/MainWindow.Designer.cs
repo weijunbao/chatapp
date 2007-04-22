@@ -122,7 +122,7 @@ namespace ChatApp
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(292, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(298, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -304,7 +304,7 @@ namespace ChatApp
             this.rootPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rootPanel.Location = new System.Drawing.Point(0, 24);
             this.rootPanel.Name = "rootPanel";
-            this.rootPanel.Size = new System.Drawing.Size(292, 249);
+            this.rootPanel.Size = new System.Drawing.Size(298, 413);
             this.rootPanel.TabIndex = 2;
             // 
             // lblWelcome
@@ -329,7 +329,7 @@ namespace ChatApp
             // BtnLogout
             // 
             this.BtnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnLogout.Location = new System.Drawing.Point(214, 6);
+            this.BtnLogout.Location = new System.Drawing.Point(220, 6);
             this.BtnLogout.Name = "BtnLogout";
             this.BtnLogout.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.BtnLogout.Size = new System.Drawing.Size(69, 27);
@@ -372,8 +372,8 @@ namespace ChatApp
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.tbSearch);
-            this.splitContainer.Size = new System.Drawing.Size(274, 184);
-            this.splitContainer.SplitterDistance = 157;
+            this.splitContainer.Size = new System.Drawing.Size(280, 348);
+            this.splitContainer.SplitterDistance = 321;
             this.splitContainer.SplitterWidth = 2;
             this.splitContainer.TabIndex = 17;
             // 
@@ -386,7 +386,7 @@ namespace ChatApp
             this.tvContacts.Location = new System.Drawing.Point(0, 0);
             this.tvContacts.Name = "tvContacts";
             this.tvContacts.SelectedImageIndex = 0;
-            this.tvContacts.Size = new System.Drawing.Size(274, 157);
+            this.tvContacts.Size = new System.Drawing.Size(280, 321);
             this.tvContacts.TabIndex = 0;
             this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
             // 
@@ -408,7 +408,7 @@ namespace ChatApp
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSearch.Location = new System.Drawing.Point(-1, 5);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(274, 20);
+            this.tbSearch.Size = new System.Drawing.Size(280, 20);
             this.tbSearch.TabIndex = 9;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
@@ -444,7 +444,7 @@ namespace ChatApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.ClientSize = new System.Drawing.Size(298, 437);
             this.Controls.Add(this.rootPanel);
             this.Controls.Add(this.mainMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

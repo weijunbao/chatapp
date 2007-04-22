@@ -48,16 +48,22 @@ namespace ChatApp
         
         public void AddMessageToHistory(MessagePacket msg)
         {
+            string encodedBody = System.Web.HttpUtility.HtmlEncode(msg.Body);
+
             System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
             messageBuilder.Append(GetUserFormatting(msg.From.UserName.ToString()))
-                .Append(GetMessageFormatting(msg.Body))
-                .Append(@"<span id='placeholder'/>");
+                          .Append(GetMessageFormatting(encodedBody))
+                          .Append(@"<span id='placeholder'/>");
+
             message = messageBuilder.ToString();
-            HtmlElementCollection HtmlColection = msgHistoryWindow.Document.Body.GetElementsByTagName("span");
-            if (HtmlColection.Count == 0 || HtmlColection == null)
+
+            HtmlElementCollection spanElements = msgHistoryWindow.Document.Body.GetElementsByTagName("span");
+            if (spanElements.Count == 0 || spanElements == null)
                 return;
-            HtmlElement SpanElement = HtmlColection[0];
-            SpanElement.OuterHtml = message;
+
+            HtmlElement spanElement = spanElements[0];
+            spanElement.OuterHtml = message;
+
             msgHistoryWindow.Document.Body.GetElementsByTagName("span")[0].ScrollIntoView(false);
             tbMessages.Focus();
         }
@@ -71,7 +77,7 @@ namespace ChatApp
 
         private string GetUserFormatting(string UserName)
         {
-            return string.Format(@"<font size='-2' color='maroon' style='font-family:arial,Sans-Serif'><b>{0}</b>&nbsp;:&nbsp;</font>", UserName);
+            return string.Format(@"<font size='-2' color='blue' style='font-family:arial,Sans-Serif'><b>{0}</b>&nbsp;:&nbsp;</font>", UserName);
         }
 
 
