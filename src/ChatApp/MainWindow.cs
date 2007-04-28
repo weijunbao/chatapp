@@ -110,6 +110,7 @@ namespace ChatApp
             MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow((string)e.Node.Tag);
             msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
             msgWindow.Show();
+            msgWindow.Text = (string)e.Node.Tag;
         }
 
         private void OnIncomingPresence(PresencePacket incomingPresencePacket)
@@ -162,6 +163,7 @@ namespace ChatApp
             {
                 msgWindow.MessageThreadID = IncomingMessage.Thread;
             }
+            msgWindow.Text = packet.From.JabberIDNoResource.ToString();
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
 
@@ -295,6 +297,7 @@ namespace ChatApp
             }
             string jabberIdWithNoResource = (string)tvContacts.SelectedNode.Tag;
             AppController.Instance.GetMessagingWindow(jabberIdWithNoResource);
+            MessagingWindow.ActiveForm.Text = jabberIdWithNoResource;
         }
 
         private void StatusMenu_Click(object sender, EventArgs e)

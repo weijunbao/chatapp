@@ -25,7 +25,7 @@ namespace ChatApp
         Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private string m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
-
+        
 
         public string RemoteUserJabberId
         {
@@ -43,11 +43,14 @@ namespace ChatApp
         public MessagingWindow()
         {
             InitializeComponent();
+                        
         }
 
         
         public void AddMessageToHistory(MessagePacket msg)
         {
+            //MessagingWindow.ActiveForm.Text = msg.From.JabberIDNoResource.ToString();
+            
             string encodedBody = System.Web.HttpUtility.HtmlEncode(msg.Body);
 
             System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
