@@ -21,74 +21,74 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0CB5B52AD7464131E91C310612FDF9B3"
-        "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0CB5B52AD7464131E91C310612FDF9B3"
-        "OwnerKey" = "8:_B4957CCB4C75428414F97DF989C5066E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_31CBCF6F46524DE7AFC5D16B29392100"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5EA91EE904B28CB00D6C5F2699E7A7DF"
+        "MsmKey" = "8:_5C701975FEAD25CD0C0681E3364E3EBD"
         "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B4957CCB4C75428414F97DF989C5066E"
+        "MsmKey" = "8:_63420E43CE2E6A40F45D961379121BB3"
         "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C96DCC66BCFD5A7DDBD00F91BE06FFD8"
-        "OwnerKey" = "8:_B4957CCB4C75428414F97DF989C5066E"
+        "MsmKey" = "8:_B9B8F1B86446B0E3A7BFE431F64E8098"
+        "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C96DCC66BCFD5A7DDBD00F91BE06FFD8"
+        "MsmKey" = "8:_B9B8F1B86446B0E3A7BFE431F64E8098"
+        "OwnerKey" = "8:_63420E43CE2E6A40F45D961379121BB3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E4CA622DC19351B24A58D6921F9DAF84"
+        "OwnerKey" = "8:_63420E43CE2E6A40F45D961379121BB3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E4CA622DC19351B24A58D6921F9DAF84"
         "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0CB5B52AD7464131E91C310612FDF9B3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5EA91EE904B28CB00D6C5F2699E7A7DF"
+        "OwnerKey" = "8:_5C701975FEAD25CD0C0681E3364E3EBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B4957CCB4C75428414F97DF989C5066E"
+        "OwnerKey" = "8:_63420E43CE2E6A40F45D961379121BB3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C96DCC66BCFD5A7DDBD00F91BE06FFD8"
+        "OwnerKey" = "8:_E4CA622DC19351B24A58D6921F9DAF84"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B9B8F1B86446B0E3A7BFE431F64E8098"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -109,6 +109,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:2"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.2.0"
+                    {
+                    "Name" = "8:.NET Framework 2.0"
+                    "ProductCode" = "8:Microsoft.Net.Framework.2.0"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -125,6 +141,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
     }
     "Deployable"
@@ -154,37 +181,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0CB5B52AD7464131E91C310612FDF9B3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:coversant.corlib, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0CB5B52AD7464131E91C310612FDF9B3"
-                    {
-                    "Name" = "8:coversant.corlib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:coversant.corlib.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_ECB84AE11E0746C7A83354866D1A8F1F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_31CBCF6F46524DE7AFC5D16B29392100"
             {
             "SourcePath" = "8:..\\ChatApp\\User32.ico"
@@ -205,14 +201,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5EA91EE904B28CB00D6C5F2699E7A7DF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5C701975FEAD25CD0C0681E3364E3EBD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:ComponentFactory.Krypton.Toolkit, Version=2.4.1.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_5EA91EE904B28CB00D6C5F2699E7A7DF"
+                    "_5C701975FEAD25CD0C0681E3364E3EBD"
                     {
                     "Name" = "8:ComponentFactory.Krypton.Toolkit.DLL"
                     "Attributes" = "3:512"
@@ -236,14 +232,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B4957CCB4C75428414F97DF989C5066E"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_63420E43CE2E6A40F45D961379121BB3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Coversant.SoapBox, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Coversant.SoapBox, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B4957CCB4C75428414F97DF989C5066E"
+                    "_63420E43CE2E6A40F45D961379121BB3"
                     {
                     "Name" = "8:Coversant.SoapBox.dll"
                     "Attributes" = "3:512"
@@ -267,14 +263,45 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C96DCC66BCFD5A7DDBD00F91BE06FFD8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B9B8F1B86446B0E3A7BFE431F64E8098"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Coversant.Win32, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7151caca23ccf7f, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:coversant.corlib, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C96DCC66BCFD5A7DDBD00F91BE06FFD8"
+                    "_B9B8F1B86446B0E3A7BFE431F64E8098"
+                    {
+                    "Name" = "8:coversant.corlib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:coversant.corlib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ECB84AE11E0746C7A83354866D1A8F1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E4CA622DC19351B24A58D6921F9DAF84"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Coversant.Win32, Version=3.0.0.0, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_E4CA622DC19351B24A58D6921F9DAF84"
                     {
                     "Name" = "8:Coversant.Win32.dll"
                     "Attributes" = "3:512"
