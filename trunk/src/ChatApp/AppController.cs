@@ -24,6 +24,10 @@ namespace ChatApp
     public class AppController:ApplicationContext
     {
         #region Static Data
+        public static List<string> CapabilityExtension = new List<string>();
+        
+        public static readonly string CapabilityNode = @"http://www.google.com/xmpp/client/caps";
+        public static readonly string CapabilityVersion = "1.0.0.66";
         public static readonly string Resource = Settings.Default.Resource;
         public static readonly int Port = Settings.Default.Port;
         #endregion //Static Data
@@ -223,11 +227,19 @@ namespace ChatApp
 
         #endregion //Properties
 
+        static AppController()
+        {
+            CapabilityExtension.Add("voice-v1");
+            CapabilityExtension.Add("share-v1");
+        }
+
         /// <summary>
         /// To make this class a singleton
         /// </summary>
         public AppController()
         {
+            
+
             m_hiddenWnd = new HiddenWindow();
             m_hiddenWnd.Visible = false;
             this.MainForm = m_hiddenWnd;
@@ -294,6 +306,9 @@ namespace ChatApp
         public void SendAvailableRequest()
         {
             m_currentPresence = new AvailableRequest();
+            m_currentPresence.EntityCapabilitiesVersion = CapabilityVersion;
+            m_currentPresence.EntityCapabilitiesNode = CapabilityNode;
+            m_currentPresence.EntityCapabilitiesExtensions = CapabilityExtension;
             m_currentPresence.Status = LoginState.Online.ToString();
             m_sessionMgr.Send(m_currentPresence);
         }
