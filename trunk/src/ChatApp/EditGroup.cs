@@ -23,16 +23,10 @@ namespace ChatApp
         public EditGroup()
         {
             InitializeComponent();
-            if (!AppController.Instance.MainWindow.fromcontextmenu)
+            cbOldgroup.Items.AddRange(AppController.Instance.Contacts.GetAllGroups().ToArray());
+            if (cbOldgroup.Items.Count > 0)
             {
-                foreach (TreeNode node in AppController.Instance.MainWindow.tvContacts.Nodes)
-                {
-                    cbOldgroup.Items.Add(node.Text.ToString());
-                }
-            }
-            else
-            {
-                cbOldgroup.Items.Add(AppController.Instance.MainWindow.tvContacts.SelectedNode.Name);
+                cbOldgroup.SelectedIndex = 0;
             }
         }
 

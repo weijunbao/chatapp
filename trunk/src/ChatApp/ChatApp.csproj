@@ -192,7 +192,8 @@
     </Compile>
     <None Include="app.config" />
     <None Include="ClassDiagram.cd">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

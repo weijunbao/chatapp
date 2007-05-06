@@ -352,6 +352,7 @@ namespace ChatApp
         {
             if (MessageBox.Show("Do you want to exit the application", "Chat App", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
+                this.Contacts.Dispose();
                 Application.Exit();
             }
         }
@@ -432,11 +433,11 @@ namespace ChatApp
             m_ActiveChatUsers.Remove(strJabberId);
         }
 
-        private void IncomingRosterCallback(IAsyncResult ar)
-        {
-            RosterResponse roster = m_sessionMgr.EndSend(ar) as RosterResponse;
-            OnIncomingRoster(roster);
-        }
+        //private void IncomingRosterCallback(IAsyncResult ar)
+        //{
+        //    RosterResponse roster = m_sessionMgr.EndSend(ar) as RosterResponse;
+        //    OnIncomingRoster(roster);
+        //}
 
         /// <summary>
         /// Event received from the SessionManager when a RosterResponse is received.
@@ -446,51 +447,51 @@ namespace ChatApp
         /// of groups in this background thread and then marshall back over.
         /// </summary>
         /// <param name="incomingRosterPacket"></param>
-        private void OnIncomingRoster(RosterResponse incomingRosterPacket)
-        {
-            //work performed in here should be done on the main GUI thread
-            //since it will be updating the treeview
-            m_mainWindow.Invoke(new Session.PacketReceivedDelegate(IncomingRosterThreadSafe), new object[] { incomingRosterPacket });
-        }
+        //private void OnIncomingRoster(RosterResponse incomingRosterPacket)
+        //{
+        //    //work performed in here should be done on the main GUI thread
+        //    //since it will be updating the treeview
+        //    m_mainWindow.Invoke(new Session.PacketReceivedDelegate(IncomingRosterThreadSafe), new object[] { incomingRosterPacket });
+        //}
 
         /// <summary>
         /// Updates the TreeView based on the Groups of RosterItems
         /// </summary>
         /// <param name="p"></param>
-        private void IncomingRosterThreadSafe(Packet p)
-        {
-            RosterResponse IncomingRosterPacket = p as RosterResponse;
-            try
-            {
-                m_mainWindow.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+        //private void IncomingRosterThreadSafe(Packet p)
+        //{
+        //    RosterResponse IncomingRosterPacket = p as RosterResponse;
+        //    try
+        //    {
+        //        m_mainWindow.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 
-                foreach (RosterItem rsItem in IncomingRosterPacket.Items)
-                {
-                    string groupName = rsItem.Group.ToString();
-                    TreeNode groupNode = new TreeNode(groupName);
+        //        foreach (RosterItem rsItem in IncomingRosterPacket.Items)
+        //        {
+        //            string groupName = rsItem.Group.ToString();
+        //            TreeNode groupNode = new TreeNode(groupName);
 
-                    bool bAddGroup = true;
-                    foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
-                    {
-                        if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            groupNode = node;
-                            bAddGroup = false;
-                            break;
-                        }
-                    }
-                    groupNode.Nodes.Add(rsItem.Name);
-                    if (bAddGroup)
-                    {
-                        m_mainWindow.tvContacts.Nodes.Add(groupNode);
-                    }
-                }
-            }
-            finally
-            {
-                m_mainWindow.Cursor = System.Windows.Forms.Cursors.Default;
-            }
-        }
+        //            bool bAddGroup = true;
+        //            foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
+        //            {
+        //                if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
+        //                {
+        //                    groupNode = node;
+        //                    bAddGroup = false;
+        //                    break;
+        //                }
+        //            }
+        //            groupNode.Nodes.Add(rsItem.Name);
+        //            if (bAddGroup)
+        //            {
+        //                m_mainWindow.tvContacts.Nodes.Add(groupNode);
+        //            }
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        m_mainWindow.Cursor = System.Windows.Forms.Cursors.Default;
+        //    }
+        //}
 
         public void SendCurrentPresence(AvailableRequest availableRequest)
         {

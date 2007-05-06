@@ -16,7 +16,6 @@ namespace ChatApp
         {
         }
 
-
         // Indexer
         public Contact this[string userName]
         {
@@ -56,6 +55,29 @@ namespace ChatApp
         }
 
         #endregion
+
+        public List<string> GetAllGroups()
+        {
+            List<string> groupList = new List<string>();
+            foreach (Contact contact in this)
+            {
+                string GroupName = contact.GroupName;
+                if (!groupList.Contains(GroupName))
+                {
+                    groupList.Add(GroupName);
+                }
+            }
+            return groupList;
+        }
+
+        private Contact self;
+
+        public Contact Self
+        {
+            get { return self; }
+            set { self = value; }
+        }
+
     }
 
     public class Contact
