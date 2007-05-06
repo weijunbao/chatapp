@@ -393,8 +393,8 @@ namespace ChatApp
             this.lvContacts.UseCompatibleStateImageBehavior = false;
             this.lvContacts.View = System.Windows.Forms.View.Tile;
             this.lvContacts.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lvContacts_DrawItem);
+            this.lvContacts.DoubleClick += new System.EventHandler(this.lvContacts_DoubleClick);
             this.lvContacts.Resize += new System.EventHandler(this.lvContacts_Resize);
-            this.lvContacts.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lvContacts_DrawSubItem);
             // 
             // columnUserName
             // 
