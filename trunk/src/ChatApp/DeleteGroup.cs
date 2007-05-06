@@ -24,7 +24,7 @@ namespace ChatApp
         public DeleteGroup()
         {
             InitializeComponent();
-            cbDeletegroup.Items.Add(AppController.Instance.Contacts.GetAllGroups().ToArray());
+            cbDeletegroup.Items.AddRange(AppController.Instance.Contacts.GetAllGroups().ToArray());
             if (cbDeletegroup.Items.Count > 0)
             {
                 cbDeletegroup.SelectedIndex = 0;

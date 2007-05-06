@@ -213,13 +213,9 @@
     <None Include="icons\status_online.png" />
     <None Include="icons\status_busy.png" />
     <None Include="icons\status_offline.png" />
-    <None Include="Resources\sound.bmp" />
     <None Include="Resources\notify.wav" />
     <None Include="Resources\ding.wav" />
-    <None Include="Resources\chimes.wav" />
-    <None Include="Resources\tada.wav" />
     <None Include="Resources\message.wav" />
-    <None Include="Resources\C__Program Files_Yahoo!_Messenger_Media_Images.bmp" />
     <None Include="Resources\addfriend.gif" />
     <Content Include="Resources\blue_ghost.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -38,25 +38,23 @@ namespace ChatApp
                 return;
             }
 
-                    Contact contact = AppController.Instance.Contacts[cbContactname.SelectedItem.ToString()];
-                    JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Properties.Settings.Default.Resource);
-                    Contact delContact = new Contact(Jid, contact.GroupName.ToString(), LoginState.Offline);
-                    Contact editContact = new Contact(Jid,tbnewGpName.Text.Trim(),LoginState.Offline);
+            Contact contact = AppController.Instance.Contacts[cbContactname.SelectedItem.ToString()];
+            JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Properties.Settings.Default.Resource);
+            Contact delContact = new Contact(Jid, contact.GroupName.ToString(), LoginState.Offline);
+            Contact editContact = new Contact(Jid, tbnewGpName.Text.Trim(), LoginState.Offline);
 
-                    UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                    AppController.Instance.SessionManager.Send(resp);
-                    AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
-                    AppController.Instance.Contacts.Remove(delContact);
+            UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+            AppController.Instance.SessionManager.Send(resp);
+            AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, contact.UserName.ToString()));
+            AppController.Instance.Contacts.Remove(delContact);
 
-                    SubscribeRequest p = new SubscribeRequest(Jid);
-                    AppController.Instance.SessionManager.Send(p);
-                    AppController.Instance.SessionManager.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), tbnewGpName.Text.ToString()));
-                    AppController.Instance.Contacts.Add(editContact);
-                    
-                    
-                    AppController.Instance.MainWindow.UpdateContactList();
+            SubscribeRequest p = new SubscribeRequest(Jid);
+            AppController.Instance.SessionManager.Send(p);
+            AppController.Instance.SessionManager.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), tbnewGpName.Text.ToString()));
+            AppController.Instance.Contacts.Add(editContact);
 
 
+            AppController.Instance.MainWindow.UpdateContactList();
         }
 
 
@@ -69,6 +67,17 @@ namespace ChatApp
             }
 
             return true;
+        }
+
+        internal void SelectContact(JabberID contactID)
+        {
+            if (contactID == null)
+                return;
+
+            if (cbContactname.Items.Contains(contactID.UserName))
+            {
+                cbContactname.SelectedIndex = cbContactname.FindString(contactID.UserName);
+            }
         }
     }
 }

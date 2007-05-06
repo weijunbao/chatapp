@@ -158,7 +158,6 @@ namespace ChatApp
             this.editGroupToolStripMenuItem,
             this.deleteGroupToolStripMenuItem});
             this.contactsContextMenuStrip.Name = "contactsContextMenuStrip";
-            this.contactsContextMenuStrip.OwnerItem = this.contactsToolStripMenuItem;
             this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 120);
             // 
             // addContactToolStripMenuItem
@@ -226,7 +225,6 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
@@ -375,6 +373,7 @@ namespace ChatApp
             this.lvContacts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnUserName,
             this.columnStatus});
+            this.lvContacts.ContextMenuStrip = this.contactsContextMenuStrip;
             this.lvContacts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvContacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvContacts.FullRowSelect = true;
@@ -444,6 +443,7 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
+            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);

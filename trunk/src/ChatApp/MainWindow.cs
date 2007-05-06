@@ -243,9 +243,18 @@ namespace ChatApp
         private void EditContactMenuItem_Click(object sender, EventArgs e)
         {
             EditContact EditContactWnd = new EditContact();
+            JabberID contactID = this.GetSelectedContact();
+            EditContactWnd.SelectContact(contactID);
             EditContactWnd.ShowDialog(this);
             EditContactWnd.Dispose();
             EditContactWnd = null;
+        }
+
+        private JabberID GetSelectedContact()
+        {
+            if (lvContacts.SelectedItems.Count == 0)
+                return null;
+            return lvContacts.SelectedItems[0].Tag as JabberID;
         }
 
         private void DeleteGroupMenuItem_Click(object sender, EventArgs e)
@@ -300,12 +309,12 @@ namespace ChatApp
         /// <param name="e"></param>
         private void StartChatMenuItem_Click(object sender, EventArgs e)
         {
-            if (lvContacts.SelectedItems.Count == 0)
+            JabberID jabberID = GetSelectedContact();
+            if (jabberID == null)
             {
                 MessageBox.Show("Select a contact", "Contact not selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            JabberID jabberID = (JabberID) lvContacts.SelectedItems[0].Tag;
             AppController.Instance.GetMessagingWindow(jabberID);
             MessagingWindow.ActiveForm.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
 
@@ -324,8 +333,9 @@ namespace ChatApp
 
         private void lvContacts_Resize(object sender, EventArgs e)
         {
-            //this.columnUserName.Width = (int)((float)this.splitContainer.Panel1.ClientSize.Width - 60);
-            //this.columnStatus.Width = this.lvContacts.ClientSize.Width - (this.columnUserName.Width );
+            int newWidth = this.lvContacts.ClientSize.Width;
+            if (newWidth < 36)
+                newWidth = 36;
             this.lvContacts.TileSize = new Size(this.lvContacts.ClientSize.Width, 36);
         }
 
@@ -430,7 +440,7 @@ namespace ChatApp
             ListView currentListView = sender as ListView;
             if (currentListView == null)
                 return;
-            JabberID jabberID = (JabberID)currentListView.SelectedItems[0].Tag;
+            JabberID jabberID = GetSelectedContact();
             if (jabberID != null)
             {
                 MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(jabberID);
@@ -439,5 +449,6 @@ namespace ChatApp
                 msgWindow.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName);
             }
         }
+
     }
 }
