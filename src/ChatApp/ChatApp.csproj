@@ -223,10 +223,12 @@
     <Content Include="Resources\MessageTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\SoapBoxStudio.jpg" />
-    <None Include="Resources\SoapBoxStudio.gif" />
+    <Content Include="Resources\user.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="User32.ico" />
+    <None Include="User32.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
