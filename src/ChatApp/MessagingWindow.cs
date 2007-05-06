@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using ComponentFactory.Krypton.Toolkit;
 
 using Coversant.SoapBox.Core.Message;
@@ -25,7 +26,9 @@ namespace ChatApp
         Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private string m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
-        
+
+        private bool firstMessagefromSelf = true;
+        private bool firstMessageFromFriend = true;
 
         public string RemoteUserJabberId
         {
@@ -43,19 +46,28 @@ namespace ChatApp
         public MessagingWindow()
         {
             InitializeComponent();
+            string binPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string templateFilePath = Path.Combine(binPath , @"Resources\MessageTemplate.html");
+            msgHistoryWindow.Navigate(templateFilePath);
                         
         }
 
+        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
+            msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
+        }
         
         public void AddMessageToHistory(MessagePacket msg)
         {
-            //MessagingWindow.ActiveForm.Text = msg.From.JabberIDNoResource.ToString();
-            
             string encodedBody = System.Web.HttpUtility.HtmlEncode(msg.Body);
 
             System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
-            messageBuilder.Append(GetUserFormatting(msg.From.UserName.ToString()))
+            messageBuilder.Append(@"<div class='chat in'><div class='msg'>")
+                          .Append(GetAvatarFormatting(msg))
+                          .Append(GetUserFormatting(msg.From.UserName.ToString()))
                           .Append(GetMessageFormatting(encodedBody))
+                          .Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
                           .Append(@"<span id='placeholder'/>");
 
             message = messageBuilder.ToString();
@@ -66,24 +78,76 @@ namespace ChatApp
                 if (spanElements.Count == 0 || spanElements == null)
                     return;
 
-                HtmlElement spanElement = spanElements[0];
-                spanElement.OuterHtml = message;
+                foreach (HtmlElement spanElement in spanElements)
+                {
+                    if (spanElement.Id == "placeholder")
+                    {
+                        spanElement.OuterHtml = message;
+                    }
+                }
 
-                msgHistoryWindow.Document.Body.GetElementsByTagName("span")[0].ScrollIntoView(false);
+                foreach (HtmlElement spanElement in spanElements)
+                {
+                    if (spanElement.Id == "placeholder")
+                    {
+                        spanElement.ScrollIntoView(false);
+                    }
+                }
                 tbMessages.Focus();
             }
+        }
+
+        private string GetAvatarFormatting(MessagePacket message)
+        {
+            string fromUser = message.From.UserName;
+            bool drawAvatar = false;
+            Contact contact = null;
+            if(fromUser == AppController.Instance.CurrentUser.UserName)
+            {
+                contact = AppController.Instance.Contacts.Self;
+                if (firstMessagefromSelf)
+                {
+                    drawAvatar = true;
+                    firstMessagefromSelf = false;
+                }
+            }
+            else
+            {
+                contact = AppController.Instance.Contacts[fromUser];
+                if (firstMessageFromFriend)
+                {
+                    drawAvatar = true;
+                    firstMessageFromFriend = false;
+                }
+            }
+            string avatarFormat = "";
+
+            if (drawAvatar)
+            {
+                string avatarImgPath = "";
+                if ( (contact == null) || (string.IsNullOrEmpty(contact.AvatarImagePath)) )
+                {
+                    avatarImgPath = "blue_ghost.bmp";
+                }
+                else
+                {
+                    avatarImgPath = contact.AvatarImagePath;
+                }
+                avatarFormat = string.Format("<div class='icon-i'><div style='height:1px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\"{0}\")'></div></div>", avatarImgPath);
+            }
+            return avatarFormat;
         }
 
         private string GetMessageFormatting(string Message)
         {
             
             Message = regx.Replace(Message, "<br />");
-            return string.Format(@"<font size='-1' style='font-family:arial,Sans-Serif'>{0}</font><br />", Message);
+            return string.Format(@"<div class='1st'>{0}</div>", Message);
         }
 
-        private string GetUserFormatting(string UserName)
+        private string GetUserFormatting(string userName)
         {
-            return string.Format(@"<font size='-2' color='blue' style='font-family:arial,Sans-Serif'><b>{0}</b>&nbsp;:&nbsp;</font>", UserName);
+            return string.Format(@"<span class='salutation-i'>{0}</span>", userName);
         }
 
 
@@ -101,9 +165,8 @@ namespace ChatApp
 
         private void DoSendMessage()
         {
-            ////Create the message packet
+            //Create the message packet
             MessagePacket outgoingPacket = null;
-
 
             outgoingPacket = new MessagePacket(new JabberID(m_remoteUserJabberId), AppController.Instance.CurrentUser, tbMessages.Text);
             outgoingPacket.Thread = this.MessageThreadID;
@@ -125,17 +188,6 @@ namespace ChatApp
                     string.Format("The following exception occurred while sending a message:\n\n{0}", ex));
             }
 
-        }
-
-        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
-            msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
-        }
-
-        private void MessagingWindow_Load(object sender, EventArgs e)
-        {
-            msgHistoryWindow.Navigate("about:blank");
         }
     }
 }

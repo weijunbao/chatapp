@@ -282,7 +282,7 @@ namespace ChatApp
             InitializeSessionManager(UserName, Password, ServerName);
             if (m_sessionMgr != null)
             {
-                this.m_currentUser = m_sessionMgr.LocalUser;
+                this.m_currentUser = m_sessionMgr.LocalUser.BareJID;
                 return true;
             }
             else
