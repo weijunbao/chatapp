@@ -19,12 +19,17 @@ namespace ChatApp
 {
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
+        private Brush lvBackgroundBrush;
+
         public MainWindow()
         {
             InitializeComponent();
 
             AppController.Instance.IncomingMessage += new AppController.IncomingMessageDelegate(OnIncomingMessage);
             AppController.Instance.IncomingPresence += new AppController.IncomingPresenceDelegate(OnIncomingPresence);
+
+            lvBackgroundBrush = new SolidBrush(Color.FromArgb(214, 219, 231));
+            lvContacts.Padding = new Padding(0);
         }
 
         public void UpdateContactList()
@@ -37,7 +42,7 @@ namespace ChatApp
                 ListViewGroup lvGroup = GetGroupNodeFor(contact.GroupName);
                 ListViewItem newItem = new ListViewItem(contact.UserName, (int)contact.UserStatus, lvGroup);
                 //newItem.SubItems.Add(new ListViewItem.ListViewSubItem(newItem, contact.UserStatus.ToString()));
-                newItem.Tag = contact.JabberId.JabberIDNoResource;
+                newItem.Tag = contact.JabberId;
                 lvContacts.Items.Add(newItem);
             }
             lvContacts.EndUpdate();
@@ -75,6 +80,12 @@ namespace ChatApp
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork +=new DoWorkEventHandler(worker_DoWork);
             worker.RunWorkerAsync();
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+        }
+
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            UpdateContactList();
         }
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
@@ -288,7 +299,7 @@ namespace ChatApp
                     if (contact.UserName.StartsWith(s_contact))
                     {
                         ListViewItem newItem = lvContacts.Items.Add(contact.UserName.ToString());
-                        newItem.Tag = contact.JabberId.JabberIDNoResource;
+                        newItem.Tag = contact.JabberId;
                     }
                 }
             }
@@ -325,8 +336,9 @@ namespace ChatApp
 
         private void lvContacts_Resize(object sender, EventArgs e)
         {
-            this.columnUserName.Width = (int)((float)this.splitContainer.Panel1.ClientSize.Width - 60);
-            this.columnStatus.Width = this.lvContacts.ClientSize.Width - (this.columnUserName.Width );
+            //this.columnUserName.Width = (int)((float)this.splitContainer.Panel1.ClientSize.Width - 60);
+            //this.columnStatus.Width = this.lvContacts.ClientSize.Width - (this.columnUserName.Width );
+            this.lvContacts.TileSize = new Size(this.lvContacts.ClientSize.Width, 36);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -381,6 +393,53 @@ namespace ChatApp
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppController.Instance.ExitApplication();
+        }
+
+        private void lvContacts_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            Rectangle ImageRect = e.Bounds;
+            ImageRect.Inflate(-2, -2);
+            ImageRect.Width = 32;
+            
+            Rectangle TextRect = e.Bounds;
+            TextRect.X = ImageRect.Right + 2;
+            TextRect.Width = e.Bounds.Width - TextRect.X;
+
+            Rectangle IconRect = TextRect;
+            IconRect.Inflate(-1, 0);
+            IconRect.Y = ImageRect.Bottom - 16;
+            IconRect.Width = 16;
+            IconRect.Height = 16;
+
+            if ((e.State & ListViewItemStates.Selected) != 0)
+            {
+                // Draw the background and focus rectangle for a selected item.
+                e.Graphics.FillRectangle(lvBackgroundBrush, e.Bounds);
+                e.DrawFocusRectangle();
+            }
+            else
+            {
+                // Draw the background for an unselected item.
+                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
+            }
+
+            // Draw the item text for views other than the Details view.
+            if (lvContacts.View != View.Details)
+            {
+                JabberID jabberID = (JabberID)e.Item.Tag;
+                Contact contact = AppController.Instance.Contacts[jabberID.UserName];
+
+                e.Graphics.DrawImage(contact.AvatarImage, ImageRect);
+                
+                //e.DrawText();
+                TextRenderer.DrawText(e.Graphics, e.Item.Text, e.Item.Font, TextRect, e.Item.ForeColor, TextFormatFlags.GlyphOverhangPadding);
+                e.Graphics.DrawImage(StatusImageList.Images[(int)contact.UserStatus], IconRect);
+             }
+        }
+
+        private void lvContacts_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+           
         }
     }
 }

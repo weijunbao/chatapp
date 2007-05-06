@@ -389,10 +389,12 @@ namespace ChatApp
             this.lvContacts.SmallImageList = this.StatusImageList;
             this.lvContacts.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvContacts.TabIndex = 1;
-            this.lvContacts.TileSize = new System.Drawing.Size(280, 40);
+            this.lvContacts.TileSize = new System.Drawing.Size(280, 36);
             this.lvContacts.UseCompatibleStateImageBehavior = false;
             this.lvContacts.View = System.Windows.Forms.View.Tile;
+            this.lvContacts.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lvContacts_DrawItem);
             this.lvContacts.Resize += new System.EventHandler(this.lvContacts_Resize);
+            this.lvContacts.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lvContacts_DrawSubItem);
             // 
             // columnUserName
             // 

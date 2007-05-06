@@ -84,7 +84,7 @@ namespace ChatApp
     {
         public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
 
-        private string avatarImagePath;
+        private string avatarImagePath = string.Empty;
         private string formattedName;
         private Image avatarImage = null;
         private string m_groupName;
