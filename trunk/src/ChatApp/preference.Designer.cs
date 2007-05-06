@@ -38,22 +38,28 @@ namespace ChatApp
             this.lbincomchat = new System.Windows.Forms.Label();
             this.cbOnotify = new System.Windows.Forms.CheckBox();
             this.cbOsound = new System.Windows.Forms.CheckBox();
+            this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.kryptonGroup2 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btok)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btcancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
+            this.kryptonGroup1.Panel.SuspendLayout();
+            this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup2.Panel)).BeginInit();
+            this.kryptonGroup2.Panel.SuspendLayout();
+            this.kryptonGroup2.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.kryptonGroup2);
+            this.kryptonPanel1.Controls.Add(this.kryptonGroup1);
             this.kryptonPanel1.Controls.Add(this.btok);
             this.kryptonPanel1.Controls.Add(this.btcancel);
-            this.kryptonPanel1.Controls.Add(this.cbChnotify);
-            this.kryptonPanel1.Controls.Add(this.cbChplay);
-            this.kryptonPanel1.Controls.Add(this.lbfndonline);
-            this.kryptonPanel1.Controls.Add(this.lbincomchat);
-            this.kryptonPanel1.Controls.Add(this.cbOnotify);
-            this.kryptonPanel1.Controls.Add(this.cbOsound);
             this.kryptonPanel1.Location = new System.Drawing.Point(-2, 1);
             this.kryptonPanel1.Name = "kryptonPanel1";
             this.kryptonPanel1.Size = new System.Drawing.Size(272, 260);
@@ -81,73 +87,91 @@ namespace ChatApp
             // 
             this.cbChnotify.AutoSize = true;
             this.cbChnotify.BackColor = System.Drawing.Color.Transparent;
-            this.cbChnotify.Location = new System.Drawing.Point(90, 154);
+            this.cbChnotify.Location = new System.Drawing.Point(26, 49);
             this.cbChnotify.Name = "cbChnotify";
-            this.cbChnotify.Size = new System.Drawing.Size(109, 17);
+            this.cbChnotify.Size = new System.Drawing.Size(140, 17);
             this.cbChnotify.TabIndex = 5;
-            this.cbChnotify.Text = "Show Notification";
+            this.cbChnotify.Text = "when a message arrives";
             this.cbChnotify.UseVisualStyleBackColor = false;
-            this.cbChnotify.CheckedChanged += new System.EventHandler(this.cbChnotify_CheckedChanged);
             // 
             // cbChplay
             // 
             this.cbChplay.AutoSize = true;
             this.cbChplay.BackColor = System.Drawing.Color.Transparent;
-            this.cbChplay.Checked = true;
-            this.cbChplay.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbChplay.Location = new System.Drawing.Point(90, 131);
+            this.cbChplay.Location = new System.Drawing.Point(26, 49);
             this.cbChplay.Name = "cbChplay";
-            this.cbChplay.Size = new System.Drawing.Size(80, 17);
+            this.cbChplay.Size = new System.Drawing.Size(140, 17);
             this.cbChplay.TabIndex = 4;
-            this.cbChplay.Text = "Play Sound";
+            this.cbChplay.Text = "when a message arrives";
             this.cbChplay.UseVisualStyleBackColor = false;
-            this.cbChplay.CheckedChanged += new System.EventHandler(this.cbChplay_CheckedChanged);
             // 
             // lbfndonline
             // 
             this.lbfndonline.AutoSize = true;
             this.lbfndonline.BackColor = System.Drawing.Color.Transparent;
-            this.lbfndonline.Location = new System.Drawing.Point(20, 24);
+            this.lbfndonline.Location = new System.Drawing.Point(8, 6);
             this.lbfndonline.Name = "lbfndonline";
-            this.lbfndonline.Size = new System.Drawing.Size(69, 13);
+            this.lbfndonline.Size = new System.Drawing.Size(68, 13);
             this.lbfndonline.TabIndex = 3;
-            this.lbfndonline.Text = "Friend Online";
+            this.lbfndonline.Text = "Play a sound";
             // 
             // lbincomchat
             // 
             this.lbincomchat.AutoSize = true;
             this.lbincomchat.BackColor = System.Drawing.Color.Transparent;
-            this.lbincomchat.Location = new System.Drawing.Point(20, 105);
+            this.lbincomchat.Location = new System.Drawing.Point(8, 6);
             this.lbincomchat.Name = "lbincomchat";
-            this.lbincomchat.Size = new System.Drawing.Size(75, 13);
+            this.lbincomchat.Size = new System.Drawing.Size(90, 13);
             this.lbincomchat.TabIndex = 2;
-            this.lbincomchat.Text = "Incoming Chat";
+            this.lbincomchat.Text = "Show Notification";
             // 
             // cbOnotify
             // 
             this.cbOnotify.AutoSize = true;
             this.cbOnotify.BackColor = System.Drawing.Color.Transparent;
-            this.cbOnotify.Location = new System.Drawing.Point(90, 67);
+            this.cbOnotify.Location = new System.Drawing.Point(26, 26);
             this.cbOnotify.Name = "cbOnotify";
-            this.cbOnotify.Size = new System.Drawing.Size(109, 17);
+            this.cbOnotify.Size = new System.Drawing.Size(155, 17);
             this.cbOnotify.TabIndex = 1;
-            this.cbOnotify.Text = "Show Notification";
+            this.cbOnotify.Text = "when a friend comes online";
             this.cbOnotify.UseVisualStyleBackColor = false;
-            this.cbOnotify.CheckedChanged += new System.EventHandler(this.cbShnotify_CheckedChanged);
             // 
             // cbOsound
             // 
             this.cbOsound.AutoSize = true;
             this.cbOsound.BackColor = System.Drawing.Color.Transparent;
-            this.cbOsound.Checked = true;
-            this.cbOsound.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.cbOsound.Location = new System.Drawing.Point(90, 44);
+            this.cbOsound.Location = new System.Drawing.Point(26, 26);
             this.cbOsound.Name = "cbOsound";
-            this.cbOsound.Size = new System.Drawing.Size(80, 17);
+            this.cbOsound.Size = new System.Drawing.Size(155, 17);
             this.cbOsound.TabIndex = 0;
-            this.cbOsound.Text = "Play Sound";
+            this.cbOsound.Text = "when a friend comes online";
             this.cbOsound.UseVisualStyleBackColor = false;
-            this.cbOsound.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // kryptonGroup1
+            // 
+            this.kryptonGroup1.Location = new System.Drawing.Point(9, 11);
+            this.kryptonGroup1.Name = "kryptonGroup1";
+            // 
+            // kryptonGroup1.Panel
+            // 
+            this.kryptonGroup1.Panel.Controls.Add(this.cbChplay);
+            this.kryptonGroup1.Panel.Controls.Add(this.cbOsound);
+            this.kryptonGroup1.Panel.Controls.Add(this.lbfndonline);
+            this.kryptonGroup1.Size = new System.Drawing.Size(257, 84);
+            this.kryptonGroup1.TabIndex = 10;
+            // 
+            // kryptonGroup2
+            // 
+            this.kryptonGroup2.Location = new System.Drawing.Point(9, 113);
+            this.kryptonGroup2.Name = "kryptonGroup2";
+            // 
+            // kryptonGroup2.Panel
+            // 
+            this.kryptonGroup2.Panel.Controls.Add(this.cbOnotify);
+            this.kryptonGroup2.Panel.Controls.Add(this.lbincomchat);
+            this.kryptonGroup2.Panel.Controls.Add(this.cbChnotify);
+            this.kryptonGroup2.Size = new System.Drawing.Size(257, 83);
+            this.kryptonGroup2.TabIndex = 11;
             // 
             // preference
             // 
@@ -158,11 +182,22 @@ namespace ChatApp
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "preference";
             this.Text = "preference";
+            this.WindowActive = true;
+            this.Load += new System.EventHandler(this.preference_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btok)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btcancel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
+            this.kryptonGroup1.Panel.ResumeLayout(false);
+            this.kryptonGroup1.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
+            this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup2.Panel)).EndInit();
+            this.kryptonGroup2.Panel.ResumeLayout(false);
+            this.kryptonGroup2.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup2)).EndInit();
+            this.kryptonGroup2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -178,5 +213,7 @@ namespace ChatApp
         private System.Windows.Forms.Label lbfndonline;
         private System.Windows.Forms.Label lbincomchat;
         private System.Windows.Forms.CheckBox cbOnotify;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup2;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
     }
 }

@@ -59,10 +59,6 @@ namespace ChatApp
         public event IncomingIQResultDelegate IncomingIQResult; 
         #endregion
 
-        public bool Osound = true;
-        public bool Onotify = false;
-        public bool chSound = true;
-        public bool chNotify = false;
         #region Fire Events
         //Relays incoming message packets to subscribing objects
         public void OnIncomingMessage(Packet packet)
@@ -242,8 +238,6 @@ namespace ChatApp
         /// </summary>
         public AppController()
         {
-            
-
             m_hiddenWnd = new HiddenWindow();
             m_hiddenWnd.Visible = false;
             this.MainForm = m_hiddenWnd;
@@ -251,6 +245,14 @@ namespace ChatApp
             m_hiddenWnd.Load += new EventHandler(HiddenWnd_load);
             m_contacts = new ContactList();
             m_ActiveChatUsers = new Hashtable();
+        }
+
+        public HiddenWindow HiddenWindow
+        {
+            get 
+            {
+                return m_hiddenWnd;
+            }
         }
 
         private void HiddenWnd_load(Object sender, EventArgs e)
@@ -548,7 +550,7 @@ namespace ChatApp
 
         internal void OPlaySound()
         {
-            if (Osound == true)
+            if (ChatApp.Properties.Settings.Default.FriendOnlinePlaySound == true)
             {
                 SoundPlayer player = new SoundPlayer();
                 player.LoadTimeout = 10000;
@@ -559,7 +561,7 @@ namespace ChatApp
         }
         internal void chPlaySound()
         {
-            if (chSound == true)
+            if (ChatApp.Properties.Settings.Default.IncomingMessagePlaySound == true)
             {
                 SoundPlayer player = new SoundPlayer();
                 player.LoadTimeout = 10000;

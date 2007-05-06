@@ -320,11 +320,6 @@ namespace ChatApp
             lblStatus.Values.Text = state.ToString();
         }
 
-        private void ExitStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AppController.Instance.ExitApplication();
-        }
-
         private void RenametoolStripMenuItem1_Click(object sender, EventArgs e)
         {
             fromcontextmenu = true;
@@ -362,15 +357,29 @@ namespace ChatApp
 
         private void Notify(Packet incomingPresencePacket)
         {
-            if (AppController.Instance.Onotify == true)
+            string userName = incomingPresencePacket.From.UserName;
+
+            // If the presence packet is from a user other than the current user
+            //  and if Show Notification preference is set, then show notification
+
+            if ( (userName != AppController.Instance.CurrentUser.UserName)
+                && (ChatApp.Properties.Settings.Default.FriendOnlineShowNotification == true) )
             {
-                notifyIcon1.Visible = true;
-                notifyIcon1.BalloonTipText = incomingPresencePacket.To.JabberIDNoResource.ToString();
-                for (int i = 0; i < 100; i++)
+                string message = null;
+                string userStatus = "offline";
+
+                if (incomingPresencePacket is AvailableRequest)
                 {
-                    notifyIcon1.ShowBalloonTip(3);
+                    AvailableRequest availableReq = WConvert.ToAvailableRequest(incomingPresencePacket);
+                    userStatus = availableReq.Status;
                 }
-                notifyIcon1.Visible = false;
+
+                message = string.Format("{0} is now {1}", userName, userStatus.ToString());
+                AppController.Instance.HiddenWindow.ShowBalloonToolTip(message);
+                //notifyIcon1.Visible = true;
+                //notifyIcon1.BalloonTipText = message;
+                //notifyIcon1.ShowBalloonTip(3);
+                // notifyIcon1.Visible = false;
             }
             
         }
@@ -378,18 +387,18 @@ namespace ChatApp
         private void Notify(string msg)
         {
 
-            if (AppController.Instance.chNotify == true)
+            if (ChatApp.Properties.Settings.Default.IncomingMessageShowNotification == true)
             {
                 notifyIcon1.Visible = true;
                 notifyIcon1.BalloonTipText = msg;
-                for (int i = 0; i < 100; i++)
-                {
-                    notifyIcon1.ShowBalloonTip(3);
-                }
+                notifyIcon1.ShowBalloonTip(3);
                 notifyIcon1.Visible = false;
             }
         }
 
-       
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppController.Instance.ExitApplication();
+        }
     }
 }

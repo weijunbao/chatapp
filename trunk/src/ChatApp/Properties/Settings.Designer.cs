@@ -115,5 +115,53 @@ namespace ChatApp.Properties {
                 return ((string)(this["AppName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FriendOnlinePlaySound {
+            get {
+                return ((bool)(this["FriendOnlinePlaySound"]));
+            }
+            set {
+                this["FriendOnlinePlaySound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FriendOnlineShowNotification {
+            get {
+                return ((bool)(this["FriendOnlineShowNotification"]));
+            }
+            set {
+                this["FriendOnlineShowNotification"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IncomingMessagePlaySound {
+            get {
+                return ((bool)(this["IncomingMessagePlaySound"]));
+            }
+            set {
+                this["IncomingMessagePlaySound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncomingMessageShowNotification {
+            get {
+                return ((bool)(this["IncomingMessageShowNotification"]));
+            }
+            set {
+                this["IncomingMessageShowNotification"] = value;
+            }
+        }
     }
 }
