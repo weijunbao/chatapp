@@ -30,9 +30,9 @@ namespace ChatApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessagingWindow));
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.msgHistoryWindow = new System.Windows.Forms.WebBrowser();
             this.btnSend = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tbMessages = new System.Windows.Forms.TextBox();
-            this.msgHistoryWindow = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
             this.kryptonSplitContainer1.Panel1.SuspendLayout();
@@ -64,6 +64,22 @@ namespace ChatApp
             this.kryptonSplitContainer1.SplitterDistance = 300;
             this.kryptonSplitContainer1.TabIndex = 0;
             // 
+            // msgHistoryWindow
+            // 
+            this.msgHistoryWindow.AllowWebBrowserDrop = false;
+            this.msgHistoryWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.msgHistoryWindow.IsWebBrowserContextMenuEnabled = false;
+            this.msgHistoryWindow.Location = new System.Drawing.Point(0, 0);
+            this.msgHistoryWindow.MinimumSize = new System.Drawing.Size(20, 20);
+            this.msgHistoryWindow.Name = "msgHistoryWindow";
+            this.msgHistoryWindow.ScriptErrorsSuppressed = true;
+            this.msgHistoryWindow.Size = new System.Drawing.Size(492, 300);
+            this.msgHistoryWindow.TabIndex = 0;
+            this.msgHistoryWindow.TabStop = false;
+            this.msgHistoryWindow.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.msgHistoryWindow.WebBrowserShortcutsEnabled = false;
+            this.msgHistoryWindow.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.msgHistoryWindow_DocumentCompleted);
+            // 
             // btnSend
             // 
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -86,22 +102,6 @@ namespace ChatApp
             this.tbMessages.Size = new System.Drawing.Size(414, 54);
             this.tbMessages.TabIndex = 0;
             // 
-            // msgHistoryWindow
-            // 
-            this.msgHistoryWindow.AllowNavigation = false;
-            this.msgHistoryWindow.AllowWebBrowserDrop = false;
-            this.msgHistoryWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.msgHistoryWindow.IsWebBrowserContextMenuEnabled = false;
-            this.msgHistoryWindow.Location = new System.Drawing.Point(0, 0);
-            this.msgHistoryWindow.MinimumSize = new System.Drawing.Size(20, 20);
-            this.msgHistoryWindow.Name = "msgHistoryWindow";
-            this.msgHistoryWindow.ScriptErrorsSuppressed = true;
-            this.msgHistoryWindow.Size = new System.Drawing.Size(492, 300);
-            this.msgHistoryWindow.TabIndex = 0;
-            this.msgHistoryWindow.TabStop = false;
-            this.msgHistoryWindow.WebBrowserShortcutsEnabled = false;
-            this.msgHistoryWindow.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.msgHistoryWindow_DocumentCompleted);
-            // 
             // MessagingWindow
             // 
             this.AcceptButton = this.btnSend;
@@ -114,9 +114,7 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MessagingWindow";
             this.Text = "Messaging Window";
-            this.WindowActive = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MessagingWindow_FormClosed);
-            this.Load += new System.EventHandler(this.MessagingWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
             this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
