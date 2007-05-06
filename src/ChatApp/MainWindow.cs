@@ -19,10 +19,6 @@ namespace ChatApp
 {
     public partial class MainWindow : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        private readonly int GroupImageIndex = 6;
-        public bool fromcontextmenu = false;
-        
-
         public MainWindow()
         {
             InitializeComponent();
@@ -33,38 +29,21 @@ namespace ChatApp
 
         public void UpdateContactList()
         {
-            tvContacts.BeginUpdate();
-            tvContacts.Nodes.Clear();
-
-            foreach (Contact contact in AppController.Instance.Contacts)
-            {
-                TreeNode GroupNode = GetGroupNodeFor(contact.GroupName);
-                TreeNode newNode = new TreeNode(contact.UserName, (int)contact.UserStatus, (int)contact.UserStatus);
-                newNode.Tag = contact.JabberId;
-                newNode.ContextMenuStrip = this.contactsContextMenuStrip;
-                GroupNode.Nodes.Add(newNode);
-            }
-            tvContacts.ExpandAll();
-            tvContacts.EndUpdate();
-        }
-
-        public void UpdateContactList1()
-        {
             lvContacts.BeginUpdate();
             lvContacts.Items.Clear();
 
             foreach (Contact contact in AppController.Instance.Contacts)
             {
-                ListViewGroup lvGroup = GetGroupNodeFor1(contact.GroupName);
+                ListViewGroup lvGroup = GetGroupNodeFor(contact.GroupName);
                 ListViewItem newItem = new ListViewItem(contact.UserName, (int)contact.UserStatus, lvGroup);
-                newItem.SubItems.Add(new ListViewItem.ListViewSubItem(newItem, contact.UserStatus.ToString()));
+                //newItem.SubItems.Add(new ListViewItem.ListViewSubItem(newItem, contact.UserStatus.ToString()));
                 newItem.Tag = contact.JabberId.JabberIDNoResource;
                 lvContacts.Items.Add(newItem);
             }
             lvContacts.EndUpdate();
         }
 
-        private ListViewGroup GetGroupNodeFor1(string GroupName)
+        private ListViewGroup GetGroupNodeFor(string GroupName)
         {
             ListViewGroup lvGroup = null;
             if (GroupName.Length == 0)
@@ -84,28 +63,6 @@ namespace ChatApp
             return lvGroup;
         }
 
-        private TreeNode GetGroupNodeFor(string GroupName)
-        {
-            TreeNode treeNode = null;
-            if (GroupName.Length == 0)
-            {
-                GroupName = "No Group";
-            }
-            if (tvContacts.Nodes.ContainsKey(GroupName))
-            {
-                treeNode = tvContacts.Nodes[GroupName];
-            }
-            else
-            {
-                TreeNode GroupNode = new TreeNode(GroupName, GroupImageIndex, GroupImageIndex);
-                GroupNode.Name = GroupName;
-                tvContacts.Nodes.Add(GroupNode);
-                treeNode = GroupNode;
-            }
-            treeNode.ContextMenuStrip = this.GroupContextMenuStrip;
-            return treeNode;
-        }
-
         private void MainWindow_Load(object sender, EventArgs e)
         {
             AppController.Instance.SendAvailableRequest();
@@ -114,7 +71,6 @@ namespace ChatApp
                 lblWelcome.Text = AppController.Instance.CurrentUser.UserName;
             }
             UpdateContactList();
-            UpdateContactList1();
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork +=new DoWorkEventHandler(worker_DoWork);
@@ -123,19 +79,35 @@ namespace ChatApp
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            Contact self = new Contact(AppController.Instance.CurrentUser,
+                string.Empty, (LoginState)Enum.Parse(typeof(LoginState), lblStatus.Values.Text));
+
+            AppController.Instance.Contacts.Self = self;
+            GetAvatarFor(self);
+            if (Path.Equals(AppController.Instance.Contacts.Self.AvatarImagePath))
+            {
+                this.userPictureBox.Image = AppController.Instance.Contacts.Self.AvatarImage;
+            }
+
             foreach (Contact contact in AppController.Instance.Contacts)
             {
-                vCardResponse response = (vCardResponse)AppController.Instance.SendPacket(new vCardRequest(contact.JabberId), 5000);
-                if (response != null)
+                GetAvatarFor(contact);
+            }
+            
+        }
+
+        private void GetAvatarFor(Contact contact)
+        {
+            vCardResponse response = (vCardResponse)AppController.Instance.SendPacket(new vCardRequest(contact.JabberId), 5000);
+            if (response != null)
+            {
+                contact.FormattedName = response.VCard.FormattedName == null ? null : response.VCard.FormattedName;
+                if (response.VCard.Photo != null)
                 {
-                    contact.FormattedName = response.VCard.FormattedName == null ? null : response.VCard.FormattedName;
-                    if (response.VCard.Photo != null)
+                    Image avatharImage = Image.FromStream(new MemoryStream(response.VCard.Photo.EncodedImage));
+                    if (avatharImage != null)
                     {
-                        Image avatharImage = Image.FromStream(new MemoryStream(response.VCard.Photo.EncodedImage));
-                        if (avatharImage != null)
-                        {
-                            contact.AvatarImage = avatharImage;
-                        }
+                        contact.AvatarImage = avatharImage;
                     }
                 }
             }
@@ -285,46 +257,6 @@ namespace ChatApp
             DeleteGroupWnd = null;
         }
 
-        /// <summary>
-        /// update tree view by group
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void sortByGroupToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ContactList m_contacts = AppController.Instance.Contacts;
-            Contact contact;
-            tvContacts.Nodes.Clear();
-
-            for (int i = 0; i < m_contacts.Count; ++i)
-            {
-                contact = m_contacts[i];
-                string groupName = contact.GroupName;
-
-                TreeNode groupNode = new TreeNode(groupName);
-
-                bool bAddGroup = true;
-                foreach (TreeNode node in tvContacts.Nodes)
-                {
-                    //--------- If the tree already contain this group, do not add it
-                    if (node.Text.Equals(groupName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        groupNode = node;
-                        bAddGroup = false;
-                        break;
-                    }
-                }
-
-                groupNode.Nodes.Add(contact.UserName);
-                if (bAddGroup)
-                {
-                    groupNode.ImageIndex = 4;
-                    groupNode.SelectedImageIndex = 4;
-                    tvContacts.Nodes.Add(groupNode);
-                }
-            }
-            UpdateContactList();
-        }
 
         private void MnuExit_Click(object sender, EventArgs e)
         {
@@ -339,12 +271,12 @@ namespace ChatApp
         /// <param name="e"></param>
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            Searchcontact(tbSearch.Text);
+            SearchContact(tbSearch.Text);
         }
 
-        private void Searchcontact(string s_contact)
+        private void SearchContact(string s_contact)
         {
-            tvContacts.Nodes.Clear();
+            lvContacts.Items.Clear();
             if (s_contact == "")
             {
                 UpdateContactList();
@@ -355,7 +287,8 @@ namespace ChatApp
                 {
                     if (contact.UserName.StartsWith(s_contact))
                     {
-                        tvContacts.Nodes.Add(contact.UserName.ToString());
+                        ListViewItem newItem = lvContacts.Items.Add(contact.UserName.ToString());
+                        newItem.Tag = contact.JabberId.JabberIDNoResource;
                     }
                 }
             }
@@ -368,12 +301,12 @@ namespace ChatApp
         /// <param name="e"></param>
         private void StartChatMenuItem_Click(object sender, EventArgs e)
         {
-            if (null == tvContacts.SelectedNode)
+            if (lvContacts.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Select a contact", "Contact not selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            JabberID jabberID = (JabberID) tvContacts.SelectedNode.Tag;
+            JabberID jabberID = (JabberID) lvContacts.SelectedItems[0].Tag;
             AppController.Instance.GetMessagingWindow(jabberID);
             MessagingWindow.ActiveForm.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
 
@@ -389,24 +322,6 @@ namespace ChatApp
             lblStatus.Values.Text = state.ToString();
         }
 
-        private void RenametoolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            fromcontextmenu = true;
-            EditGroup EditGroupWnd = new EditGroup();
-            EditGroupWnd.ShowDialog(this);
-            EditGroupWnd.Dispose();
-            EditGroupWnd = null;
-            fromcontextmenu = false;
-        }
-
-        private void DeletetoolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            fromcontextmenu = true;
-            DeleteGroup DeleteGroupWnd = new DeleteGroup();
-            DeleteGroupWnd.ShowDialog(this);
-            DeleteGroupWnd.Dispose();
-            DeleteGroupWnd = null;
-        }
 
         private void lvContacts_Resize(object sender, EventArgs e)
         {

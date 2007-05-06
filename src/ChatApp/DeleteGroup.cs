@@ -24,48 +24,38 @@ namespace ChatApp
         public DeleteGroup()
         {
             InitializeComponent();
-            if (!AppController.Instance.MainWindow.fromcontextmenu)
+            cbDeletegroup.Items.Add(AppController.Instance.Contacts.GetAllGroups().ToArray());
+            if (cbDeletegroup.Items.Count > 0)
             {
-                foreach (TreeNode node in AppController.Instance.MainWindow.tvContacts.Nodes)
-                {
-                    cbDeletegroup.Items.Add(node.Text.ToString());
-                }
-            }
-            else
-            {
-                cbDeletegroup.Items.Add(AppController.Instance.MainWindow.tvContacts.SelectedNode.Name);
+                cbDeletegroup.SelectedIndex = 0;
             }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-                ArrayList deleteusers = new ArrayList();
-                this.Hide();
+            ArrayList deleteUsers = new ArrayList();
+            this.Hide();
 
-                foreach (Contact contact in AppController.Instance.Contacts)
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                if (contact.GroupName.Equals(cbDeletegroup.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase))
                 {
-                    if (contact.GroupName.Equals(cbDeletegroup.SelectedItem.ToString(),StringComparison.OrdinalIgnoreCase))
-                    {
-                          deleteusers.Add(contact.UserName);
-                    }
+                    deleteUsers.Add(contact.UserName);
                 }
+            }
 
-                for (int i = 0; i < deleteusers.Count; i++)
-                    {
-                        
-                        Contact delcontact = AppController.Instance.Contacts[deleteusers[i].ToString()];
-                        JabberID Jid = new JabberID(delcontact.UserName.ToString(), delcontact.ServerName.ToString(), Properties.Settings.Default.Resource);
+            for (int i = 0; i < deleteUsers.Count; i++)
+            {
+                Contact delcontact = AppController.Instance.Contacts[deleteUsers[i].ToString()];
+                JabberID Jid = new JabberID(delcontact.UserName.ToString(), delcontact.ServerName.ToString(), Properties.Settings.Default.Resource);
 
-                        UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
-                        AppController.Instance.SessionManager.Send(resp);
-                        AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, delcontact.UserName.ToString()));
-                        
-                        AppController.Instance.Contacts.Remove(delcontact);
-                        AppController.Instance.MainWindow.UpdateContactList();
-                    }
-           
+                UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
+                AppController.Instance.SessionManager.Send(resp);
+                AppController.Instance.SessionManager.BeginSend(new RosterRemove(Jid, delcontact.UserName.ToString()));
+
+                AppController.Instance.Contacts.Remove(delcontact);
+                AppController.Instance.MainWindow.UpdateContactList();
+            }
         }
-
-      
     }//class
 }
