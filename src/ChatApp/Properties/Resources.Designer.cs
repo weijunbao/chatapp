@@ -99,6 +99,13 @@ namespace ChatApp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap SoapBoxStudio {
+            get {
+                object obj = ResourceManager.GetObject("SoapBoxStudio", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap status_away {
             get {
                 object obj = ResourceManager.GetObject("status_away", resourceCulture);

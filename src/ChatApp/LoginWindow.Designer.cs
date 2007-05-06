@@ -142,7 +142,7 @@ namespace ChatApp
             this.ServerNameTextBox.Font = new System.Drawing.Font("Verdana", 9F);
             this.ServerNameTextBox.Location = new System.Drawing.Point(12, 130);
             this.ServerNameTextBox.Name = "ServerNameTextBox";
-            this.ServerNameTextBox.Size = new System.Drawing.Size(267, 22);
+            this.ServerNameTextBox.Size = new System.Drawing.Size(270, 22);
             this.ServerNameTextBox.TabIndex = 6;
             this.ServerNameTextBox.Text = global::ChatApp.Properties.Settings.Default.Server;
             // 
@@ -183,6 +183,7 @@ namespace ChatApp
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enter User Credentials";
+            this.WindowActive = true;
             this.Load += new System.EventHandler(this.LoginWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
