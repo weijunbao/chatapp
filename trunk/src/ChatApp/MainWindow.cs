@@ -229,6 +229,9 @@ namespace ChatApp
         private void DeleteContactMenuItem_Click(object sender, EventArgs e)
         {
             DelContact DelContactWnd = new DelContact();
+            JabberID contactID = this.GetSelectedContact();
+            DelContactWnd.SelectContact(contactID);
+
             DelContactWnd.ShowDialog(this);
             DelContactWnd.Dispose();
             DelContactWnd = null;

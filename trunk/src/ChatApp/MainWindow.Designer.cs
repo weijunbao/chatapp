@@ -97,6 +97,7 @@ namespace ChatApp
             // 
             // myProfileToolStripMenuItem
             // 
+            this.myProfileToolStripMenuItem.Enabled = false;
             this.myProfileToolStripMenuItem.Name = "myProfileToolStripMenuItem";
             this.myProfileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.myProfileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -136,7 +137,7 @@ namespace ChatApp
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -159,7 +160,7 @@ namespace ChatApp
             this.deleteGroupToolStripMenuItem});
             this.contactsContextMenuStrip.Name = "contactsContextMenuStrip";
             this.contactsContextMenuStrip.OwnerItem = this.contactsToolStripMenuItem;
-            this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 120);
+            this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 142);
             // 
             // addContactToolStripMenuItem
             // 
@@ -283,7 +284,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 

@@ -140,6 +140,7 @@ namespace ChatApp
             this.btnOK.Size = new System.Drawing.Size(90, 31);
             this.btnOK.TabIndex = 0;
             this.btnOK.Values.Text = "OK";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // About
             // 

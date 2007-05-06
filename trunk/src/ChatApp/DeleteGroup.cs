@@ -57,5 +57,7 @@ namespace ChatApp
                 AppController.Instance.MainWindow.UpdateContactList();
             }
         }
+
+
     }//class
 }
