@@ -68,7 +68,6 @@ namespace ChatApp
             // 
             this.msgHistoryWindow.AllowWebBrowserDrop = false;
             this.msgHistoryWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.msgHistoryWindow.IsWebBrowserContextMenuEnabled = false;
             this.msgHistoryWindow.Location = new System.Drawing.Point(0, 0);
             this.msgHistoryWindow.MinimumSize = new System.Drawing.Size(20, 20);
             this.msgHistoryWindow.Name = "msgHistoryWindow";
@@ -76,7 +75,6 @@ namespace ChatApp
             this.msgHistoryWindow.Size = new System.Drawing.Size(492, 300);
             this.msgHistoryWindow.TabIndex = 0;
             this.msgHistoryWindow.TabStop = false;
-            this.msgHistoryWindow.Url = new System.Uri("about:blank", System.UriKind.Absolute);
             this.msgHistoryWindow.WebBrowserShortcutsEnabled = false;
             this.msgHistoryWindow.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.msgHistoryWindow_DocumentCompleted);
             // 

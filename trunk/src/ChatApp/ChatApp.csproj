@@ -221,6 +221,15 @@
     <None Include="Resources\message.wav" />
     <None Include="Resources\C__Program Files_Yahoo!_Messenger_Media_Images.bmp" />
     <None Include="Resources\addfriend.gif" />
+    <Content Include="Resources\blue_ghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\main.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MessageTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="User32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
