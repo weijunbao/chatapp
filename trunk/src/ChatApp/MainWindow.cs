@@ -90,8 +90,10 @@ namespace ChatApp
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Contact self = new Contact(AppController.Instance.CurrentUser,
-                string.Empty, (LoginState)Enum.Parse(typeof(LoginState), lblStatus.Values.Text));
+            Contact self = new Contact(AppController.Instance.CurrentUser.BareJID,
+                                        string.Empty, 
+                                        (LoginState)Enum.Parse(typeof(LoginState), 
+                                        lblStatus.Values.Text));
 
             AppController.Instance.Contacts.Self = self;
             GetAvatarFor(self);

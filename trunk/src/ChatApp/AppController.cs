@@ -282,7 +282,7 @@ namespace ChatApp
             InitializeSessionManager(UserName, Password, ServerName);
             if (m_sessionMgr != null)
             {
-                this.m_currentUser = m_sessionMgr.LocalUser.BareJID;
+                this.m_currentUser = m_sessionMgr.LocalUser;
                 return true;
             }
             else
@@ -421,7 +421,7 @@ namespace ChatApp
             else
             {
                 msgWindow = new MessagingWindow();
-                msgWindow.RemoteUserJabberId = strJabberId;
+                msgWindow.RemoteUserJabberId = jabberId;
                 msgWindow.Show();
                 m_ActiveChatUsers.Add(strJabberId, msgWindow);
             }
