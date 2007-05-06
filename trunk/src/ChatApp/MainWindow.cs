@@ -12,6 +12,8 @@ using Coversant.SoapBox.Base;
 using Coversant.SoapBox.Core.Message;
 using ComponentFactory.Krypton;
 using System.Media;
+using Coversant.SoapBox.Core.IQ.vCard;
+using System.IO;
 
 namespace ChatApp
 {
@@ -25,7 +27,6 @@ namespace ChatApp
         {
             InitializeComponent();
 
-            notifyIcon1.Visible = false;
             AppController.Instance.IncomingMessage += new AppController.IncomingMessageDelegate(OnIncomingMessage);
             AppController.Instance.IncomingPresence += new AppController.IncomingPresenceDelegate(OnIncomingPresence);
         }
@@ -45,6 +46,42 @@ namespace ChatApp
             }
             tvContacts.ExpandAll();
             tvContacts.EndUpdate();
+        }
+
+        public void UpdateContactList1()
+        {
+            lvContacts.BeginUpdate();
+            lvContacts.Items.Clear();
+
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                ListViewGroup lvGroup = GetGroupNodeFor1(contact.GroupName);
+                ListViewItem newItem = new ListViewItem(contact.UserName, (int)contact.UserStatus, lvGroup);
+                newItem.SubItems.Add(new ListViewItem.ListViewSubItem(newItem, contact.UserStatus.ToString()));
+                newItem.Tag = contact.JabberId.JabberIDNoResource;
+                lvContacts.Items.Add(newItem);
+            }
+            lvContacts.EndUpdate();
+        }
+
+        private ListViewGroup GetGroupNodeFor1(string GroupName)
+        {
+            ListViewGroup lvGroup = null;
+            if (GroupName.Length == 0)
+            {
+                GroupName = "No Group";
+            }
+            if (lvContacts.Groups[GroupName] != null)
+            {
+                lvGroup = lvContacts.Groups[GroupName];
+            }
+            else
+            {
+                ListViewGroup NewGroup = new ListViewGroup(GroupName, GroupName);
+                lvContacts.Groups.Add(NewGroup);
+                lvGroup = NewGroup;
+            }
+            return lvGroup;
         }
 
         private TreeNode GetGroupNodeFor(string GroupName)
@@ -77,6 +114,31 @@ namespace ChatApp
                 lblWelcome.Text = AppController.Instance.CurrentUser.UserName;
             }
             UpdateContactList();
+            UpdateContactList1();
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork +=new DoWorkEventHandler(worker_DoWork);
+            worker.RunWorkerAsync();
+        }
+
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            foreach (Contact contact in AppController.Instance.Contacts)
+            {
+                vCardResponse response = (vCardResponse)AppController.Instance.SendPacket(new vCardRequest(contact.JabberId), 5000);
+                if (response != null)
+                {
+                    contact.FormattedName = response.VCard.FormattedName == null ? null : response.VCard.FormattedName;
+                    if (response.VCard.Photo != null)
+                    {
+                        Image avatharImage = Image.FromStream(new MemoryStream(response.VCard.Photo.EncodedImage));
+                        if (avatharImage != null)
+                        {
+                            contact.AvatarImage = avatharImage;
+                        }
+                    }
+                }
+            }
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -102,6 +164,7 @@ namespace ChatApp
         {
             if (DialogResult.Yes == MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
+                AppController.Instance.Contacts.Dispose();
                 this.Close();
                 AppController.Instance.LogOff();
             }
@@ -113,10 +176,10 @@ namespace ChatApp
             if (jabberID != null)
             {
                 MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(jabberID);
-                msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
-                msgWindow.Show();
+            msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
+            msgWindow.Show();
                 msgWindow.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
-            }
+        }
         }
 
         private void OnIncomingPresence(PresencePacket incomingPresencePacket)
@@ -167,6 +230,7 @@ namespace ChatApp
 
             // Iterate through the list of jabber ids and check whether it is already added
             MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(packet.From);
+            msgWindow.Show();
             if (string.Empty == msgWindow.MessageThreadID)
             {
                 msgWindow.MessageThreadID = IncomingMessage.Thread;
@@ -344,6 +408,12 @@ namespace ChatApp
             DeleteGroupWnd = null;
         }
 
+        private void lvContacts_Resize(object sender, EventArgs e)
+        {
+            this.columnUserName.Width = (int)((float)this.splitContainer.Panel1.ClientSize.Width - 60);
+            this.columnStatus.Width = this.lvContacts.ClientSize.Width - (this.columnUserName.Width );
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             about aboutWind = new about();
@@ -381,23 +451,15 @@ namespace ChatApp
 
                 message = string.Format("{0} is now {1}", userName, userStatus.ToString());
                 AppController.Instance.HiddenWindow.ShowBalloonToolTip(message);
-                //notifyIcon1.Visible = true;
-                //notifyIcon1.BalloonTipText = message;
-                //notifyIcon1.ShowBalloonTip(3);
-                // notifyIcon1.Visible = false;
             }
             
         }
 
         private void Notify(string msg)
         {
-
             if (ChatApp.Properties.Settings.Default.IncomingMessageShowNotification == true)
             {
-                notifyIcon1.Visible = true;
-                notifyIcon1.BalloonTipText = msg;
-                notifyIcon1.ShowBalloonTip(3);
-                notifyIcon1.Visible = false;
+                AppController.Instance.HiddenWindow.ShowBalloonToolTip(msg);
             }
         }
 

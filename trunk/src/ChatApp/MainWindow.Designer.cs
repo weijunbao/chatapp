@@ -33,6 +33,8 @@ namespace ChatApp
             this.myProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contactsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,16 +58,16 @@ namespace ChatApp
             this.BtnLogout = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainer = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
-            this.tvContacts = new System.Windows.Forms.TreeView();
+            this.lvContacts = new System.Windows.Forms.ListView();
+            this.columnUserName = new System.Windows.Forms.ColumnHeader();
+            this.columnStatus = new System.Windows.Forms.ColumnHeader();
             this.StatusImageList = new System.Windows.Forms.ImageList(this.components);
+            this.tvContacts = new System.Windows.Forms.TreeView();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.GroupContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RenametoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.DeletetoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,6 +131,21 @@ namespace ChatApp
             this.mainMenuStrip.Size = new System.Drawing.Size(298, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // contactsToolStripMenuItem
             // 
@@ -218,6 +235,7 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // StartChatToolStripMenuItem
@@ -327,6 +345,7 @@ namespace ChatApp
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.lvContacts);
             this.splitContainer.Panel1.Controls.Add(this.tvContacts);
             // 
             // splitContainer.Panel2
@@ -349,6 +368,38 @@ namespace ChatApp
             this.tvContacts.Size = new System.Drawing.Size(280, 321);
             this.tvContacts.TabIndex = 0;
             this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
+            // lvContacts
+            // 
+            this.lvContacts.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lvContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvContacts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnUserName,
+            this.columnStatus});
+            this.lvContacts.FullRowSelect = true;
+            this.lvContacts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvContacts.HideSelection = false;
+            this.lvContacts.HoverSelection = true;
+            this.lvContacts.Location = new System.Drawing.Point(0, 130);
+            this.lvContacts.MultiSelect = false;
+            this.lvContacts.Name = "lvContacts";
+            this.lvContacts.ShowItemToolTips = true;
+            this.lvContacts.Size = new System.Drawing.Size(280, 190);
+            this.lvContacts.SmallImageList = this.StatusImageList;
+            this.lvContacts.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lvContacts.TabIndex = 1;
+            this.lvContacts.UseCompatibleStateImageBehavior = false;
+            this.lvContacts.View = System.Windows.Forms.View.Details;
+            this.lvContacts.Resize += new System.EventHandler(this.lvContacts_Resize);
+            // 
+            // columnUserName
+            // 
+            this.columnUserName.Text = "User Name";
+            this.columnUserName.Width = 215;
+            // 
+            // columnStatus
+            // 
+            this.columnStatus.Text = "Status";
             // 
             // StatusImageList
             // 
@@ -362,6 +413,20 @@ namespace ChatApp
             this.StatusImageList.Images.SetKeyName(5, "Offline");
             this.StatusImageList.Images.SetKeyName(6, "group.png");
             // 
+            // tvContacts
+            // 
+            this.tvContacts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvContacts.HideSelection = false;
+            this.tvContacts.ImageIndex = 0;
+            this.tvContacts.ImageList = this.StatusImageList;
+            this.tvContacts.Location = new System.Drawing.Point(0, 0);
+            this.tvContacts.Name = "tvContacts";
+            this.tvContacts.SelectedImageIndex = 0;
+            this.tvContacts.Size = new System.Drawing.Size(280, 124);
+            this.tvContacts.TabIndex = 0;
+            this.tvContacts.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvContacts_NodeMouseDoubleClick);
+            // 
             // tbSearch
             // 
             this.tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
@@ -374,47 +439,26 @@ namespace ChatApp
             // 
             // GroupContextMenuStrip
             // 
-            this.GroupContextMenuStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.GroupContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.GroupContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.RenametoolStripMenuItem1,
             this.DeletetoolStripMenuItem2});
             this.GroupContextMenuStrip.Name = "contactsContextMenuStrip";
-            this.GroupContextMenuStrip.Size = new System.Drawing.Size(150, 48);
+            this.GroupContextMenuStrip.Size = new System.Drawing.Size(159, 70);
             // 
             // RenametoolStripMenuItem1
             // 
             this.RenametoolStripMenuItem1.Name = "RenametoolStripMenuItem1";
-            this.RenametoolStripMenuItem1.Size = new System.Drawing.Size(149, 22);
+            this.RenametoolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
             this.RenametoolStripMenuItem1.Text = "Rename Group";
             this.RenametoolStripMenuItem1.Click += new System.EventHandler(this.RenametoolStripMenuItem1_Click);
             // 
             // DeletetoolStripMenuItem2
             // 
             this.DeletetoolStripMenuItem2.Name = "DeletetoolStripMenuItem2";
-            this.DeletetoolStripMenuItem2.Size = new System.Drawing.Size(149, 22);
+            this.DeletetoolStripMenuItem2.Size = new System.Drawing.Size(158, 22);
             this.DeletetoolStripMenuItem2.Text = "Delete Group";
             this.DeletetoolStripMenuItem2.Click += new System.EventHandler(this.DeletetoolStripMenuItem2_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // awayMenuItem
             // 
@@ -469,6 +513,7 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
+            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);
@@ -538,7 +583,9 @@ namespace ChatApp
         private System.Windows.Forms.ContextMenuStrip GroupContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem RenametoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem DeletetoolStripMenuItem2;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ListView lvContacts;
+        private System.Windows.Forms.ColumnHeader columnUserName;
+        private System.Windows.Forms.ColumnHeader columnStatus;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }

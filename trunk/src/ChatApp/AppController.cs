@@ -17,7 +17,11 @@ using Coversant.SoapBox.Core.IQ;
 
 using System.Media;                         // For playing sounds
 
-using ComponentFactory.Krypton.Toolkit;     
+using ComponentFactory.Krypton.Toolkit;
+using System.Drawing;
+using System.IO;
+using Coversant.SoapBox.Core.IQ.Avatar;
+using Coversant.SoapBox.Core.IQ.vCard;     
 
 namespace ChatApp
 {
@@ -125,7 +129,6 @@ namespace ChatApp
             else if (IncomingPresencePacket is AvailableRequest)
             {
                 AvailableRequest availableReq = WConvert.ToAvailableRequest(IncomingPresencePacket);
-
                 LoginState state = (LoginState)availableReq.Show;
                 string userName = availableReq.From.UserName;
 
@@ -134,6 +137,8 @@ namespace ChatApp
                 {
                     contact.UserStatus = state;
                 }
+
+                
             }
             else if (IncomingPresencePacket is UnavailableRequest)
             {
@@ -329,6 +334,7 @@ namespace ChatApp
                 Contact contact = new Contact(rsItem.JID,
                                         rsItem.Group.ToString(),
                                         LoginState.Offline);
+
                 m_contacts.Add(contact);
             }
         }
@@ -542,6 +548,16 @@ namespace ChatApp
             m_sessionMgr.BeginSend(msgPacket);
         }
 
+        public IAsyncResult BeginSend(Packet msgPacket, AsyncCallback callBack)
+        {
+            return m_sessionMgr.BeginSend(msgPacket, callBack);
+        }
+
+        public Packet EndSend(IAsyncResult asyncResult)
+        {
+            return m_sessionMgr.EndSend(asyncResult);
+        }
+
         internal void LogOff()
         {
             SendCurrentPresence(LoginState.Offline);
@@ -558,8 +574,18 @@ namespace ChatApp
                 player.Stream = ChatApp.Properties.Resources.ding;
                 player.Play();
             }
-
         }
+
+        public Packet SendPacket(Packet p)
+        {
+            return this.m_sessionMgr.Send(p);
+        }
+
+        public Packet SendPacket(Packet p, int maxMSWaitTime)
+        {
+            return this.m_sessionMgr.Send(p, maxMSWaitTime);
+        }
+
         internal void chPlaySound()
         {
             if (ChatApp.Properties.Settings.Default.IncomingMessagePlaySound == true)
@@ -577,3 +603,4 @@ namespace ChatApp
 
     }
 }
+

@@ -127,7 +127,7 @@ namespace ChatApp
 
             this._session.AddHandler(typeof(VersionRequest), new PacketFactory.PacketReceivedDelegate(HandleIncomingVersionRequest));
             this._session.AddHandler(typeof(TimeRequest), new PacketFactory.PacketReceivedDelegate(HandleIncomingTimeRequest));
-            //          this._session.AddHandler(typeof(InvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingChatInvitation));
+          //this._session.AddHandler(typeof(InvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingChatInvitation));
             this._session.AddHandler(typeof(DeclineInvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingDeclineChatInvitation));
         }
 
@@ -188,7 +188,14 @@ namespace ChatApp
 
         public Packet Send(Packet p, int maxMSWaitTime)
         {
-            return this._session.Send(p, maxMSWaitTime);
+            try
+            {
+                return this._session.Send(p, maxMSWaitTime);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public void SendAndForget(Packet p)
