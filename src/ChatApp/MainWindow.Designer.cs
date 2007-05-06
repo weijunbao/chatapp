@@ -158,6 +158,7 @@ namespace ChatApp
             this.editGroupToolStripMenuItem,
             this.deleteGroupToolStripMenuItem});
             this.contactsContextMenuStrip.Name = "contactsContextMenuStrip";
+            this.contactsContextMenuStrip.OwnerItem = this.contactsToolStripMenuItem;
             this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 120);
             // 
             // addContactToolStripMenuItem
@@ -225,6 +226,7 @@ namespace ChatApp
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
+            this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // awayMenuItem
@@ -339,7 +341,7 @@ namespace ChatApp
             this.userPictureBox.Location = new System.Drawing.Point(9, 5);
             this.userPictureBox.Name = "userPictureBox";
             this.userPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.userPictureBox.TabIndex = 12;
             this.userPictureBox.TabStop = false;
             // 
