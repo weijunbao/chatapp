@@ -371,12 +371,19 @@ namespace ChatApp
                 && (ChatApp.Properties.Settings.Default.FriendOnlineShowNotification == true) )
             {
                 string message = null;
-                string userStatus = "offline";
+                LoginState userStatus = LoginState.Offline;
 
                 if (incomingPresencePacket is AvailableRequest)
                 {
                     AvailableRequest availableReq = WConvert.ToAvailableRequest(incomingPresencePacket);
-                    userStatus = availableReq.Status;
+                    if (availableReq.From.Server.Contains(".com"))
+                    {
+                        userStatus = (LoginState)availableReq.Show;
+                    }
+                    else
+                    {
+                        userStatus = (LoginState)Enum.Parse(typeof(LoginState), availableReq.Status);
+                    }
                 }
 
                 message = string.Format("{0} is now {1}", userName, userStatus.ToString());

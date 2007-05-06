@@ -129,7 +129,15 @@ namespace ChatApp
             else if (IncomingPresencePacket is AvailableRequest)
             {
                 AvailableRequest availableReq = WConvert.ToAvailableRequest(IncomingPresencePacket);
-                LoginState state = (LoginState)availableReq.Show;
+                LoginState state = LoginState.Offline;
+                if(availableReq.From.Server.Contains(".com"))
+                {
+                    state = (LoginState)availableReq.Show;
+                }
+                else
+                {
+                    state = (LoginState)Enum.Parse(typeof(LoginState), availableReq.Status);
+                }
                 string userName = availableReq.From.UserName;
 
                 Contact contact = AppController.Instance.Contacts[userName];
