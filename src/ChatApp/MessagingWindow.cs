@@ -24,13 +24,13 @@ namespace ChatApp
     {
         string message = null;
         Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
-        private string m_remoteUserJabberId = null;
+        private JabberID m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
 
         private bool firstMessagefromSelf = true;
         private bool firstMessageFromFriend = true;
 
-        public string RemoteUserJabberId
+        public JabberID RemoteUserJabberId
         {
             get { return m_remoteUserJabberId; }
             set { m_remoteUserJabberId = value; }
@@ -170,7 +170,7 @@ namespace ChatApp
         private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             if(m_remoteUserJabberId != null)
-                AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId);
+                AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId.JabberIDNoResource);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -184,7 +184,7 @@ namespace ChatApp
             //Create the message packet
             MessagePacket outgoingPacket = null;
 
-            outgoingPacket = new MessagePacket(new JabberID(m_remoteUserJabberId), AppController.Instance.CurrentUser, tbMessages.Text);
+            outgoingPacket = new MessagePacket(m_remoteUserJabberId, AppController.Instance.CurrentUser, tbMessages.Text);
             outgoingPacket.Thread = this.MessageThreadID;
             outgoingPacket.Type = "chat";   // DON'T REMOVE THIS!!!!
 
