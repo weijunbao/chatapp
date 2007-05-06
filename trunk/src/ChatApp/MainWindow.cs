@@ -336,7 +336,7 @@ namespace ChatApp
             int newWidth = this.lvContacts.ClientSize.Width;
             if (newWidth < 36)
                 newWidth = 36;
-            this.lvContacts.TileSize = new Size(this.lvContacts.ClientSize.Width, 36);
+            this.lvContacts.TileSize = new Size(newWidth, 36);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

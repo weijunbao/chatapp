@@ -65,9 +65,10 @@ namespace ChatApp
             System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
             messageBuilder.Append(@"<div class='chat in'><div class='msg'>")
                           .Append(GetAvatarFormatting(msg))
-                          .Append(GetUserFormatting(msg.From.UserName.ToString()))
+                          .Append(GetUserFormatting(msg))
                           .Append(GetMessageFormatting(encodedBody))
-                          .Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
+                          //.Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
+                          .Append(@"</div><div id='Div2'></div></div>")
                           .Append(@"<span id='placeholder'/>");
 
             message = messageBuilder.ToString();
@@ -102,12 +103,15 @@ namespace ChatApp
             string fromUser = message.From.UserName;
             bool drawAvatar = false;
             Contact contact = null;
+            string iconStyle = "";
+
             if(fromUser == AppController.Instance.CurrentUser.UserName)
             {
                 contact = AppController.Instance.Contacts.Self;
                 if (firstMessagefromSelf)
                 {
                     drawAvatar = true;
+                    iconStyle = "icon-o";
                     firstMessagefromSelf = false;
                 }
             }
@@ -117,6 +121,7 @@ namespace ChatApp
                 if (firstMessageFromFriend)
                 {
                     drawAvatar = true;
+                    iconStyle = "icon-i";
                     firstMessageFromFriend = false;
                 }
             }
@@ -127,13 +132,13 @@ namespace ChatApp
                 string avatarImgPath = "";
                 if ( (contact == null) || (string.IsNullOrEmpty(contact.AvatarImagePath)) )
                 {
-                    avatarImgPath = "blue_ghost.bmp";
+                    avatarImgPath = "user.png";
                 }
                 else
                 {
                     avatarImgPath = contact.AvatarImagePath;
                 }
-                avatarFormat = string.Format("<div class='icon-i'><div style='height:1px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\"{0}\")'></div></div>", avatarImgPath);
+                avatarFormat = string.Format("<div class='{0}'><div style='height:1px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\"{1}\")'></div></div>", iconStyle,avatarImgPath);
             }
             return avatarFormat;
         }
@@ -145,9 +150,20 @@ namespace ChatApp
             return string.Format(@"<div class='1st'>{0}</div>", Message);
         }
 
-        private string GetUserFormatting(string userName)
+        private string GetUserFormatting(MessagePacket message)
         {
-            return string.Format(@"<span class='salutation-i'>{0}</span>", userName);
+            string fromUser = message.From.UserName.ToString();
+            string userFormat = "";
+            if(fromUser == AppController.Instance.CurrentUser.UserName)
+            {
+                userFormat = string.Format(@"<span class='salutation-o'>{0}</span>", fromUser);
+            }
+            else
+            {
+                userFormat = string.Format(@"<span class='salutation-i'>{0}</span>", fromUser);
+            }
+
+            return userFormat;
         }
 
 

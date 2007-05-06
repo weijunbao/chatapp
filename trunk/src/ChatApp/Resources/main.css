@@ -46,14 +46,16 @@ DIV.chat .icon-i {
 DIV.chat SPAN.salutation-o {
   padding-top: 1px;
   width: 100%;
-  border-top: 2px solid black;
+  border-top: 1px solid black;
   font-weight: bold;
+  color:Teal;
 }
 DIV.chat SPAN.salutation-i {
   padding-top: 1px;
   width: 100%;
-  border-top: 2px solid black;
+  border-top: 1px solid black;
   font-weight: bold;
+  color:Maroon;
 }
 DIV.chat DIV.Nth {
   margin: 5px 0px 0px 0px;
