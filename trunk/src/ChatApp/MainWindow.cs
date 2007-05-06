@@ -341,7 +341,7 @@ namespace ChatApp
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            about aboutWind = new about();
+            About aboutWind = new About();
             aboutWind.ShowDialog(this);
             aboutWind.Dispose();
             aboutWind = null;

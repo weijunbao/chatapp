@@ -46,7 +46,7 @@ namespace ChatApp
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(292, 105);
+            this.kryptonPanel1.Size = new System.Drawing.Size(292, 92);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // cbUsername
@@ -69,7 +69,7 @@ namespace ChatApp
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(205, 67);
+            this.btnOk.Location = new System.Drawing.Point(205, 54);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
@@ -80,7 +80,7 @@ namespace ChatApp
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(292, 105);
+            this.ClientSize = new System.Drawing.Size(292, 92);
             this.Controls.Add(this.kryptonPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -89,6 +89,7 @@ namespace ChatApp
             this.Name = "DelContact";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete Contact";
+            this.WindowActive = true;
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).EndInit();

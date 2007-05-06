@@ -30,9 +30,9 @@ namespace ChatApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteGroup));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.cbDeletegroup = new System.Windows.Forms.ComboBox();
             this.lblGroupName = new System.Windows.Forms.Label();
             this.btnOk = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.cbDeletegroup = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
@@ -49,6 +49,14 @@ namespace ChatApp
             this.kryptonPanel1.Size = new System.Drawing.Size(292, 91);
             this.kryptonPanel1.TabIndex = 0;
             // 
+            // cbDeletegroup
+            // 
+            this.cbDeletegroup.FormattingEnabled = true;
+            this.cbDeletegroup.Location = new System.Drawing.Point(12, 27);
+            this.cbDeletegroup.Name = "cbDeletegroup";
+            this.cbDeletegroup.Size = new System.Drawing.Size(270, 21);
+            this.cbDeletegroup.TabIndex = 3;
+            // 
             // lblGroupName
             // 
             this.lblGroupName.BackColor = System.Drawing.Color.Transparent;
@@ -61,20 +69,12 @@ namespace ChatApp
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(210, 53);
+            this.btnOk.Location = new System.Drawing.Point(207, 54);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 2;
             this.btnOk.Values.Text = "OK";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // cbDeletegroup
-            // 
-            this.cbDeletegroup.FormattingEnabled = true;
-            this.cbDeletegroup.Location = new System.Drawing.Point(12, 27);
-            this.cbDeletegroup.Name = "cbDeletegroup";
-            this.cbDeletegroup.Size = new System.Drawing.Size(270, 21);
-            this.cbDeletegroup.TabIndex = 3;
             // 
             // DeleteGroup
             // 

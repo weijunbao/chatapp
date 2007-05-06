@@ -9,21 +9,12 @@ using System.Windows.Forms;
 
 namespace ChatApp
 {
-    public partial class about : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class About : ComponentFactory.Krypton.Toolkit.KryptonForm
     {
-        public about()
+        public About()
         {
             InitializeComponent();
         }
 
-        private void about_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void kryptonButton1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
     }
 }
