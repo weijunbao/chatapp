@@ -84,7 +84,7 @@ namespace ChatApp
 
             AppController.Instance.Contacts.Self = self;
             GetAvatarFor(self);
-            if (Path.Equals(AppController.Instance.Contacts.Self.AvatarImagePath))
+            if (File.Exists(AppController.Instance.Contacts.Self.AvatarImagePath))
             {
                 this.userPictureBox.Image = AppController.Instance.Contacts.Self.AvatarImage;
             }
