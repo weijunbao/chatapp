@@ -33,8 +33,6 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-
-
             Contact delContact = AppController.Instance.Contacts[cbUsername.SelectedItem.ToString()];
             JabberID Jid = new JabberID(delContact.UserName.ToString(), delContact.ServerName.ToString(), Properties.Settings.Default.Resource);
 
@@ -44,8 +42,18 @@ namespace ChatApp
             AppController.Instance.Contacts.Remove(delContact);
             AppController.Instance.MainWindow.UpdateContactList();
             this.Hide();
-
         }
 
+
+        internal void SelectContact(JabberID contactID)
+        {
+            if (contactID == null)
+                return;
+
+            if (cbUsername.Items.Contains(contactID.UserName))
+            {
+                cbUsername.SelectedIndex = cbUsername.FindString(contactID.UserName);
+            }
+        }
     }
 }
