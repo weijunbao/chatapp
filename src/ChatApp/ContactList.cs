@@ -98,7 +98,7 @@ namespace ChatApp
             jabberId = (JabberID)JID.Clone();
             m_groupName = groupName;
             m_userStatus = userStatus;
-            AvatarImage = DefaultAvatarImage;
+            avatarImage = DefaultAvatarImage;
         }
 
         public string AvatarImagePath
