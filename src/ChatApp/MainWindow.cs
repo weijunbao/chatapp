@@ -39,7 +39,7 @@ namespace ChatApp
             {
                 TreeNode GroupNode = GetGroupNodeFor(contact.GroupName);
                 TreeNode newNode = new TreeNode(contact.UserName, (int)contact.UserStatus, (int)contact.UserStatus);
-                newNode.Tag = contact.JabberId.JabberIDNoResource;
+                newNode.Tag = contact.JabberId;
                 newNode.ContextMenuStrip = this.contactsContextMenuStrip;
                 GroupNode.Nodes.Add(newNode);
             }
@@ -109,10 +109,14 @@ namespace ChatApp
 
         private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow((string)e.Node.Tag);
-            msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
-            msgWindow.Show();
-            msgWindow.Text = (string)e.Node.Tag;
+            JabberID jabberID = (JabberID)e.Node.Tag;
+            if (jabberID != null)
+            {
+                MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(jabberID);
+                msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
+                msgWindow.Show();
+                msgWindow.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
+            }
         }
 
         private void OnIncomingPresence(PresencePacket incomingPresencePacket)
@@ -162,14 +166,14 @@ namespace ChatApp
             MessagePacket IncomingMessage = packet as MessagePacket;
 
             // Iterate through the list of jabber ids and check whether it is already added
-            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(packet.From.JabberIDNoResource);
+            MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(packet.From);
             if (string.Empty == msgWindow.MessageThreadID)
             {
                 msgWindow.MessageThreadID = IncomingMessage.Thread;
             }
 
             string msg = IncomingMessage.Body;
-            msgWindow.Text = packet.From.JabberIDNoResource.ToString();
+            msgWindow.Text = string.Format("From {0} to {1}", packet.To.UserName, packet.From.UserName); 
             if (msgWindow.ContainsFocus == false)
             {
                 Notify(msg);
@@ -305,9 +309,10 @@ namespace ChatApp
                 MessageBox.Show("Select a contact", "Contact not selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string jabberIdWithNoResource = (string)tvContacts.SelectedNode.Tag;
-            AppController.Instance.GetMessagingWindow(jabberIdWithNoResource);
-            MessagingWindow.ActiveForm.Text = jabberIdWithNoResource;
+            JabberID jabberID = (JabberID) tvContacts.SelectedNode.Tag;
+            AppController.Instance.GetMessagingWindow(jabberID);
+            MessagingWindow.ActiveForm.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
+
         }
 
         private void StatusMenu_Click(object sender, EventArgs e)

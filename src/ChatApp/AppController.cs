@@ -402,9 +402,10 @@ namespace ChatApp
             }
         }
 
-        public MessagingWindow GetMessagingWindow(string strJabberId)
+        public MessagingWindow GetMessagingWindow(JabberID jabberId)
         {
             MessagingWindow msgWindow = null;
+            string strJabberId = jabberId.JabberIDNoResource;
             if (m_ActiveChatUsers.ContainsKey(strJabberId))
             {
                 msgWindow = (MessagingWindow)m_ActiveChatUsers[strJabberId];

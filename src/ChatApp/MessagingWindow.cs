@@ -60,15 +60,18 @@ namespace ChatApp
 
             message = messageBuilder.ToString();
 
-            HtmlElementCollection spanElements = msgHistoryWindow.Document.Body.GetElementsByTagName("span");
-            if (spanElements.Count == 0 || spanElements == null)
-                return;
+            if (msgHistoryWindow.Document.Body != null)
+            {
+                HtmlElementCollection spanElements = msgHistoryWindow.Document.Body.GetElementsByTagName("span");
+                if (spanElements.Count == 0 || spanElements == null)
+                    return;
 
-            HtmlElement spanElement = spanElements[0];
-            spanElement.OuterHtml = message;
+                HtmlElement spanElement = spanElements[0];
+                spanElement.OuterHtml = message;
 
-            msgHistoryWindow.Document.Body.GetElementsByTagName("span")[0].ScrollIntoView(false);
-            tbMessages.Focus();
+                msgHistoryWindow.Document.Body.GetElementsByTagName("span")[0].ScrollIntoView(false);
+                tbMessages.Focus();
+            }
         }
 
         private string GetMessageFormatting(string Message)
