@@ -47,7 +47,6 @@ namespace ChatApp
             this.StartChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ExitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
@@ -65,6 +64,8 @@ namespace ChatApp
             this.RenametoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.DeletetoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,6 +119,7 @@ namespace ChatApp
             // 
             this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
             this.contactsToolStripMenuItem,
             this.actionsToolStripMenuItem,
             chatAppToolStripMenuItem,
@@ -137,7 +139,7 @@ namespace ChatApp
             // 
             // contactsContextMenuStrip
             // 
-            this.contactsContextMenuStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.contactsContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.contactsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addContactToolStripMenuItem,
             this.editContactToolStripMenuItem,
@@ -147,45 +149,45 @@ namespace ChatApp
             this.deleteGroupToolStripMenuItem});
             this.contactsContextMenuStrip.Name = "contactsContextMenuStrip";
             this.contactsContextMenuStrip.OwnerItem = this.contactsToolStripMenuItem;
-            this.contactsContextMenuStrip.Size = new System.Drawing.Size(150, 120);
+            this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 120);
             // 
             // addContactToolStripMenuItem
             // 
             this.addContactToolStripMenuItem.Name = "addContactToolStripMenuItem";
-            this.addContactToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.addContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.addContactToolStripMenuItem.Text = "Add Contact";
             this.addContactToolStripMenuItem.Click += new System.EventHandler(this.AddContactMenuItem_Click);
             // 
             // editContactToolStripMenuItem
             // 
             this.editContactToolStripMenuItem.Name = "editContactToolStripMenuItem";
-            this.editContactToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.editContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.editContactToolStripMenuItem.Text = "Edit Contact";
             this.editContactToolStripMenuItem.Click += new System.EventHandler(this.EditContactMenuItem_Click);
             // 
             // deleteContactToolStripMenuItem
             // 
             this.deleteContactToolStripMenuItem.Name = "deleteContactToolStripMenuItem";
-            this.deleteContactToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteContactToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.deleteContactToolStripMenuItem.Text = "Delete Contact";
             this.deleteContactToolStripMenuItem.Click += new System.EventHandler(this.DeleteContactMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
             // 
             // editGroupToolStripMenuItem
             // 
             this.editGroupToolStripMenuItem.Name = "editGroupToolStripMenuItem";
-            this.editGroupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.editGroupToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.editGroupToolStripMenuItem.Text = "Rename Group";
             this.editGroupToolStripMenuItem.Click += new System.EventHandler(this.EditGroupMenuItem_Click);
             // 
             // deleteGroupToolStripMenuItem
             // 
             this.deleteGroupToolStripMenuItem.Name = "deleteGroupToolStripMenuItem";
-            this.deleteGroupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteGroupToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.deleteGroupToolStripMenuItem.Text = "Delete Group";
             this.deleteGroupToolStripMenuItem.Click += new System.EventHandler(this.DeleteGroupMenuItem_Click);
             // 
@@ -195,8 +197,7 @@ namespace ChatApp
             this.SetStatusMenuItem,
             this.StartChatToolStripMenuItem,
             this.SortByGroupToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.ExitStripMenuItem});
+            this.toolStripSeparator1});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.actionsToolStripMenuItem.Text = "&Actions";
@@ -210,15 +211,14 @@ namespace ChatApp
             // 
             // statusContextMenuStrip
             // 
-            this.statusContextMenuStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.statusContextMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.statusContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.awayMenuItem,
             this.onlineMenuItem,
             this.busyMenuItem,
             this.offlineMenuItem});
             this.statusContextMenuStrip.Name = "statusContextMenuStrip";
-            this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
-            this.statusContextMenuStrip.Size = new System.Drawing.Size(108, 92);
+            this.statusContextMenuStrip.Size = new System.Drawing.Size(118, 92);
             // 
             // StartChatToolStripMenuItem
             // 
@@ -238,13 +238,6 @@ namespace ChatApp
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
-            // 
-            // ExitStripMenuItem
-            // 
-            this.ExitStripMenuItem.Name = "ExitStripMenuItem";
-            this.ExitStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.ExitStripMenuItem.Text = "Exit Application";
-            this.ExitStripMenuItem.Click += new System.EventHandler(this.ExitStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -408,11 +401,26 @@ namespace ChatApp
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // awayMenuItem
             // 
             this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
             this.awayMenuItem.Name = "awayMenuItem";
-            this.awayMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.awayMenuItem.Size = new System.Drawing.Size(117, 22);
             this.awayMenuItem.Tag = ChatApp.LoginState.Away;
             this.awayMenuItem.Text = "Away";
             this.awayMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
@@ -421,7 +429,7 @@ namespace ChatApp
             // 
             this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
             this.onlineMenuItem.Name = "onlineMenuItem";
-            this.onlineMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.onlineMenuItem.Size = new System.Drawing.Size(117, 22);
             this.onlineMenuItem.Tag = ChatApp.LoginState.Online;
             this.onlineMenuItem.Text = "Online";
             this.onlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
@@ -430,7 +438,7 @@ namespace ChatApp
             // 
             this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
             this.busyMenuItem.Name = "busyMenuItem";
-            this.busyMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.busyMenuItem.Size = new System.Drawing.Size(117, 22);
             this.busyMenuItem.Tag = ChatApp.LoginState.Busy;
             this.busyMenuItem.Text = "Busy";
             this.busyMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
@@ -439,7 +447,7 @@ namespace ChatApp
             // 
             this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
             this.offlineMenuItem.Name = "offlineMenuItem";
-            this.offlineMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.offlineMenuItem.Size = new System.Drawing.Size(117, 22);
             this.offlineMenuItem.Tag = ChatApp.LoginState.Offline;
             this.offlineMenuItem.Text = "Offline";
             this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
@@ -525,13 +533,14 @@ namespace ChatApp
         private System.Windows.Forms.TextBox tbSearch;
         private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer splitContainer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem ExitStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contactsContextMenuStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ContextMenuStrip GroupContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem RenametoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem DeletetoolStripMenuItem2;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
