@@ -3,14 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Coversant.SoapBox.Base;
+using System.Drawing;
+using ChatApp.Properties;
+using System.IO;
+
 
 namespace ChatApp
 {
-    public class ContactList : List<Contact>
+    public class ContactList : List<Contact> , IDisposable  
     {
         public ContactList()
         {
         }
+
 
         // Indexer
         public Contact this[string userName]
@@ -33,10 +38,33 @@ namespace ChatApp
                 return null;
             }
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            foreach (Contact contact in this)
+            {
+                try
+                {
+                    File.Delete(contact.AvatarImagePath);
+                }
+                catch
+                { 
+                }
+            }
+        }
+
+        #endregion
     }
 
     public class Contact
     {
+        public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
+
+        private string avatarImagePath;
+        private string formattedName;
+        private Image avatarImage = null;
         private string m_groupName;
         private LoginState m_userStatus;
         private JabberID jabberId;
@@ -48,8 +76,31 @@ namespace ChatApp
             jabberId = (JabberID)JID.Clone();
             m_groupName = groupName;
             m_userStatus = userStatus;
+            AvatarImage = DefaultAvatarImage;
         }
-        
+
+        public string AvatarImagePath
+        {
+            get { return avatarImagePath; }
+        }
+
+        public Image AvatarImage
+        {
+            get { return avatarImage; }
+            set 
+            { 
+                avatarImage = value;
+                avatarImagePath = Path.GetTempFileName();
+                avatarImage.Save(avatarImagePath);
+            }
+        }
+
+        public string FormattedName
+        {
+            get { return formattedName; }
+            set { formattedName = value; }
+        }
+
         public string UserName
 	    {
             get { return jabberId.UserName; }
