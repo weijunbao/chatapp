@@ -59,6 +59,10 @@ namespace ChatApp
         public event IncomingIQResultDelegate IncomingIQResult; 
         #endregion
 
+        public bool Osound = true;
+        public bool Onotify = false;
+        public bool chSound = true;
+        public bool chNotify = false;
         #region Fire Events
         //Relays incoming message packets to subscribing objects
         public void OnIncomingMessage(Packet packet)
@@ -542,14 +546,31 @@ namespace ChatApp
             ShowLoginWindow();
         }
 
-        internal void PlaySound()
+        internal void OPlaySound()
         {
-            SoundPlayer player = new SoundPlayer();
-            player.LoadTimeout = 10000;
-           // player.SoundLocation = ChatApp.Properties.Resources.notify;//"C:\\WINDOWS\\Media\\notify.wav";
-           // player.Play();
-            //player.Stream = ChatApp.Properties.Resources.ding;
-            //player.Play();
+            if (Osound == true)
+            {
+                SoundPlayer player = new SoundPlayer();
+                player.LoadTimeout = 10000;
+                player.Stream = ChatApp.Properties.Resources.ding;
+                player.Play();
+            }
+
         }
+        internal void chPlaySound()
+        {
+            if (chSound == true)
+            {
+                SoundPlayer player = new SoundPlayer();
+                player.LoadTimeout = 10000;
+                player.Stream = ChatApp.Properties.Resources.message;
+                player.Play();
+            }
+
+        }
+
+
+        
+
     }
 }

@@ -44,10 +44,6 @@ namespace ChatApp
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetStatusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StartChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SortByGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -68,6 +64,11 @@ namespace ChatApp
             this.GroupContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RenametoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.DeletetoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.awayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.busyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             chatAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
@@ -111,6 +112,7 @@ namespace ChatApp
             this.preferenceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.preferenceToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.preferenceToolStripMenuItem.Text = "Preferences";
+            this.preferenceToolStripMenuItem.Click += new System.EventHandler(this.preferenceToolStripMenuItem_Click);
             // 
             // mainMenuStrip
             // 
@@ -218,42 +220,6 @@ namespace ChatApp
             this.statusContextMenuStrip.OwnerItem = this.SetStatusMenuItem;
             this.statusContextMenuStrip.Size = new System.Drawing.Size(108, 92);
             // 
-            // awayMenuItem
-            // 
-            this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
-            this.awayMenuItem.Name = "awayMenuItem";
-            this.awayMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.awayMenuItem.Tag = ChatApp.LoginState.Away;
-            this.awayMenuItem.Text = "Away";
-            this.awayMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
-            // 
-            // onlineMenuItem
-            // 
-            this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
-            this.onlineMenuItem.Name = "onlineMenuItem";
-            this.onlineMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.onlineMenuItem.Tag = ChatApp.LoginState.Online;
-            this.onlineMenuItem.Text = "Online";
-            this.onlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
-            // 
-            // busyMenuItem
-            // 
-            this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
-            this.busyMenuItem.Name = "busyMenuItem";
-            this.busyMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.busyMenuItem.Tag = ChatApp.LoginState.Busy;
-            this.busyMenuItem.Text = "Busy";
-            this.busyMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
-            // 
-            // offlineMenuItem
-            // 
-            this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
-            this.offlineMenuItem.Name = "offlineMenuItem";
-            this.offlineMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.offlineMenuItem.Tag = ChatApp.LoginState.Offline;
-            this.offlineMenuItem.Text = "Offline";
-            this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
-            // 
             // StartChatToolStripMenuItem
             // 
             this.StartChatToolStripMenuItem.Name = "StartChatToolStripMenuItem";
@@ -293,6 +259,7 @@ namespace ChatApp
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // rootPanel
             // 
@@ -435,6 +402,48 @@ namespace ChatApp
             this.DeletetoolStripMenuItem2.Text = "Delete Group";
             this.DeletetoolStripMenuItem2.Click += new System.EventHandler(this.DeletetoolStripMenuItem2_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
+            // awayMenuItem
+            // 
+            this.awayMenuItem.Image = global::ChatApp.Properties.Resources.status_away;
+            this.awayMenuItem.Name = "awayMenuItem";
+            this.awayMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.awayMenuItem.Tag = ChatApp.LoginState.Away;
+            this.awayMenuItem.Text = "Away";
+            this.awayMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
+            // 
+            // onlineMenuItem
+            // 
+            this.onlineMenuItem.Image = global::ChatApp.Properties.Resources.status_online;
+            this.onlineMenuItem.Name = "onlineMenuItem";
+            this.onlineMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.onlineMenuItem.Tag = ChatApp.LoginState.Online;
+            this.onlineMenuItem.Text = "Online";
+            this.onlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
+            // 
+            // busyMenuItem
+            // 
+            this.busyMenuItem.Image = global::ChatApp.Properties.Resources.status_busy;
+            this.busyMenuItem.Name = "busyMenuItem";
+            this.busyMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.busyMenuItem.Tag = ChatApp.LoginState.Busy;
+            this.busyMenuItem.Text = "Busy";
+            this.busyMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
+            // 
+            // offlineMenuItem
+            // 
+            this.offlineMenuItem.Image = global::ChatApp.Properties.Resources.status_offline;
+            this.offlineMenuItem.Name = "offlineMenuItem";
+            this.offlineMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.offlineMenuItem.Tag = ChatApp.LoginState.Offline;
+            this.offlineMenuItem.Text = "Offline";
+            this.offlineMenuItem.Click += new System.EventHandler(this.StatusMenu_Click);
+            // 
             // form1BindingSource
             // 
             this.form1BindingSource.DataSource = typeof(ChatApp.MainWindow);
@@ -452,7 +461,6 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
-            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);
@@ -523,6 +531,7 @@ namespace ChatApp
         private System.Windows.Forms.ContextMenuStrip GroupContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem RenametoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem DeletetoolStripMenuItem2;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

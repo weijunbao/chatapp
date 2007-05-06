@@ -19,11 +19,13 @@ namespace ChatApp
     {
         private readonly int GroupImageIndex = 6;
         public bool fromcontextmenu = false;
+        
 
         public MainWindow()
         {
             InitializeComponent();
 
+            notifyIcon1.Visible = false;
             AppController.Instance.IncomingMessage += new AppController.IncomingMessageDelegate(OnIncomingMessage);
             AppController.Instance.IncomingPresence += new AppController.IncomingPresenceDelegate(OnIncomingPresence);
         }
@@ -124,7 +126,8 @@ namespace ChatApp
 
             if (IncomingPresencePacket is AvailableRequest || IncomingPresencePacket is UnavailableRequest) 
             {
-                AppController.Instance.PlaySound();
+                AppController.Instance.OPlaySound();
+                Notify(incomingPresencePacket);
                 UpdateContactList();
             }
         }
@@ -145,6 +148,7 @@ namespace ChatApp
             else if (IncomingMessagePacket is MessagePacket)
             {
                 MessagePacket msgPacket = (MessagePacket)IncomingMessagePacket;
+                AppController.Instance.chPlaySound();
                 this.Invoke(new Session.PacketReceivedDelegate(IncomingAsyncMessage), new object[] { msgPacket });
             }
             else
@@ -163,7 +167,13 @@ namespace ChatApp
             {
                 msgWindow.MessageThreadID = IncomingMessage.Thread;
             }
+
+            string msg = IncomingMessage.Body;
             msgWindow.Text = packet.From.JabberIDNoResource.ToString();
+            if (msgWindow.ContainsFocus == false)
+            {
+                Notify(msg);
+            }
             msgWindow.AddMessageToHistory(IncomingMessage);
         }
 
@@ -332,6 +342,52 @@ namespace ChatApp
             DeleteGroupWnd.ShowDialog(this);
             DeleteGroupWnd.Dispose();
             DeleteGroupWnd = null;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            about aboutWind = new about();
+            aboutWind.ShowDialog(this);
+            aboutWind.Dispose();
+            aboutWind = null;
+        }
+
+        private void preferenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            preference preWind = new preference();
+            preWind.ShowDialog(this);
+            preWind.Dispose();
+            preWind = null;
+        }
+
+        private void Notify(Packet incomingPresencePacket)
+        {
+            if (AppController.Instance.Onotify == true)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.BalloonTipText = incomingPresencePacket.To.JabberIDNoResource.ToString();
+                for (int i = 0; i < 100; i++)
+                {
+                    notifyIcon1.ShowBalloonTip(3);
+                }
+                notifyIcon1.Visible = false;
+            }
+            
+        }
+
+        private void Notify(string msg)
+        {
+
+            if (AppController.Instance.chNotify == true)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.BalloonTipText = msg;
+                for (int i = 0; i < 100; i++)
+                {
+                    notifyIcon1.ShowBalloonTip(3);
+                }
+                notifyIcon1.Visible = false;
+            }
         }
 
        
