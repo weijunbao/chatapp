@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddContact.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,8 +124,18 @@
     <Compile Include="MessagingWindow.Designer.cs">
       <DependentUpon>MessagingWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="preference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="preference.Designer.cs">
+      <DependentUpon>preference.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="about.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddContact.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AddContact.cs</DependentUpon>
@@ -160,6 +176,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>MessagingWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="preference.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>preference.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -172,8 +192,7 @@
     </Compile>
     <None Include="app.config" />
     <None Include="ClassDiagram.cd">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -198,6 +217,9 @@
     <None Include="Resources\ding.wav" />
     <None Include="Resources\chimes.wav" />
     <None Include="Resources\tada.wav" />
+    <None Include="Resources\message.wav" />
+    <None Include="Resources\C__Program Files_Yahoo!_Messenger_Media_Images.bmp" />
+    <None Include="Resources\addfriend.gif" />
     <Content Include="User32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

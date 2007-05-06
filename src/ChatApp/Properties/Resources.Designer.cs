@@ -60,6 +60,13 @@ namespace ChatApp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap addfriend {
+            get {
+                object obj = ResourceManager.GetObject("addfriend", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap bullet_arrow_bottom {
             get {
                 object obj = ResourceManager.GetObject("bullet_arrow_bottom", resourceCulture);
@@ -70,6 +77,12 @@ namespace ChatApp.Properties {
         internal static System.IO.UnmanagedMemoryStream ding {
             get {
                 return ResourceManager.GetStream("ding", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream message {
+            get {
+                return ResourceManager.GetStream("message", resourceCulture);
             }
         }
         
