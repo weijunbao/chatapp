@@ -138,7 +138,7 @@ namespace ChatApp
                 {
                     avatarImgPath = contact.AvatarImagePath;
                 }
-                avatarFormat = string.Format("<div class='{0}'><div style='height:1px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\"{1}\")'></div></div>", iconStyle,avatarImgPath);
+                avatarFormat = string.Format(" <img class='{0}' src='{1}' height='36' width='36'>", iconStyle, avatarImgPath);
             }
             return avatarFormat;
         }
