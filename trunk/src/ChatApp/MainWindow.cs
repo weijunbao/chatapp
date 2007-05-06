@@ -153,18 +153,6 @@ namespace ChatApp
             }
         }
 
-        private void tvContacts_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            JabberID jabberID = (JabberID)e.Node.Tag;
-            if (jabberID != null)
-            {
-                MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(jabberID);
-            msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
-            msgWindow.Show();
-                msgWindow.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName); 
-        }
-        }
-
         private void OnIncomingPresence(PresencePacket incomingPresencePacket)
         {
             this.Invoke(new Session.PacketReceivedDelegate(IncomingAsycPresenceThreadSafe), new object[] { incomingPresencePacket });
@@ -437,9 +425,19 @@ namespace ChatApp
              }
         }
 
-        private void lvContacts_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        private void lvContacts_DoubleClick(object sender, EventArgs e)
         {
-           
+            ListView currentListView = sender as ListView;
+            if (currentListView == null)
+                return;
+            JabberID jabberID = (JabberID)currentListView.SelectedItems[0].Tag;
+            if (jabberID != null)
+            {
+                MessagingWindow msgWindow = AppController.Instance.GetMessagingWindow(jabberID);
+                msgWindow.MessageThreadID = System.Guid.NewGuid().ToString();
+                msgWindow.Show();
+                msgWindow.Text = string.Format("From {0} to {1}", AppController.Instance.CurrentUser.UserName, jabberID.UserName);
+            }
         }
     }
 }
