@@ -149,7 +149,7 @@ namespace ChatApp
         {
             if (DialogResult.Yes == MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                AppController.Instance.Contacts.Dispose();
+                AppController.Instance.Contacts.CleanupTempFiles();
                 this.Close();
                 AppController.Instance.LogOff();
             }
