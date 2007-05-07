@@ -6,11 +6,13 @@ using Coversant.SoapBox.Base;
 using System.Drawing;
 using ChatApp.Properties;
 using System.IO;
+using System.Security.Permissions;
+using System.Runtime.InteropServices;
 
 
 namespace ChatApp
 {
-    public class ContactList : List<Contact> , IDisposable  
+    public class ContactList : List<Contact>
     {
         public ContactList()
         {
@@ -38,9 +40,7 @@ namespace ChatApp
             }
         }
 
-        #region IDisposable Members
-
-        public void Dispose()
+        public void CleanupTempFiles()
         {
             foreach (Contact contact in this)
             {
@@ -48,13 +48,19 @@ namespace ChatApp
                 {
                     File.Delete(contact.AvatarImagePath);
                 }
-                catch
-                { 
+                catch { }
+            }
+            string AvatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
+            AvatarFolder = Path.Combine(AvatarFolder, "Avatar");
+            try
+            {
+                if (Directory.Exists(AvatarFolder))
+                {
+                    Directory.Delete(AvatarFolder, true);
                 }
             }
+            catch { }
         }
-
-        #endregion
 
         public List<string> GetAllGroups()
         {
@@ -82,14 +88,18 @@ namespace ChatApp
 
     public class Contact
     {
-        public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern uint GetTempFileName(string tmpPath, string prefix, uint uniqueIdOrZero, StringBuilder tmpFileName);
+ 
+        public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
         private string avatarImagePath = string.Empty;
         private string formattedName;
         private Image avatarImage = null;
         private string m_groupName;
         private LoginState m_userStatus;
         private JabberID jabberId;
+        private string AvatarFolder = string.Empty;
 
         public Contact(JabberID JID,
                         string groupName, 
@@ -99,6 +109,10 @@ namespace ChatApp
             m_groupName = groupName;
             m_userStatus = userStatus;
             avatarImage = DefaultAvatarImage;
+
+            AvatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
+            AvatarFolder = Path.Combine(AvatarFolder, "Avatar");
+            Directory.CreateDirectory(AvatarFolder);
         }
 
         public string AvatarImagePath
@@ -110,11 +124,22 @@ namespace ChatApp
         {
             get { return avatarImage; }
             set 
-            { 
+            {
                 avatarImage = value;
-                avatarImagePath = Path.GetTempFileName();
+                avatarImagePath = GetNewFileName();
                 avatarImage.Save(avatarImagePath);
             }
+        }
+
+        private string GetNewFileName()
+        {
+            new FileIOPermission(FileIOPermissionAccess.Write, this.AvatarFolder).Demand();
+            StringBuilder tmpFileName = new StringBuilder(260);
+            if (GetTempFileName(this.AvatarFolder, "png", 0, tmpFileName) == 0)
+            {
+                throw new ApplicationException("Could not create local avatat file");
+            }
+            return tmpFileName.ToString();
         }
 
         public string FormattedName

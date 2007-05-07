@@ -360,7 +360,7 @@ namespace ChatApp
         {
             if (MessageBox.Show("Do you want to exit the application", "Chat App", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                this.Contacts.Dispose();
+                this.Contacts.CleanupTempFiles();
                 Application.Exit();
             }
         }
