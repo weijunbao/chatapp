@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms; 
+using System.Windows.Forms;
+using System.Diagnostics;
+using ComponentFactory.Krypton.Toolkit; 
 
 
 namespace ChatApp
@@ -21,5 +23,28 @@ namespace ChatApp
             this.Close();
         }
 
+        private void kryptonLinkLabel1_LinkClicked(object sender, EventArgs e)
+        {
+            KryptonLinkLabel label = sender as KryptonLinkLabel;
+            if (label == null)
+                return;
+
+            LaunchInBrowser(label.Text);    
+        }
+
+        private void LaunchInBrowser(string Link)
+        {
+            ProcessStartInfo procInfo = new ProcessStartInfo(Link);
+            procInfo.UseShellExecute = true;
+            Process.Start(procInfo);
+        }
+
+        private void lblLink_LinkClicked(object sender, EventArgs e)
+        {
+            KryptonLinkLabel label = sender as KryptonLinkLabel;
+            if (label == null)
+                return;
+            LaunchInBrowser(label.Text);
+        }
     }
 }
