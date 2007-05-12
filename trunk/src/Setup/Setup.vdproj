@@ -63,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0A1DD19789B649B6954BF68941E73AF8"
         "MsmSig" = "8:_UNDEFINED"
@@ -135,7 +141,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -150,6 +156,11 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.2.0"
+                    {
+                    "Name" = "8:.NET Framework 2.0"
+                    "ProductCode" = "8:Microsoft.Net.Framework.2.0"
+                    }
                 }
             }
         }
@@ -325,6 +336,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD4D4611A2324004A42BBAA4CC908D13"
+            {
+            "SourcePath" = "8:Banner.bmp"
+            "TargetName" = "8:Banner.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_ECB84AE11E0746C7A83354866D1A8F1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:FALSE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -392,7 +423,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ChatApp"
         "ProductCode" = "8:{DF8C57E5-3188-4EB7-B52E-CE40C4EA13C5}"
-        "PackageCode" = "8:{4C8A28F8-0ACA-43D8-976B-A00EE97AAE5D}"
+        "PackageCode" = "8:{A06A4E64-B2D9-46F0-ADD6-9AB34C09E0B8}"
         "UpgradeCode" = "8:{1F559B3D-1D38-457F-A147-7AE245D35A65}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -558,7 +589,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -608,7 +640,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -639,7 +672,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -683,7 +717,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -705,7 +740,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -753,7 +789,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -784,7 +821,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -795,8 +833,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This computer program is released under GNU General Public License 2.0."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -832,7 +870,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -867,7 +906,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -898,7 +938,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_DD4D4611A2324004A42BBAA4CC908D13"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -926,7 +967,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0A1DD19789B649B6954BF68941E73AF8"
             {
-            "SourcePath" = "8:..\\ChatApp\\obj\\Debug\\ChatApp.exe"
+            "SourcePath" = "8:..\\ChatApp\\obj\\Release\\ChatApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ECB84AE11E0746C7A83354866D1A8F1F"
