@@ -30,9 +30,12 @@ namespace ChatApp
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLinkLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.lblFarmFarmFarmLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.lblAlso = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.lblLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.lblKryptonLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.lblCoversantLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.lblKrypton = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblCoversant = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblInclude = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblAppName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.betaLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -40,9 +43,12 @@ namespace ChatApp
             this.btnOK = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonLinkLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblFarmFarmFarmLink)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAlso)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblLink)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblKryptonLink)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCoversantLink)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblKrypton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCoversant)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblInclude)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAppName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.betaLabel)).BeginInit();
@@ -52,9 +58,12 @@ namespace ChatApp
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.kryptonLinkLabel1);
+            this.kryptonPanel1.Controls.Add(this.lblFarmFarmFarmLink);
             this.kryptonPanel1.Controls.Add(this.lblAlso);
-            this.kryptonPanel1.Controls.Add(this.lblLink);
+            this.kryptonPanel1.Controls.Add(this.lblKryptonLink);
+            this.kryptonPanel1.Controls.Add(this.lblCoversantLink);
+            this.kryptonPanel1.Controls.Add(this.lblKrypton);
+            this.kryptonPanel1.Controls.Add(this.lblCoversant);
             this.kryptonPanel1.Controls.Add(this.lblInclude);
             this.kryptonPanel1.Controls.Add(this.lblAppName);
             this.kryptonPanel1.Controls.Add(this.betaLabel);
@@ -63,44 +72,70 @@ namespace ChatApp
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(270, 188);
+            this.kryptonPanel1.Size = new System.Drawing.Size(249, 234);
             this.kryptonPanel1.TabIndex = 0;
             // 
-            // kryptonLinkLabel1
+            // lblFarmFarmFarmLink
             // 
-            this.kryptonLinkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLinkLabel1.Location = new System.Drawing.Point(12, 121);
-            this.kryptonLinkLabel1.Name = "kryptonLinkLabel1";
-            this.kryptonLinkLabel1.Size = new System.Drawing.Size(225, 19);
-            this.kryptonLinkLabel1.TabIndex = 5;
-            this.kryptonLinkLabel1.Values.Text = "http://www.famfamfam.com/lab/icons/silk/";
-            this.kryptonLinkLabel1.LinkClicked += new System.EventHandler(this.kryptonLinkLabel1_LinkClicked);
+            this.lblFarmFarmFarmLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFarmFarmFarmLink.Location = new System.Drawing.Point(12, 168);
+            this.lblFarmFarmFarmLink.Name = "lblFarmFarmFarmLink";
+            this.lblFarmFarmFarmLink.Size = new System.Drawing.Size(225, 19);
+            this.lblFarmFarmFarmLink.TabIndex = 8;
+            this.lblFarmFarmFarmLink.Values.Text = "http://www.famfamfam.com/lab/icons/silk/";
+            this.lblFarmFarmFarmLink.LinkClicked += new System.EventHandler(this.lblLink_LinkClicked);
             // 
             // lblAlso
             // 
-            this.lblAlso.Location = new System.Drawing.Point(12, 106);
+            this.lblAlso.Location = new System.Drawing.Point(12, 153);
             this.lblAlso.Name = "lblAlso";
-            this.lblAlso.Size = new System.Drawing.Size(100, 19);
-            this.lblAlso.TabIndex = 4;
-            this.lblAlso.Values.Text = "Also images from:";
+            this.lblAlso.Size = new System.Drawing.Size(151, 19);
+            this.lblAlso.TabIndex = 7;
+            this.lblAlso.Values.Text = "Also Images and Icons from:";
             // 
-            // lblLink
+            // lblKryptonLink
             // 
-            this.lblLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblLink.Location = new System.Drawing.Point(12, 81);
-            this.lblLink.Name = "lblLink";
-            this.lblLink.Size = new System.Drawing.Size(170, 19);
-            this.lblLink.TabIndex = 3;
-            this.lblLink.Values.Text = "http://developers.coversant.net/";
-            this.lblLink.LinkClicked += new System.EventHandler(this.lblLink_LinkClicked);
+            this.lblKryptonLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblKryptonLink.Location = new System.Drawing.Point(12, 134);
+            this.lblKryptonLink.Name = "lblKryptonLink";
+            this.lblKryptonLink.Size = new System.Drawing.Size(190, 19);
+            this.lblKryptonLink.TabIndex = 6;
+            this.lblKryptonLink.Values.Text = "http://www.componentfactory.com/";
+            this.lblKryptonLink.LinkClicked += new System.EventHandler(this.lblLink_LinkClicked);
+            // 
+            // lblCoversantLink
+            // 
+            this.lblCoversantLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCoversantLink.Location = new System.Drawing.Point(12, 99);
+            this.lblCoversantLink.Name = "lblCoversantLink";
+            this.lblCoversantLink.Size = new System.Drawing.Size(170, 19);
+            this.lblCoversantLink.TabIndex = 4;
+            this.lblCoversantLink.Values.Text = "http://developers.coversant.net/";
+            this.lblCoversantLink.LinkClicked += new System.EventHandler(this.lblLink_LinkClicked);
+            // 
+            // lblKrypton
+            // 
+            this.lblKrypton.Location = new System.Drawing.Point(12, 119);
+            this.lblKrypton.Name = "lblKrypton";
+            this.lblKrypton.Size = new System.Drawing.Size(151, 19);
+            this.lblKrypton.TabIndex = 5;
+            this.lblKrypton.Values.Text = "Krypton Toolkit [ UI Toolkit ]";
+            // 
+            // lblCoversant
+            // 
+            this.lblCoversant.Location = new System.Drawing.Point(12, 84);
+            this.lblCoversant.Name = "lblCoversant";
+            this.lblCoversant.Size = new System.Drawing.Size(189, 19);
+            this.lblCoversant.TabIndex = 3;
+            this.lblCoversant.Values.Text = "Coversant SoapBox [ XMPP Toolkit ]";
             // 
             // lblInclude
             // 
             this.lblInclude.Location = new System.Drawing.Point(12, 66);
             this.lblInclude.Name = "lblInclude";
-            this.lblInclude.Size = new System.Drawing.Size(243, 19);
+            this.lblInclude.Size = new System.Drawing.Size(146, 19);
             this.lblInclude.TabIndex = 2;
-            this.lblInclude.Values.Text = "Includes components from Coversant SoapBox";
+            this.lblInclude.Values.Text = "Includes components from:";
             // 
             // lblAppName
             // 
@@ -137,10 +172,10 @@ namespace ChatApp
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(168, 146);
+            this.btnOK.Location = new System.Drawing.Point(147, 193);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(90, 31);
-            this.btnOK.TabIndex = 6;
+            this.btnOK.TabIndex = 9;
             this.btnOK.Values.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -150,7 +185,7 @@ namespace ChatApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(270, 188);
+            this.ClientSize = new System.Drawing.Size(249, 234);
             this.Controls.Add(this.kryptonPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "About";
@@ -159,9 +194,12 @@ namespace ChatApp
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonLinkLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblFarmFarmFarmLink)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAlso)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblLink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblKryptonLink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCoversantLink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblKrypton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCoversant)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblInclude)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAppName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.betaLabel)).EndInit();
@@ -179,8 +217,11 @@ namespace ChatApp
         private System.Windows.Forms.PictureBox userPictureBox;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblAppName;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblInclude;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel lblLink;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel lblCoversantLink;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblAlso;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel kryptonLinkLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel lblFarmFarmFarmLink;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblCoversant;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel lblKryptonLink;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblKrypton;
     }
 }
