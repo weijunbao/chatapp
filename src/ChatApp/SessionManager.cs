@@ -4,20 +4,16 @@
 //and exploration.
 
 using System;
-
+using System.Windows.Forms;
 using Coversant.SoapBox.Base;
 using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Core.Message;
-using Coversant.SoapBox.Core.Presence;
-using Coversant.SoapBox.Core.IQ.Roster;
-using Coversant.SoapBox.Core.IQ.Register;
 using Coversant.SoapBox.Core.IQ;
-using Coversant.SoapBox.Core.IQ.Version;
+using Coversant.SoapBox.Core.IQ.Roster;
 using Coversant.SoapBox.Core.IQ.Time;
+using Coversant.SoapBox.Core.IQ.Version;
+using Coversant.SoapBox.Core.Message;
 using Coversant.SoapBox.Core.MultiUserChat.Message;
-
-using System.Windows.Forms;
-using System.Collections;
+using Coversant.SoapBox.Core.Presence;
 
 namespace ChatApp
 {
@@ -26,12 +22,11 @@ namespace ChatApp
     /// </summary>
     public class SessionManager : IDisposable
     {
-        private Coversant.SoapBox.Core.Session _session;
+        private Session _session;
 
         /// <summary>
         /// Holds the currently logged in user after they are authenticated on the LoginRegisterForm
         /// </summary>
-
         public SessionManager(Session s)
         {
             _session = s;
@@ -45,6 +40,7 @@ namespace ChatApp
         }
 
         #region Delegates
+
         /// <summary>
         /// A delegate to perform simple GUI operations on the main thread
         /// </summary>
@@ -58,18 +54,19 @@ namespace ChatApp
         /// </summary>
         /// <param name="ReceivedException"></param>
         public delegate void IncomingAsynchronousExceptionDelegate(Exception ReceivedException);
+
         #endregion
 
         //public event AppController.IncomingMessageDelegate IncomingMessage;
         //public event IncomingAsynchronousExceptionDelegate IncomingAsynchronousException;
 
         //Loads the trace GUI
-        private void LoadTrace() 
-        { 
-        
+        private void LoadTrace()
+        {
         }
 
         #region Properties
+
         /// <summary>
         /// Disposes of all the underlying objects
         /// This should allow the app to shutdown
@@ -79,12 +76,14 @@ namespace ChatApp
             //let the world know we're offline
             try
             {
-                Packet p = (Packet)new UnavailableRequest();
-                this.BeginSend(p);
+                Packet p = (Packet) new UnavailableRequest();
+                BeginSend(p);
             }
-            catch { }
+            catch
+            {
+            }
 
-            this.Session.Dispose();
+            Session.Dispose();
 
             Application.Exit();
         }
@@ -99,56 +98,72 @@ namespace ChatApp
 
         public Session Session
         {
-            get
-            {
-                return _session;
-            }
-        } 
-        #endregion
+            get { return _session; }
+        }
 
+        #endregion
 
         //Intializes the event handlers for all the packet types
         //we want to deal with.
         private void InitHandlersForSession()
         {
             // this._session.AddHandler(null, typeof(AbstractMessagePacket), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingMessage), true);
-            this._session.AddHandler(typeof(ChatMessagePacket), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingMessage));
-            this._session.AddHandler(typeof(RosterChange), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingRosterChange));
-            this._session.AddHandler(typeof(AvailableRequest), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(UnavailableRequest), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(ProbeRequest), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(SubscribeRequest), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(SubscribedResponse), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(UnsubscribeRequest), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(UnsubscribedResponse), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(ErrorResponse), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
-            this._session.AddHandler(typeof(IQErrorResponse), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingIQError));
-            this._session.AddHandler(typeof(IQResultResponse), new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingIQResult));
+            _session.AddHandler(typeof (ChatMessagePacket),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingMessage));
+            _session.AddHandler(typeof (RosterChange),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingRosterChange));
+            _session.AddHandler(typeof (AvailableRequest),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (UnavailableRequest),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (ProbeRequest),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (SubscribeRequest),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (SubscribedResponse),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (UnsubscribeRequest),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (UnsubscribedResponse),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (ErrorResponse),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingPresence));
+            _session.AddHandler(typeof (IQErrorResponse),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingIQError));
+            _session.AddHandler(typeof (IQResultResponse),
+                                new PacketFactory.PacketReceivedDelegate(AppController.Instance.OnIncomingIQResult));
 
-            this._session.AddHandler(typeof(VersionRequest), new PacketFactory.PacketReceivedDelegate(HandleIncomingVersionRequest));
-            this._session.AddHandler(typeof(TimeRequest), new PacketFactory.PacketReceivedDelegate(HandleIncomingTimeRequest));
-          //this._session.AddHandler(typeof(InvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingChatInvitation));
-            this._session.AddHandler(typeof(DeclineInvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingDeclineChatInvitation));
+            _session.AddHandler(typeof (VersionRequest),
+                                new PacketFactory.PacketReceivedDelegate(HandleIncomingVersionRequest));
+            _session.AddHandler(typeof (TimeRequest),
+                                new PacketFactory.PacketReceivedDelegate(HandleIncomingTimeRequest));
+            //this._session.AddHandler(typeof(InvitationMessage), new PacketFactory.PacketReceivedDelegate(HandleIncomingChatInvitation));
+            _session.AddHandler(typeof (DeclineInvitationMessage),
+                                new PacketFactory.PacketReceivedDelegate(HandleIncomingDeclineChatInvitation));
         }
 
         private void HandleIncomingVersionRequest(Packet p)
         {
             VersionRequest req = WConvert.ToVersionRequest(p);
-            VersionResponse resp = new VersionResponse(req, "SoapBox Sample Client", this.GetType().Assembly.GetName().Version.ToString(), System.Environment.OSVersion.ToString());
-            this.Session.SendAndForget(resp);
+            VersionResponse resp =
+                new VersionResponse(req, "SoapBox Sample Client", GetType().Assembly.GetName().Version.ToString(),
+                                    Environment.OSVersion.ToString());
+            Session.SendAndForget(resp);
         }
 
         private void HandleIncomingTimeRequest(Packet p)
         {
             TimeRequest req = WConvert.ToTimeRequest(p);
             TimeResponse resp = new TimeResponse(req);
-            this.Session.SendAndForget(resp);
+            Session.SendAndForget(resp);
         }
 
         private void HandleIncomingDeclineChatInvitation(Packet p)
         {
             DeclineInvitationMessage decline = WConvert.ToDeclineInvitationMessage(p);
-            MessageBox.Show(String.Format("The user {0} has declined your invitation request to {1}", decline.DeclineFrom.ToString(), decline.From.ToString()));
+            MessageBox.Show(
+                String.Format("The user {0} has declined your invitation request to {1}", decline.DeclineFrom.ToString(),
+                              decline.From.ToString()));
         }
 
         public void CloseStream()
@@ -162,35 +177,35 @@ namespace ChatApp
 
         public IAsyncResult BeginSend(Packet p)
         {
-            return this._session.BeginSend(p);
+            return _session.BeginSend(p);
         }
 
         public IAsyncResult BeginSend(Packet p, AsyncCallback callback)
         {
-            return this._session.BeginSend(p, callback);
+            return _session.BeginSend(p, callback);
         }
 
         public Packet EndSend(IAsyncResult ar)
         {
-            return this._session.EndSend(ar);
+            return _session.EndSend(ar);
         }
 
 
         public IAsyncResult BeginSend(Packet p, int timeout, AsyncCallback callback, object state)
         {
-            return this._session.BeginSend(p, timeout, callback, state);
+            return _session.BeginSend(p, timeout, callback, state);
         }
 
         public Packet Send(Packet p)
         {
-            return this._session.Send(p);
+            return _session.Send(p);
         }
 
         public Packet Send(Packet p, int maxMSWaitTime)
         {
             try
             {
-                return this._session.Send(p, maxMSWaitTime);
+                return _session.Send(p, maxMSWaitTime);
             }
             catch
             {
@@ -200,7 +215,7 @@ namespace ChatApp
 
         public void SendAndForget(Packet p)
         {
-            this.Session.SendAndForget(p);
+            Session.SendAndForget(p);
         }
     }
 }

@@ -1,25 +1,15 @@
-using System; 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms; 
-
+using System;
+using System.Windows.Forms;
+using ChatApp.Properties;
+using ComponentFactory.Krypton.Toolkit;
 using Coversant.SoapBox.Base;
-using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Core.IQ;
-using Coversant.SoapBox.Core.IQ.Auth;
-using Coversant.SoapBox.Core.IQ.Register;
-using Coversant.SoapBox.Core.IQ.Roster; 
-using Coversant.SoapBox.Core.Message;
+using Coversant.SoapBox.Core.IQ.Roster;
 using Coversant.SoapBox.Core.Presence;
 
 namespace ChatApp
 {
-    public partial class AddContact : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class AddContact : KryptonForm
     {
-        
         public AddContact()
         {
             InitializeComponent();
@@ -27,7 +17,7 @@ namespace ChatApp
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if(ValidateInput() == false)
+            if (ValidateInput() == false)
             {
                 DialogResult = DialogResult.None;
                 return;
@@ -37,7 +27,7 @@ namespace ChatApp
             string message = "The User ID you entered is not valid. Please enter a valid User ID";
             try
             {
-                JID = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), Properties.Settings.Default.Resource);
+                JID = new JabberID(tbUserName.Text.ToString(), tbServerName.Text.ToString(), Settings.Default.Resource);
                 if (JID.UserName.Length == 0 ||
                     JID.Server.Length == 0)
                 {
@@ -65,7 +55,8 @@ namespace ChatApp
 
             SubscribeRequest subscribeRequest = new SubscribeRequest(JID);
             AppController.Instance.SessionManager.Send(subscribeRequest);
-            AppController.Instance.SessionManager.BeginSend(new RosterAdd(JID, tbUserName.Text.Trim(), tbGroupName.Text.Trim()));
+            AppController.Instance.SessionManager.BeginSend(
+                new RosterAdd(JID, tbUserName.Text.Trim(), tbGroupName.Text.Trim()));
             AppController.Instance.Contacts.Add(newContact);
             AppController.Instance.MainWindow.UpdateContactList();
         }
@@ -90,9 +81,6 @@ namespace ChatApp
                 return false;
             }
 
-            
-
-            
 
             return true;
         }

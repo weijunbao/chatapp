@@ -7,7 +7,6 @@ using System.Drawing;
 using ChatApp.Properties;
 using System.IO;
 using System.Security.Permissions;
-using System.Runtime.InteropServices;
 
 
 namespace ChatApp
@@ -23,12 +22,6 @@ namespace ChatApp
         {
             get
             {
-                //string rawName = userName;
-                //if (rawName.Contains('@') == true)
-                //{
-                //    int index = rawName.IndexOf('@');
-                //    rawName = rawName.Substring(0, index);
-                //}
                 foreach (Contact contact in this)
                 {
                     if (contact.UserName == userName)
@@ -38,28 +31,6 @@ namespace ChatApp
                 }
                 return null;
             }
-        }
-
-        public void CleanupTempFiles()
-        {
-            foreach (Contact contact in this)
-            {
-                try
-                {
-                    File.Delete(contact.AvatarImagePath);
-                }
-                catch { }
-            }
-            string AvatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
-            AvatarFolder = Path.Combine(AvatarFolder, "Avatar");
-            try
-            {
-                if (Directory.Exists(AvatarFolder))
-                {
-                    Directory.Delete(AvatarFolder, true);
-                }
-            }
-            catch { }
         }
 
         public List<string> GetAllGroups()
@@ -88,10 +59,14 @@ namespace ChatApp
 
     public class Contact
     {
+        public enum AvatarType
+        {
+            VCardAvatar,
+            JabberXAvatar
+        }
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        internal static extern uint GetTempFileName(string tmpPath, string prefix, uint uniqueIdOrZero, StringBuilder tmpFileName);
- 
+        private AvatarType avatarType;
+        private string avatarHash = string.Empty;
         public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
         private string avatarImagePath = string.Empty;
         private string formattedName;
@@ -99,7 +74,7 @@ namespace ChatApp
         private string m_groupName;
         private LoginState m_userStatus;
         private JabberID jabberId;
-        private string AvatarFolder = string.Empty;
+        private string avatarFolder = string.Empty;
 
         public Contact(JabberID JID,
                         string groupName, 
@@ -110,9 +85,21 @@ namespace ChatApp
             m_userStatus = userStatus;
             avatarImage = DefaultAvatarImage;
 
-            AvatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
-            AvatarFolder = Path.Combine(AvatarFolder, "Avatar");
-            Directory.CreateDirectory(AvatarFolder);
+            avatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
+            avatarFolder = Path.Combine(avatarFolder, "Avatar");
+            Directory.CreateDirectory(avatarFolder);
+        }
+
+        public string AvatarHash
+        {
+            set { this.avatarHash = value; }
+            get { return this.avatarHash; }
+        }
+
+        public AvatarType AvatatType
+        {
+            get { return avatarType; }
+            set { avatarType = value; }
         }
 
         public string AvatarImagePath
@@ -122,24 +109,47 @@ namespace ChatApp
 
         public Image AvatarImage
         {
-            get { return avatarImage; }
+            get 
+            {
+                if (this.avatarImage == DefaultAvatarImage)
+                { 
+                    // Check if the avatar file exits
+                    avatarImagePath = GetAvatarFileName();
+                    if (File.Exists(avatarImagePath))
+                    {
+                        avatarImage = Image.FromFile(avatarImagePath);
+                    }
+                }
+                return avatarImage; 
+            }
             set 
             {
                 avatarImage = value;
-                avatarImagePath = GetNewFileName();
-                avatarImage.Save(avatarImagePath);
+                if (!File.Exists(avatarImagePath))
+                {
+                    avatarImagePath = GetAvatarFileName();
+                }
+                if (!File.Exists(avatarImagePath))
+                {
+                    avatarImage.Save(avatarImagePath);
+                }
             }
         }
 
-        private string GetNewFileName()
+        private string GetAvatarFileName()
         {
-            new FileIOPermission(FileIOPermissionAccess.Write, this.AvatarFolder).Demand();
-            StringBuilder tmpFileName = new StringBuilder(260);
-            if (GetTempFileName(this.AvatarFolder, "png", 0, tmpFileName) == 0)
+            String tmpFileName;
+            if (this.AvatarHash == string.Empty)
             {
-                throw new ApplicationException("Could not create local avatat file");
+                tmpFileName = Path.Combine(this.avatarFolder, Guid.NewGuid().ToString()) + ".temp";
+                
             }
-            return tmpFileName.ToString();
+            else
+            {
+                tmpFileName = Path.Combine(this.avatarFolder, this.AvatarHash);
+                tmpFileName += ".avatar";
+            }
+            return tmpFileName;
         }
 
         public string FormattedName

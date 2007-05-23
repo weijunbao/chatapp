@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ChatApp
 {
@@ -18,16 +13,7 @@ namespace ChatApp
             InitializeComponent();
         }
 
-        protected override System.Windows.Forms.CreateParams CreateParams
-        {
-            get
-            {
-                System.Windows.Forms.CreateParams baseParams = new System.Windows.Forms.CreateParams();
-                baseParams.Style = 0x40000000; //WS_CHILD 
-                baseParams.Caption = "HiddenWindow";
-                return baseParams;
-            }
-        }
+        #region Event Handlers
 
         private void MnuItemExit_Click(object sender, EventArgs e)
         {
@@ -44,9 +30,22 @@ namespace ChatApp
             AppController.Instance.Activate();
         }
 
+        #endregion
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams baseParams = new CreateParams();
+                baseParams.Style = 0x40000000; //WS_CHILD 
+                baseParams.Caption = "HiddenWindow";
+                return baseParams;
+            }
+        }
+
         private void ShowBalloonThreadProc()
         {
-            this.TrayIcon.ShowBalloonTip(3, "Chat App", toolTipMessage, ToolTipIcon.Info);
+            TrayIcon.ShowBalloonTip(3, "Chat App", toolTipMessage, ToolTipIcon.Info);
             Thread.Sleep(1000);
             // this.TrayIcon.ShowBalloonTip(0, "", string.Empty, ToolTipIcon.None);
         }

@@ -1,48 +1,47 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms; 
-
+using ChatApp.Properties;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace ChatApp
 {
-    public partial class preference : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class preference : KryptonForm
     {
         public preference()
         {
             InitializeComponent();
         }
 
-        private void preference_Load(object sender, EventArgs e)
+        #region Event Handlers
+
+        private void btcancel_Click(object sender, EventArgs e)
         {
-            // Load the preferences
-            cbOsound.Checked   = ChatApp.Properties.Settings.Default.FriendOnlinePlaySound;
-            cbOnotify.Checked  = ChatApp.Properties.Settings.Default.FriendOnlineShowNotification;
-            cbChplay.Checked   = ChatApp.Properties.Settings.Default.IncomingMessagePlaySound;
-            cbChnotify.Checked = ChatApp.Properties.Settings.Default.IncomingMessageShowNotification;
+            // Don't save preferences; just hide the dialog
+            Hide();
         }
 
         private void btok_Click(object sender, EventArgs e)
         {
             // Get the preferences from the controls
-            ChatApp.Properties.Settings.Default.FriendOnlinePlaySound = cbOsound.Checked;
-            ChatApp.Properties.Settings.Default.FriendOnlineShowNotification = cbOnotify.Checked;
-            ChatApp.Properties.Settings.Default.IncomingMessagePlaySound = cbChplay.Checked;
-            ChatApp.Properties.Settings.Default.IncomingMessageShowNotification = cbChnotify.Checked;
+            Settings.Default.FriendOnlinePlaySound = cbOsound.Checked;
+            Settings.Default.FriendOnlineShowNotification = cbOnotify.Checked;
+            Settings.Default.IncomingMessagePlaySound = cbChplay.Checked;
+            Settings.Default.IncomingMessageShowNotification = cbChnotify.Checked;
 
             // Save the preferences to the Application properties
-            ChatApp.Properties.Settings.Default.Save();
+            Settings.Default.Save();
 
-            this.Hide();
+            Hide();
         }
 
-        private void btcancel_Click(object sender, EventArgs e)
+        private void preference_Load(object sender, EventArgs e)
         {
-            // Don't save preferences; just hide the dialog
-            this.Hide();
+            // Load the preferences
+            cbOsound.Checked = Settings.Default.FriendOnlinePlaySound;
+            cbOnotify.Checked = Settings.Default.FriendOnlineShowNotification;
+            cbChplay.Checked = Settings.Default.IncomingMessagePlaySound;
+            cbChnotify.Checked = Settings.Default.IncomingMessageShowNotification;
         }
+
+        #endregion
     }
 }

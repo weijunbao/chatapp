@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChatApp
 {
@@ -8,13 +6,8 @@ namespace ChatApp
     {
         public MessageStore MessageStore
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
+            get { throw new NotImplementedException(); }
+            set { }
         }
     }
 
@@ -22,23 +15,18 @@ namespace ChatApp
     {
         public ConfigStore ConfigStore
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
+            get { throw new NotImplementedException(); }
+            set { }
         }
 
         public void Load()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Store()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 

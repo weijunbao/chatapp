@@ -1,34 +1,60 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using ComponentFactory.Krypton.Toolkit;
-
-using Coversant.SoapBox.Core.Message;
-using Coversant.SoapBox.Core.Presence;
-using Coversant.SoapBox.Core.IQ.Roster;
-using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Core.IQ.Register;
-using Coversant.SoapBox.Base;
-using Coversant.SoapBox.Core.IQ;
+using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
-
+using System.Web;
+using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
+using Coversant.SoapBox.Base;
+using Coversant.SoapBox.Core.Message;
 
 namespace ChatApp
 {
     public partial class MessagingWindow : KryptonForm
     {
-        string message = null;
-        Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
+        private string message = null;
+        private Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private JabberID m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
 
         private bool firstMessagefromSelf = true;
         private bool firstMessageFromFriend = true;
+
+
+        public MessagingWindow()
+        {
+            InitializeComponent();
+            string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string templateFilePath = Path.Combine(binPath, @"Resources\MessageTemplate.html");
+            msgHistoryWindow.Navigate(templateFilePath);
+
+#if DEBUG
+            msgHistoryWindow.IsWebBrowserContextMenuEnabled = true;
+#endif
+        }
+
+        #region Event Handlers
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            tbMessages.Focus();
+            DoSendMessage();
+        }
+
+        private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (m_remoteUserJabberId != null)
+                AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId.JabberIDNoResource);
+        }
+
+        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
+            msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
+        }
+
+        #endregion
 
         public JabberID RemoteUserJabberId
         {
@@ -41,35 +67,19 @@ namespace ChatApp
             get { return _messageThreadID; }
             set { _messageThreadID = value; }
         }
-	
 
-        public MessagingWindow()
-        {
-            InitializeComponent();
-            string binPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string templateFilePath = Path.Combine(binPath , @"Resources\MessageTemplate.html");
-            msgHistoryWindow.Navigate(templateFilePath);
-                        
-        }
-
-        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
-            msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
-        }
-        
         public void AddMessageToHistory(MessagePacket msg)
         {
-            string encodedBody = System.Web.HttpUtility.HtmlEncode(msg.Body);
+            string encodedBody = HttpUtility.HtmlEncode(msg.Body);
 
-            System.Text.StringBuilder messageBuilder = new System.Text.StringBuilder();
+            StringBuilder messageBuilder = new StringBuilder();
             messageBuilder.Append(@"<div class='chat in'><div class='msg'>")
-                          .Append(GetAvatarFormatting(msg))
-                          .Append(GetUserFormatting(msg))
-                          .Append(GetMessageFormatting(encodedBody))
-                          //.Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
-                          .Append(@"</div><div id='Div2'></div></div>")
-                          .Append(@"<span id='placeholder'/>");
+                .Append(GetAvatarFormatting(msg))
+                .Append(GetUserFormatting(msg))
+                .Append(GetMessageFormatting(encodedBody))
+                //.Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
+                .Append(@"</div><div id='Div2'></div></div>")
+                .Append(@"<span id='placeholder'/>");
 
             message = messageBuilder.ToString();
 
@@ -105,7 +115,7 @@ namespace ChatApp
             Contact contact = null;
             string iconStyle = "";
 
-            if(fromUser == AppController.Instance.CurrentUser.UserName)
+            if (fromUser == AppController.Instance.CurrentUser.UserName)
             {
                 contact = AppController.Instance.Contacts.Self;
                 if (firstMessagefromSelf)
@@ -130,7 +140,7 @@ namespace ChatApp
             if (drawAvatar)
             {
                 string avatarImgPath = "";
-                if ( (contact == null) || (string.IsNullOrEmpty(contact.AvatarImagePath)) )
+                if ((contact == null) || (string.IsNullOrEmpty(contact.AvatarImagePath)))
                 {
                     avatarImgPath = "user.png";
                 }
@@ -138,14 +148,14 @@ namespace ChatApp
                 {
                     avatarImgPath = contact.AvatarImagePath;
                 }
-                avatarFormat = string.Format(" <img class='{0}' src='{1}' height='36' width='36'>", iconStyle, avatarImgPath);
+                avatarFormat =
+                    string.Format(" <img class='{0}' src='{1}' height='36' width='36'>", iconStyle, avatarImgPath);
             }
             return avatarFormat;
         }
 
         private string GetMessageFormatting(string Message)
         {
-            
             Message = regx.Replace(Message, "<br />");
             return string.Format(@"<div class='1st'>{0}</div>", Message);
         }
@@ -154,7 +164,7 @@ namespace ChatApp
         {
             string fromUser = message.From.UserName.ToString();
             string userFormat = "";
-            if(fromUser == AppController.Instance.CurrentUser.UserName)
+            if (fromUser == AppController.Instance.CurrentUser.UserName)
             {
                 userFormat = string.Format(@"<span class='salutation-o'>{0}</span>", fromUser);
             }
@@ -167,26 +177,15 @@ namespace ChatApp
         }
 
 
-        private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if(m_remoteUserJabberId != null)
-                AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId.JabberIDNoResource);
-        }
-
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-            tbMessages.Focus();
-            DoSendMessage();
-        }
-
         private void DoSendMessage()
         {
             //Create the message packet
             MessagePacket outgoingPacket = null;
 
-            outgoingPacket = new MessagePacket(m_remoteUserJabberId, AppController.Instance.CurrentUser, tbMessages.Text);
-            outgoingPacket.Thread = this.MessageThreadID;
-            outgoingPacket.Type = "chat";   // DON'T REMOVE THIS!!!!
+            outgoingPacket =
+                new MessagePacket(m_remoteUserJabberId, AppController.Instance.CurrentUser, tbMessages.Text);
+            outgoingPacket.Thread = MessageThreadID;
+            outgoingPacket.Type = "chat"; // DON'T REMOVE THIS!!!!
 
             //Display outgoing messages in history
             AddMessageToHistory(outgoingPacket);
@@ -196,14 +195,13 @@ namespace ChatApp
 
             try
             {
-                AppController.Instance.BeginSend((Packet)outgoingPacket);
+                AppController.Instance.BeginSend((Packet) outgoingPacket);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
                     string.Format("The following exception occurred while sending a message:\n\n{0}", ex));
             }
-
         }
     }
 }
