@@ -1,17 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
-using ComponentFactory.Krypton.Toolkit; 
-
+using ComponentFactory.Krypton.Toolkit;
 
 namespace ChatApp
 {
-    public partial class About : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class About : KryptonForm
     {
         public About()
         {
@@ -20,7 +13,7 @@ namespace ChatApp
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void LaunchInBrowser(string Link)

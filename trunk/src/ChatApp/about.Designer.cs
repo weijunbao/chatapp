@@ -91,7 +91,7 @@ namespace ChatApp
             this.lblAlso.Name = "lblAlso";
             this.lblAlso.Size = new System.Drawing.Size(151, 19);
             this.lblAlso.TabIndex = 7;
-            this.lblAlso.Values.Text = "Also Images and Icons from:";
+            this.lblAlso.Values.Text = "Also some Icons are from or based on:";
             // 
             // lblKryptonLink
             // 

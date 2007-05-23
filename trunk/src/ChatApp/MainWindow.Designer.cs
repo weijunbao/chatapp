@@ -137,7 +137,7 @@ namespace ChatApp
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -160,7 +160,7 @@ namespace ChatApp
             this.deleteGroupToolStripMenuItem});
             this.contactsContextMenuStrip.Name = "contactsContextMenuStrip";
             this.contactsContextMenuStrip.OwnerItem = this.contactsToolStripMenuItem;
-            this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 142);
+            this.contactsContextMenuStrip.Size = new System.Drawing.Size(159, 120);
             // 
             // addContactToolStripMenuItem
             // 
@@ -284,7 +284,7 @@ namespace ChatApp
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -378,7 +378,7 @@ namespace ChatApp
             this.columnStatus});
             this.lvContacts.ContextMenuStrip = this.contactsContextMenuStrip;
             this.lvContacts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvContacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvContacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvContacts.FullRowSelect = true;
             this.lvContacts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvContacts.LargeImageList = this.StatusImageList;
@@ -446,7 +446,6 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainWindow";
             this.Text = global::ChatApp.Properties.Settings.Default.AppName;
-            this.WindowActive = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenuStrip.ResumeLayout(false);

@@ -68,6 +68,7 @@ namespace ChatApp
             // 
             this.msgHistoryWindow.AllowWebBrowserDrop = false;
             this.msgHistoryWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.msgHistoryWindow.IsWebBrowserContextMenuEnabled = false;
             this.msgHistoryWindow.Location = new System.Drawing.Point(0, 0);
             this.msgHistoryWindow.MinimumSize = new System.Drawing.Size(20, 20);
             this.msgHistoryWindow.Name = "msgHistoryWindow";
@@ -112,6 +113,7 @@ namespace ChatApp
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MessagingWindow";
             this.Text = "Messaging Window";
+            this.WindowActive = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MessagingWindow_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
             this.kryptonSplitContainer1.Panel1.ResumeLayout(false);

@@ -1,25 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Collections;
-
+using ChatApp.Properties;
+using ComponentFactory.Krypton.Toolkit;
 using Coversant.SoapBox.Base;
-using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Core.IQ;
-using Coversant.SoapBox.Core.IQ.Auth;
-using Coversant.SoapBox.Core.IQ.Register;
 using Coversant.SoapBox.Core.IQ.Roster;
-using Coversant.SoapBox.Core.Message;
 using Coversant.SoapBox.Core.Presence;
-using System.Xml;
 
 namespace ChatApp
 {
-    public partial class DeleteGroup : ComponentFactory.Krypton.Toolkit.KryptonForm
+    public partial class DeleteGroup : KryptonForm
     {
         public DeleteGroup()
         {
@@ -31,10 +20,12 @@ namespace ChatApp
             }
         }
 
+        #region Event Handlers
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             ArrayList deleteUsers = new ArrayList();
-            this.Hide();
+            Hide();
 
             foreach (Contact contact in AppController.Instance.Contacts)
             {
@@ -47,7 +38,9 @@ namespace ChatApp
             for (int i = 0; i < deleteUsers.Count; i++)
             {
                 Contact delcontact = AppController.Instance.Contacts[deleteUsers[i].ToString()];
-                JabberID Jid = new JabberID(delcontact.UserName.ToString(), delcontact.ServerName.ToString(), Properties.Settings.Default.Resource);
+                JabberID Jid =
+                    new JabberID(delcontact.UserName.ToString(), delcontact.ServerName.ToString(),
+                                 Settings.Default.Resource);
 
                 UnsubscribedResponse resp = new UnsubscribedResponse(Jid);
                 AppController.Instance.SessionManager.Send(resp);
@@ -58,6 +51,6 @@ namespace ChatApp
             }
         }
 
-
-    }//class
+        #endregion
+    } //class
 }

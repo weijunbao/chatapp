@@ -1,20 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-
-using Coversant.SoapBox.Base;
-using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Core.IQ;
-using Coversant.SoapBox.Core.IQ.Auth;
-using Coversant.SoapBox.Core.IQ.Register;
-using Coversant.SoapBox.Core.IQ.Roster;
-using Coversant.SoapBox.Core.Message;
-using Coversant.SoapBox.Core.Presence;
+using ChatApp.Properties;
 using ComponentFactory.Krypton.Toolkit;
+using Coversant.SoapBox.Base;
+using Coversant.SoapBox.Core.IQ.Roster;
+using Coversant.SoapBox.Core.Presence;
 
 namespace ChatApp
 {
@@ -29,9 +19,11 @@ namespace ChatApp
             }
         }
 
+        #region Event Handlers
+
         private void btnOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             if (ValidateInput() == false)
             {
                 DialogResult = DialogResult.None;
@@ -39,7 +31,8 @@ namespace ChatApp
             }
 
             Contact contact = AppController.Instance.Contacts[cbContactname.SelectedItem.ToString()];
-            JabberID Jid = new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Properties.Settings.Default.Resource);
+            JabberID Jid =
+                new JabberID(contact.UserName.ToString(), contact.ServerName.ToString(), Settings.Default.Resource);
             Contact delContact = new Contact(Jid, contact.GroupName.ToString(), LoginState.Offline);
             Contact editContact = new Contact(Jid, tbnewGpName.Text.Trim(), LoginState.Offline);
 
@@ -50,13 +43,15 @@ namespace ChatApp
 
             SubscribeRequest p = new SubscribeRequest(Jid);
             AppController.Instance.SessionManager.Send(p);
-            AppController.Instance.SessionManager.BeginSend(new RosterAdd(Jid, contact.UserName.ToString(), tbnewGpName.Text.ToString()));
+            AppController.Instance.SessionManager.BeginSend(
+                new RosterAdd(Jid, contact.UserName.ToString(), tbnewGpName.Text.ToString()));
             AppController.Instance.Contacts.Add(editContact);
 
 
             AppController.Instance.MainWindow.UpdateContactList();
         }
 
+        #endregion
 
         private bool ValidateInput()
         {

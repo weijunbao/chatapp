@@ -1,88 +1,138 @@
-
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Coversant.SoapBox.Core;
-using Coversant.SoapBox.Base;
-using System.Threading;
-using ChatApp.Properties;
-using System.Windows.Forms;
 using System.Collections;
-
-using Coversant.SoapBox.Core.IQ.Roster;
-using Coversant.SoapBox.Core.Presence;
-using Coversant.SoapBox.Core.Message;
-using Coversant.SoapBox.Core.IQ.Register;
-using Coversant.SoapBox.Core.IQ;
-
-using System.Media;                         // For playing sounds
-
+using System.Collections.Generic;
+using System.Media;
+using System.Windows.Forms;
+using ChatApp.Properties;
 using ComponentFactory.Krypton.Toolkit;
-using System.Drawing;
-using System.IO;
-using Coversant.SoapBox.Core.IQ.Avatar;
-using Coversant.SoapBox.Core.IQ.vCard;     
+using Coversant.SoapBox.Base;
+using Coversant.SoapBox.Core;
+using Coversant.SoapBox.Core.IQ;
+using Coversant.SoapBox.Core.IQ.Roster;
+using Coversant.SoapBox.Core.Message;
+using Coversant.SoapBox.Core.Presence;
+// For playing sounds
 
 namespace ChatApp
 {
-    public class AppController:ApplicationContext
+    public class AppController : ApplicationContext
     {
+        public delegate void IncomingMessageDelegate(AbstractMessagePacket IncomingMessagePacket);
+
+        public delegate void IncomingPresenceDelegate(PresencePacket IncomingPresencePacket);
+
+        public delegate void IncomingRosterChangeDelegate(RosterChange IncomingRosterChangePacket);
+
+        public delegate void IncomingIQErrorDelegate(IQErrorResponse IncomingIQErrorPacket);
+
+        public delegate void IncomingIQResultDelegate(IQResultResponse IncomingIQResultPacket);
+
         #region Static Data
+
         public static List<string> CapabilityExtension = new List<string>();
-        
+
+        private const string STR_VoiceCapability = "voice-v1";
+        private const string STR_SharevCapability = "share-v1";
         public static readonly string CapabilityNode = @"http://www.google.com/xmpp/client/caps";
         public static readonly string CapabilityVersion = "1.0.0.66";
         public static readonly string Resource = Settings.Default.Resource;
         public static readonly int Port = Settings.Default.Port;
+        private static AppController m_Controller = null;
+
         #endregion //Static Data
 
         #region private Fields
+
         private HiddenWindow m_hiddenWnd = null;
         private SessionManager m_sessionMgr;
-        private static AppController m_Controller = null;
         private JabberID m_currentUser = null;
         private MainWindow m_mainWindow = null;
         private AvailableRequest m_currentPresence;
         private ContactList m_contacts;
         private Hashtable m_ActiveChatUsers = null;
         private KryptonForm CurrentActiveWindow = null;
-        private bool HiddenMode = false; 
+        private bool HiddenMode = false;
+
+        static AppController()
+        {
+            CapabilityExtension.Add(STR_VoiceCapability);
+            CapabilityExtension.Add(STR_SharevCapability);
+        }
+
+        /// <summary>
+        /// To make this class a singleton
+        /// </summary>
+        public AppController()
+        {
+            m_hiddenWnd = new HiddenWindow();
+            m_hiddenWnd.Visible = false;
+            MainForm = m_hiddenWnd;
+
+            m_hiddenWnd.Load += new EventHandler(HiddenWnd_load);
+            m_contacts = new ContactList();
+            m_ActiveChatUsers = new Hashtable();
+        }
+
+        #region Event Handlers
+
+        private void HiddenWnd_load(Object sender, EventArgs e)
+        {
+            StartApplication();
+        }
+
+        private void loginWnd_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LoginWindow wnd = sender as LoginWindow;
+            if (wnd != null && wnd.LoginSuccessful == true)
+            {
+                Application.DoEvents();
+                Start();
+            }
+            else
+            {
+                if (e.CloseReason != CloseReason.ApplicationExitCall)
+                {
+                    ExitApplication();
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Event Declaration
+
         //Events used by the MainWindow, ChatWindow to receive packets from the lower level components.
-        public delegate void IncomingMessageDelegate(AbstractMessagePacket IncomingMessagePacket);
         public event IncomingMessageDelegate IncomingMessage;
-        public delegate void IncomingPresenceDelegate(PresencePacket IncomingPresencePacket);
         public event IncomingPresenceDelegate IncomingPresence;
-        public delegate void IncomingRosterChangeDelegate(RosterChange IncomingRosterChangePacket);
         public event IncomingRosterChangeDelegate IncomingRosterChange;
-        public delegate void IncomingIQErrorDelegate(IQErrorResponse IncomingIQErrorPacket);
         public event IncomingIQErrorDelegate IncomingIQError;
-        public delegate void IncomingIQResultDelegate(IQResultResponse IncomingIQResultPacket);
-        public event IncomingIQResultDelegate IncomingIQResult; 
+        public event IncomingIQResultDelegate IncomingIQResult;
+
         #endregion
 
         #region Fire Events
+
         //Relays incoming message packets to subscribing objects
         public void OnIncomingMessage(Packet packet)
         {
             if (IncomingMessage != null)
             {
-                IncomingMessage((AbstractMessagePacket)packet);
+                IncomingMessage((AbstractMessagePacket) packet);
             }
         }
 
         /// <summary>
         /// Relays incoming presence packets to subscribing objects
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="packet"></param>
         public void OnIncomingPresence(Packet packet)
         {
             HandlePresenceRequest(packet);
             if (IncomingPresence != null)
             {
-                IncomingPresence((PresencePacket)packet);
+                IncomingPresence((PresencePacket) packet);
             }
         }
 
@@ -98,13 +148,18 @@ namespace ChatApp
             }
             else if (IncomingPresencePacket is SubscribeRequest)
             {
-                string displayString = String.Format("Allow User '{0}; to subscribe to your presence?", IncomingPresencePacket.From.JabberIDNoResource);
-                if (MessageBox.Show(displayString, "Subscription Request", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                string displayString =
+                    String.Format("Allow User '{0}; to subscribe to your presence?",
+                                  IncomingPresencePacket.From.JabberIDNoResource);
+                if (
+                    MessageBox.Show(displayString, "Subscription Request", MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SubscribedResponse resp = new SubscribedResponse(IncomingPresencePacket.From);
                     SessionManager.Send(resp);
 
-                    SubscribeRequest subscribe = new SubscribeRequest(new JabberID(IncomingPresencePacket.From.JabberIDNoResource));
+                    SubscribeRequest subscribe =
+                        new SubscribeRequest(new JabberID(IncomingPresencePacket.From.JabberIDNoResource));
                     SessionManager.Send(subscribe);
                 }
                 else
@@ -117,42 +172,58 @@ namespace ChatApp
             else if (IncomingPresencePacket is SubscribedResponse)
             {
                 //Let the user know when someone accepts our subscription request
-                string displayString = String.Format("User '{0}' has accepted your presence subscription request.", IncomingPresencePacket.From.JabberIDNoResource);
+                string displayString =
+                    String.Format("User '{0}' has accepted your presence subscription request.",
+                                  IncomingPresencePacket.From.JabberIDNoResource);
                 MessageBox.Show(displayString, "Subscription Accept", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (IncomingPresencePacket is UnsubscribedResponse)
             {
                 //Let the user know when someone revoked our presence subscription
-                string displayString = String.Format("User '{0}' rejected your reqeust.", IncomingPresencePacket.From.JabberIDNoResource);
+                string displayString =
+                    String.Format("User '{0}' rejected your reqeust.", IncomingPresencePacket.From.JabberIDNoResource);
                 MessageBox.Show(displayString, "Subscription Denied", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (IncomingPresencePacket is AvailableRequest)
             {
                 AvailableRequest availableReq = WConvert.ToAvailableRequest(IncomingPresencePacket);
                 LoginState state = LoginState.Offline;
-                if(availableReq.From.Server.Contains(".com"))
+
+                if (availableReq.From.Server.Contains(".com"))
                 {
-                    state = (LoginState)availableReq.Show;
+                    state = (LoginState) availableReq.Show;
                 }
                 else
                 {
-                    state = (LoginState)Enum.Parse(typeof(LoginState), availableReq.Status);
+                    state = (LoginState) Enum.Parse(typeof (LoginState), availableReq.Status);
                 }
+
                 string userName = availableReq.From.UserName;
 
-                Contact contact = AppController.Instance.Contacts[userName];
+                Contact contact = Instance.Contacts[userName];
                 if (contact != null)
                 {
                     contact.UserStatus = state;
+                    if (availableReq.HasVCardAvatarUpdateHash)
+                    {
+                        if (availableReq.HasJabberXAvatarHash)
+                        {
+                            contact.AvatatType = Contact.AvatarType.JabberXAvatar;
+                        }
+                        /*else - we prefere VCardAvatar*/
+                        if (availableReq.HasVCardAvatarUpdateHash)
+                        {
+                            contact.AvatatType = Contact.AvatarType.VCardAvatar;
+                        }
+                        contact.AvatarHash = availableReq.VCardAvatarUpdateHash;
+                    }
                 }
-
-                
             }
             else if (IncomingPresencePacket is UnavailableRequest)
             {
                 UnavailableRequest avail = WConvert.ToUnavailableRequest(IncomingPresencePacket);
                 string userName = avail.From.UserName;
-                Contact contact = AppController.Instance.Contacts[userName];
+                Contact contact = Instance.Contacts[userName];
                 contact.UserStatus = LoginState.Offline;
             }
         }
@@ -161,7 +232,7 @@ namespace ChatApp
         {
             if (IncomingRosterChange != null)
             {
-                IncomingRosterChange((RosterChange)packet);
+                IncomingRosterChange((RosterChange) packet);
             }
         }
 
@@ -170,7 +241,7 @@ namespace ChatApp
         {
             if (IncomingIQError != null)
             {
-                IncomingIQError((IQErrorResponse)packet);
+                IncomingIQError((IQErrorResponse) packet);
             }
         }
 
@@ -179,20 +250,22 @@ namespace ChatApp
         {
             if (IncomingIQResult != null)
             {
-                IncomingIQResult((IQResultResponse)packet);
+                IncomingIQResult((IQResultResponse) packet);
             }
-        } 
+        }
+
         #endregion // Fire Events
 
         #region Properties
+
         public MessageStoreController MessageStoreController
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
 
         public ConfigStoreController ConfigStoreController
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
 
         public MainWindow MainWindow
@@ -204,10 +277,10 @@ namespace ChatApp
                 return m_mainWindow;
             }
         }
-        
+
         public LoginState LoginSate
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
 
         public ContactList Contacts
@@ -238,46 +311,18 @@ namespace ChatApp
             }
         }
 
-        #endregion //Properties
-
-        static AppController()
-        {
-            CapabilityExtension.Add("voice-v1");
-            CapabilityExtension.Add("share-v1");
-        }
-
-        /// <summary>
-        /// To make this class a singleton
-        /// </summary>
-        public AppController()
-        {
-            m_hiddenWnd = new HiddenWindow();
-            m_hiddenWnd.Visible = false;
-            this.MainForm = m_hiddenWnd;
-
-            m_hiddenWnd.Load += new EventHandler(HiddenWnd_load);
-            m_contacts = new ContactList();
-            m_ActiveChatUsers = new Hashtable();
-        }
-
         public HiddenWindow HiddenWindow
         {
-            get 
-            {
-                return m_hiddenWnd;
-            }
+            get { return m_hiddenWnd; }
         }
 
-        private void HiddenWnd_load(Object sender, EventArgs e)
-        {
-            StartApplication();
-        }
+        #endregion //Properties
 
         private void StartApplication()
         {
             ShowLoginWindow();
-        }  
-     
+        }
+
         private void ShowLoginWindow()
         {
             LoginWindow loginWnd = new LoginWindow();
@@ -290,29 +335,12 @@ namespace ChatApp
             InitializeSessionManager(UserName, Password, ServerName);
             if (m_sessionMgr != null)
             {
-                this.m_currentUser = m_sessionMgr.LocalUser;
+                m_currentUser = m_sessionMgr.LocalUser;
                 return true;
             }
             else
             {
                 return false;
-            }
-        }
-
-        private void loginWnd_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            LoginWindow wnd = sender as LoginWindow;
-            if (wnd != null && wnd.LoginSuccessful == true)
-            {
-                Application.DoEvents();
-                Start();
-            }
-            else
-            {
-                if (e.CloseReason != CloseReason.ApplicationExitCall)
-                {
-                    ExitApplication();
-                }
             }
         }
 
@@ -335,13 +363,13 @@ namespace ChatApp
         public void LoadContactList()
         {
             // Get the Roster response synchronously
-            RosterResponse roster = (RosterResponse)m_sessionMgr.Send(new RosterRequest());
+            RosterResponse roster = (RosterResponse) m_sessionMgr.Send(new RosterRequest());
 
             foreach (RosterItem rsItem in roster.Items)
             {
                 Contact contact = new Contact(rsItem.JID,
-                                        rsItem.Group.ToString(),
-                                        LoginState.Offline);
+                                              rsItem.Group.ToString(),
+                                              LoginState.Offline);
 
                 m_contacts.Add(contact);
             }
@@ -358,19 +386,20 @@ namespace ChatApp
 
         internal void ExitApplication()
         {
-            if (MessageBox.Show("Do you want to exit the application", "Chat App", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (
+                MessageBox.Show("Do you want to exit the application", "Chat App", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information) == DialogResult.Yes)
             {
-                this.Contacts.CleanupTempFiles();
                 Application.Exit();
             }
         }
 
-        internal void SetHiddenMode(MainWindow m_mainWindow)
+        internal void SetHiddenMode(MainWindow Window)
         {
-            CurrentActiveWindow = m_mainWindow;
-            this.HiddenMode = true;
+            CurrentActiveWindow = Window;
+            HiddenMode = true;
         }
-        
+
         private void InitializeSessionManager(String userName, String password, String serverName)
         {
             try
@@ -385,25 +414,28 @@ namespace ChatApp
             }
             catch (PacketException ex)
             {
-                MessageBox.Show(string.Concat("Unable to Login :", ex.Message), "Login Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show(string.Concat("Unable to Login :", ex.Message), "Login Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
             catch (StreamException ex)
             {
-                MessageBox.Show(string.Concat("Unable to Login :", ex.Message), "Login Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show(string.Concat("Unable to Login :", ex.Message), "Login Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
-            catch 
+            catch
             {
-                MessageBox.Show("Login failed. Please check the username and password and try again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Login failed. Please check the username and password and try again.", "Login Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ResetSession();
             }
         }
 
         private void ResetSession()
         {
-            this.m_currentUser = null;
-            this.CurrentActiveWindow = null;
-            this.Contacts.Clear();
-            this.m_ActiveChatUsers.Clear();
+            m_currentUser = null;
+            CurrentActiveWindow = null;
+            Contacts.Clear();
+            m_ActiveChatUsers.Clear();
 
             if (null != m_mainWindow)
             {
@@ -423,7 +455,7 @@ namespace ChatApp
             string strJabberId = jabberId.JabberIDNoResource;
             if (m_ActiveChatUsers.ContainsKey(strJabberId))
             {
-                msgWindow = (MessagingWindow)m_ActiveChatUsers[strJabberId];
+                msgWindow = (MessagingWindow) m_ActiveChatUsers[strJabberId];
                 msgWindow.Activate();
             }
             else
@@ -461,7 +493,6 @@ namespace ChatApp
         //    //since it will be updating the treeview
         //    m_mainWindow.Invoke(new Session.PacketReceivedDelegate(IncomingRosterThreadSafe), new object[] { incomingRosterPacket });
         //}
-
         /// <summary>
         /// Updates the TreeView based on the Groups of RosterItems
         /// </summary>
@@ -472,12 +503,10 @@ namespace ChatApp
         //    try
         //    {
         //        m_mainWindow.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-
         //        foreach (RosterItem rsItem in IncomingRosterPacket.Items)
         //        {
         //            string groupName = rsItem.Group.ToString();
         //            TreeNode groupNode = new TreeNode(groupName);
-
         //            bool bAddGroup = true;
         //            foreach (TreeNode node in m_mainWindow.tvContacts.Nodes)
         //            {
@@ -500,7 +529,6 @@ namespace ChatApp
         //        m_mainWindow.Cursor = System.Windows.Forms.Cursors.Default;
         //    }
         //}
-
         public void SendCurrentPresence(AvailableRequest availableRequest)
         {
             Packet packet;
@@ -508,12 +536,12 @@ namespace ChatApp
             if (m_currentPresence == null || m_currentPresence.Status == "Offline")
             {
                 packet = new UnavailableRequest();
-                this.m_sessionMgr.BeginSend(packet);
+                m_sessionMgr.BeginSend(packet);
             }
             else
             {
-                packet = (Packet)m_currentPresence.Clone();
-                this.m_sessionMgr.BeginSend(packet);
+                packet = (Packet) m_currentPresence.Clone();
+                m_sessionMgr.BeginSend(packet);
             }
         }
 
@@ -540,15 +568,15 @@ namespace ChatApp
             if (m_currentPresence == null)
             {
                 p = new UnavailableRequest();
-                this.m_sessionMgr.BeginSend(p);
+                m_sessionMgr.BeginSend(p);
             }
             else
             {
-                AvailableRequest userSpecificPresence = (AvailableRequest)m_currentPresence.Clone();
+                AvailableRequest userSpecificPresence = (AvailableRequest) m_currentPresence.Clone();
                 userSpecificPresence.To = ToUser;
-                userSpecificPresence.From = this.m_sessionMgr.LocalUser;
-                p = (Packet)userSpecificPresence;
-                this.m_sessionMgr.BeginSend(p);
+                userSpecificPresence.From = m_sessionMgr.LocalUser;
+                p = (Packet) userSpecificPresence;
+                m_sessionMgr.BeginSend(p);
             }
         }
 
@@ -576,40 +604,34 @@ namespace ChatApp
 
         internal void OPlaySound()
         {
-            if (ChatApp.Properties.Settings.Default.FriendOnlinePlaySound == true)
+            if (Settings.Default.FriendOnlinePlaySound == true)
             {
                 SoundPlayer player = new SoundPlayer();
                 player.LoadTimeout = 10000;
-                player.Stream = ChatApp.Properties.Resources.ding;
+                player.Stream = Resources.ding;
                 player.Play();
             }
         }
 
         public Packet SendPacket(Packet p)
         {
-            return this.m_sessionMgr.Send(p);
+            return m_sessionMgr.Send(p);
         }
 
         public Packet SendPacket(Packet p, int maxMSWaitTime)
         {
-            return this.m_sessionMgr.Send(p, maxMSWaitTime);
+            return m_sessionMgr.Send(p, maxMSWaitTime);
         }
 
         internal void chPlaySound()
         {
-            if (ChatApp.Properties.Settings.Default.IncomingMessagePlaySound == true)
+            if (Settings.Default.IncomingMessagePlaySound == true)
             {
                 SoundPlayer player = new SoundPlayer();
                 player.LoadTimeout = 10000;
-                player.Stream = ChatApp.Properties.Resources.message;
+                player.Stream = Resources.message;
                 player.Play();
             }
-
         }
-
-
-        
-
     }
 }
-

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChatApp
 {
@@ -8,13 +6,8 @@ namespace ChatApp
     {
         public BuddyListView BuddyListView
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
+            get { throw new NotImplementedException(); }
+            set { }
         }
     }
 }
