@@ -61,7 +61,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("talk.google.com")]
         public string Server {
             get {
                 return ((string)(this["Server"]));
@@ -130,7 +130,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool FriendOnlineShowNotification {
             get {
                 return ((bool)(this["FriendOnlineShowNotification"]));
@@ -154,7 +154,7 @@ namespace ChatApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IncomingMessageShowNotification {
             get {
                 return ((bool)(this["IncomingMessageShowNotification"]));

@@ -1,13 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Coversant.SoapBox.Base;
-using System.Drawing;
-using ChatApp.Properties;
-using System.IO;
-using System.Security.Permissions;
+#region GNU-GPL
 
+/*
+ * ChatApp - An XMPP chat application.
+ * http://code.google.com/p/chatapp/
+ * 
+ * ContactList.cs - Manages the contacts
+ *
+ * Copyright (C) 2007  George Chiramattel
+ * http://george.chiramattel.com
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+#endregion //GNU-GPL
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using ChatApp.Properties;
+using Coversant.SoapBox.Base;
 
 namespace ChatApp
 {
@@ -54,7 +79,6 @@ namespace ChatApp
             get { return self; }
             set { self = value; }
         }
-
     }
 
     public class Contact
@@ -67,7 +91,7 @@ namespace ChatApp
 
         private AvatarType avatarType;
         private string avatarHash = string.Empty;
-        public static readonly Image DefaultAvatarImage = ChatApp.Properties.Resources.DefaultAvatar;
+        public static readonly Image DefaultAvatarImage = Resources.DefaultAvatar;
         private string avatarImagePath = string.Empty;
         private string formattedName;
         private Image avatarImage = null;
@@ -77,15 +101,15 @@ namespace ChatApp
         private string avatarFolder = string.Empty;
 
         public Contact(JabberID JID,
-                        string groupName, 
-                        LoginState userStatus)
+                       string groupName,
+                       LoginState userStatus)
         {
-            jabberId = (JabberID)JID.Clone();
+            jabberId = (JabberID) JID.Clone();
             m_groupName = groupName;
             m_userStatus = userStatus;
             avatarImage = DefaultAvatarImage;
 
-            avatarFolder = System.Windows.Forms.Application.LocalUserAppDataPath;
+            avatarFolder = Application.LocalUserAppDataPath;
             avatarFolder = Path.Combine(avatarFolder, "Avatar");
             Directory.CreateDirectory(avatarFolder);
         }
@@ -109,10 +133,10 @@ namespace ChatApp
 
         public Image AvatarImage
         {
-            get 
+            get
             {
                 if (this.avatarImage == DefaultAvatarImage)
-                { 
+                {
                     // Check if the avatar file exits
                     avatarImagePath = GetAvatarFileName();
                     if (File.Exists(avatarImagePath))
@@ -120,9 +144,9 @@ namespace ChatApp
                         avatarImage = Image.FromFile(avatarImagePath);
                     }
                 }
-                return avatarImage; 
+                return avatarImage;
             }
-            set 
+            set
             {
                 avatarImage = value;
                 if (!File.Exists(avatarImagePath))
@@ -142,7 +166,6 @@ namespace ChatApp
             if (this.AvatarHash == string.Empty)
             {
                 tmpFileName = Path.Combine(this.avatarFolder, Guid.NewGuid().ToString()) + ".temp";
-                
             }
             else
             {
@@ -159,9 +182,9 @@ namespace ChatApp
         }
 
         public string UserName
-	    {
+        {
             get { return jabberId.UserName; }
-	    }
+        }
 
         public JabberID JabberId
         {
@@ -169,19 +192,19 @@ namespace ChatApp
         }
 
         public string Resource
-	    {
-		    get { return jabberId.Resource;}
-	    }
+        {
+            get { return jabberId.Resource; }
+        }
 
         public string ServerName
-	    {
-		    get { return jabberId.Server;}
-	    }
+        {
+            get { return jabberId.Server; }
+        }
 
         public string GroupName
         {
             get { return m_groupName; }
-            set { m_groupName= value; }
+            set { m_groupName = value; }
         }
 
         public LoginState UserStatus
@@ -198,7 +221,7 @@ namespace ChatApp
             }
 
             Contact contact = obj as Contact;
-            if(null == contact)
+            if (null == contact)
             {
                 return false;
             }
@@ -214,7 +237,5 @@ namespace ChatApp
         {
             return this.UserName.GetHashCode() + this.ServerName.GetHashCode();
         }
-
-	}
+    }
 }
-

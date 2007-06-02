@@ -1,3 +1,31 @@
+#region GNU-GPL
+
+/*
+ * ChatApp - An XMPP chat application.
+ * http://code.google.com/p/chatapp/
+ * 
+ * MessagingWindow.cs - Main Message window
+ *
+ * Copyright (C) 2007  George Chiramattel
+ * http://george.chiramattel.com
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+#endregion //GNU-GPL
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -13,6 +41,8 @@ namespace ChatApp
 {
     public partial class MessagingWindow : KryptonForm
     {
+        #region Private Fields
+
         private string message = null;
         private Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private JabberID m_remoteUserJabberId = null;
@@ -21,6 +51,7 @@ namespace ChatApp
         private bool firstMessagefromSelf = true;
         private bool firstMessageFromFriend = true;
 
+        #endregion
 
         public MessagingWindow()
         {
@@ -36,19 +67,23 @@ namespace ChatApp
 
         #region Event Handlers
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private void OnButtonSendClick(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(tbMessages.Text))
+            {
+                return;
+            }
             tbMessages.Focus();
             DoSendMessage();
         }
 
-        private void MessagingWindow_FormClosed(object sender, FormClosedEventArgs e)
+        private void OnMessagingWindowFormClosed(object sender, FormClosedEventArgs e)
         {
             if (m_remoteUserJabberId != null)
                 AppController.Instance.RemoveWindowForUser(m_remoteUserJabberId.JabberIDNoResource);
         }
 
-        private void msgHistoryWindow_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void OnMsgHistoryWindowDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             msgHistoryWindow.Document.Body.Style = @"margin:0 2 0 2;";
             msgHistoryWindow.Document.Body.InnerHtml = @"<span id='placeholder'/>";
@@ -175,7 +210,6 @@ namespace ChatApp
 
             return userFormat;
         }
-
 
         private void DoSendMessage()
         {
