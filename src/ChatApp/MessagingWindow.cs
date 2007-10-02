@@ -44,7 +44,7 @@ namespace ChatApp
         #region Private Fields
 
         private string message = null;
-        private Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static Regex regx = new Regex("\r\n|\n", RegexOptions.Multiline | RegexOptions.Compiled);
         private JabberID m_remoteUserJabberId = null;
         private string _messageThreadID = String.Empty;
 
@@ -103,14 +103,14 @@ namespace ChatApp
             set { _messageThreadID = value; }
         }
 
-        public void AddMessageToHistory(MessagePacket msg)
+        public void AddMessageToHistory(MessagePacket messagePacket)
         {
-            string encodedBody = HttpUtility.HtmlEncode(msg.Body);
+            string encodedBody = HttpUtility.HtmlEncode(messagePacket.Body);
 
             StringBuilder messageBuilder = new StringBuilder();
             messageBuilder.Append(@"<div class='chat in'><div class='msg'>")
-                .Append(GetAvatarFormatting(msg))
-                .Append(GetUserFormatting(msg))
+                .Append(GetAvatarFormatting(messagePacket))
+                .Append(GetUserFormatting(messagePacket))
                 .Append(GetMessageFormatting(encodedBody))
                 //.Append(@"</div><div id='Div2'></div><div class='clear'></div></div><div class='break'></div>")
                 .Append(@"</div><div id='Div2'></div></div>")
@@ -143,9 +143,9 @@ namespace ChatApp
             }
         }
 
-        private string GetAvatarFormatting(MessagePacket message)
+        private string GetAvatarFormatting(MessagePacket messagePacket)
         {
-            string fromUser = message.From.UserName;
+            string fromUser = messagePacket.From.UserName;
             bool drawAvatar = false;
             Contact contact = null;
             string iconStyle = "";
@@ -195,9 +195,9 @@ namespace ChatApp
             return string.Format(@"<div class='1st'>{0}</div>", Message);
         }
 
-        private string GetUserFormatting(MessagePacket message)
+        private string GetUserFormatting(MessagePacket messagePacket)
         {
-            string fromUser = message.From.UserName.ToString();
+            string fromUser = messagePacket.From.UserName.ToString();
             string userFormat = "";
             if (fromUser == AppController.Instance.CurrentUser.UserName)
             {
