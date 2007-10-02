@@ -67,8 +67,6 @@
     <Compile Include="AddContact.Designer.cs">
       <DependentUpon>AddContact.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuddyListController.cs" />
-    <Compile Include="BuddyListView.cs" />
     <Compile Include="AppController.cs" />
     <Compile Include="ContactList.cs" />
     <Compile Include="DebugOutput.cs">
